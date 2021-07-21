@@ -1,0 +1,5 @@
+[Default Applications]
+text/html=firefox.desktop
+
+[Added Associations]
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=abiword.desktop;

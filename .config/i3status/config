@@ -1,0 +1,52 @@
+# i3status configuration file.
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        colors = true
+        interval = 7
+}
+
+order += "cpu_temperature 0"
+order += "volume master"
+order += "wireless _first_"
+order += "battery all"
+order += "tztime local"
+
+cpu_temperature 0 {
+        format = " %degrees °C"
+        separator_block_width = 30
+}
+
+volume master {
+        format = " %volume"
+        format_muted = " %volume"
+        separator_block_width = 30
+}
+
+wireless _first_ {
+        format_up = "%quality ('%essid' %ip)"
+        format_down = " down"
+        separator_block_width = 30
+}
+
+battery all {
+        format = "%status (%percentage %remaining)"
+        format_down = "No battery"
+        status_chr = " "
+        status_bat = ""
+        status_unk = ""
+        status_full = ""
+        integer_battery_capacity = true
+        low_threshold = 20
+        separator_block_width = 30
+}
+
+tztime local {
+        format = " %Y-%m-%d %H:%M"
+        separator_block_width = 30
+}
