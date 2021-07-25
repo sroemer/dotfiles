@@ -146,6 +146,8 @@ endfunction
 "------------------------------------------------------------------------------
 call plug#begin()
 Plug 'tpope/vim-repeat'
+Plug 'hoob3rt/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -153,12 +155,21 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'akinsho/nvim-toggleterm.lua'
 call plug#end()
 
+" setup lualine
+lua << EOF
+require('lualine').setup{
+options = {
+    theme = 'codedark',
+    }
+}
+EOF
+
 " setup gitsigns
 lua require('gitsigns').setup()
 
 " setup toggleterm
 lua << EOF
-require("toggleterm").setup{
+require('toggleterm').setup{
 open_mapping = [[<c-\>]],
 direction = 'float',
 close_on_exit = true, -- close the terminal window when the process exits
@@ -173,8 +184,8 @@ float_opts = {
     -- height = 20,
     winblend = 3,
     highlights = {
-        border = "Normal",
-        background = "Normal",
+        border = 'Normal',
+        background = 'Normal',
         }
     }
 }
