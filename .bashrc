@@ -13,6 +13,14 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
+# start ssh-agent on login and ensure just one instance is running
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
+
 # Put your fun stuff here.
 alias l='ls -l'
 alias ll='ls -l'
