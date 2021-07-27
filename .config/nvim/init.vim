@@ -146,6 +146,7 @@ call plug#begin()
 Plug 'tanvirtin/monokai.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tversteeg/registers.nvim'
+Plug 'windwp/nvim-autopairs'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/popup.nvim'
@@ -157,6 +158,9 @@ call plug#end()
 
 " setup monokai colorscheme
 colorscheme monokai
+
+" setup autopairs
+lua require('nvim-autopairs').setup()
 
 " setup lualine
 lua << EOF
