@@ -145,6 +145,7 @@ endfunction
 call plug#begin()
 Plug 'tanvirtin/monokai.nvim'
 Plug 'tpope/vim-repeat'
+Plug 'tversteeg/registers.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/popup.nvim'
