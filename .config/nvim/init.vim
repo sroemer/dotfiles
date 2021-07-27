@@ -51,8 +51,6 @@ set foldenable						" enable folding
 set foldmethod=syntax               " TODO
 set foldlevelstart=5				" open most folds by default
 
-colorscheme molokai
-
 
 
 "------------------------------------------------------------------------------
@@ -145,6 +143,7 @@ endfunction
 " plugins
 "------------------------------------------------------------------------------
 call plug#begin()
+Plug 'tanvirtin/monokai.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -154,6 +153,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'akinsho/nvim-toggleterm.lua'
 call plug#end()
+
+" setup monokai colorscheme
+colorscheme monokai
 
 " setup lualine
 lua << EOF
