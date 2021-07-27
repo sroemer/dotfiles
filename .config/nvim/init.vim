@@ -153,6 +153,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'tveskag/nvim-blame-line'
 Plug 'akinsho/nvim-toggleterm.lua'
 call plug#end()
 
@@ -171,8 +172,17 @@ options = {
 }
 EOF
 
+" setup telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 " setup gitsigns
 lua require('gitsigns').setup()
+
+" setup blame line
+nnoremap <silent> <leader>b :ToggleBlameLine<CR>
 
 " setup toggleterm
 lua << EOF
@@ -197,12 +207,6 @@ float_opts = {
     }
 }
 EOF
-
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 
 
