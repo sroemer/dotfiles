@@ -3,7 +3,7 @@
 # Fonts
 font:
   normal:
-    family: Hack
+    family: 'Hack Nerd Font'
     style: Regular
 
   bold:
