@@ -33,6 +33,7 @@ alias ...='cd ../../'
 alias gs='git status'
 alias ga='git add'
 alias gd='git difftool'
+alias gdc='git difftool --cached'
 
 alias mutt='neomutt'
 alias vim='nvim'
@@ -41,6 +42,16 @@ alias ssh='TERM=xterm ssh'
 
 alias open='xdg-open'
 
+# automatically use git dotfiles alias in home directory
+git() {
+    if [[ "$PWD" == $HOME ]]; then
+        /usr/bin/git df $@
+    else
+        /usr/bin/git $@
+    fi
+}
+
+# set PS1 and show git branch
 parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
