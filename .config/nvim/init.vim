@@ -4,6 +4,69 @@ filetype plugin indent on
 
 
 "------------------------------------------------------------------------------
+" plugins
+"------------------------------------------------------------------------------
+call plug#begin()
+Plug 'tanvirtin/monokai.nvim'
+Plug 'tpope/vim-repeat'
+Plug 'tversteeg/registers.nvim'
+Plug 'windwp/nvim-autopairs'
+Plug 'hoob3rt/lualine.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'tveskag/nvim-blame-line'
+Plug 'akinsho/nvim-toggleterm.lua'
+Plug 'kyazdani42/nvim-tree.lua'
+call plug#end()
+
+" setup monokai colorscheme
+colorscheme monokai
+
+" setup autopairs
+lua require('nvim-autopairs').setup()
+
+" setup lualine
+lua << EOF
+require('lualine').setup{
+options = {
+    theme = 'codedark',
+    }
+}
+EOF
+
+" setup gitsigns
+lua require('gitsigns').setup()
+
+" setup toggleterm
+lua << EOF
+require('toggleterm').setup{
+open_mapping = [[<c-\>]],
+direction = 'float',
+close_on_exit = true, -- close the terminal window when the process exits
+-- This field is only relevant if direction is set to 'float'
+float_opts = {
+    -- The border key is *almost* the same as 'nvim_win_open'
+    -- see :h nvim_win_open for details on borders however
+    -- the 'curved' border is a custom border type
+    -- not natively supported but implemented in this plugin.
+    border = 'rounded',
+    -- width = 40,
+    -- height = 20,
+    winblend = 3,
+    highlights = {
+        border = 'Normal',
+        background = 'Normal',
+        }
+    }
+}
+EOF
+
+
+
+"------------------------------------------------------------------------------
 " global vim settings
 "------------------------------------------------------------------------------
 set wildmenu                        " enable wildmenu
@@ -102,13 +165,19 @@ nnoremap <silent> <C-DOWN> :m+1<CR>
 " make backspace delete selection in visual mode
 vnoremap <silent> <BS> d
 
+" telescope plugin
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+" blame line plugin
+nnoremap <silent> <leader>b :ToggleBlameLine<CR>
 
-"------------------------------------------------------------------------------
-" highlighting
-"------------------------------------------------------------------------------
-hi Trailingwhitespaces guibg=red
-match TrailingWhitespaces '\s\+$'
+" nvim tree plugin
+nnoremap <silent> <C-n> :NvimTreeToggle<CR>
+nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
+nnoremap <silent> <leader>n :NvimTreeFindFile<CR>
 
 
 
@@ -139,74 +208,12 @@ endfunction
 
 
 
+
 "------------------------------------------------------------------------------
-" plugins
+" highlighting
 "------------------------------------------------------------------------------
-call plug#begin()
-Plug 'tanvirtin/monokai.nvim'
-Plug 'tpope/vim-repeat'
-Plug 'tversteeg/registers.nvim'
-Plug 'windwp/nvim-autopairs'
-Plug 'hoob3rt/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'tveskag/nvim-blame-line'
-Plug 'akinsho/nvim-toggleterm.lua'
-call plug#end()
-
-" setup monokai colorscheme
-colorscheme monokai
-
-" setup autopairs
-lua require('nvim-autopairs').setup()
-
-" setup lualine
-lua << EOF
-require('lualine').setup{
-options = {
-    theme = 'codedark',
-    }
-}
-EOF
-
-" setup telescope
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-" setup gitsigns
-lua require('gitsigns').setup()
-
-" setup blame line
-nnoremap <silent> <leader>b :ToggleBlameLine<CR>
-
-" setup toggleterm
-lua << EOF
-require('toggleterm').setup{
-open_mapping = [[<c-\>]],
-direction = 'float',
-close_on_exit = true, -- close the terminal window when the process exits
--- This field is only relevant if direction is set to 'float'
-float_opts = {
-    -- The border key is *almost* the same as 'nvim_win_open'
-    -- see :h nvim_win_open for details on borders however
-    -- the 'curved' border is a custom border type
-    -- not natively supported but implemented in this plugin.
-    border = 'rounded',
-    -- width = 40,
-    -- height = 20,
-    winblend = 3,
-    highlights = {
-        border = 'Normal',
-        background = 'Normal',
-        }
-    }
-}
-EOF
+hi Trailingwhitespaces guibg=red
+match TrailingWhitespaces '\s\+$'
 
 
 
