@@ -197,6 +197,9 @@ nnoremap <silent> <C-n> :NvimTreeToggle<CR>
 nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
 nnoremap <silent> <leader>n :NvimTreeFindFile<CR>
 
+" nvim-compe / nvim-autopairs
+inoremap <silent><expr> <CR> compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+
 
 
 "------------------------------------------------------------------------------
