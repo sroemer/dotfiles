@@ -21,6 +21,9 @@ Plug 'tveskag/nvim-blame-line'
 Plug 'akinsho/nvim-toggleterm.lua'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
 " setup monokai colorscheme
@@ -73,6 +76,7 @@ require'compe'.setup {
     path = true;
     buffer = true;
     nvim_lsp = true;
+    vsnip = true;
   };
 }
 EOF
