@@ -20,6 +20,7 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'tveskag/nvim-blame-line'
 Plug 'akinsho/nvim-toggleterm.lua'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'hrsh7th/nvim-compe'
 call plug#end()
 
 " setup monokai colorscheme
@@ -64,6 +65,18 @@ float_opts = {
 }
 EOF
 
+lua << EOF
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  source = {
+    path = true;
+    buffer = true;
+    nvim_lsp = true;
+  };
+}
+EOF
+
 
 
 "------------------------------------------------------------------------------
@@ -71,6 +84,7 @@ EOF
 "------------------------------------------------------------------------------
 set wildmenu                        " enable wildmenu
 set wildmode=longest:full,full      " set completion mode
+set completeopt=menuone,noselect    " rquired for nvim-compe
 
 set title                           " set terminal title
 set clipboard=unnamedplus           " use clipboard for all actions
