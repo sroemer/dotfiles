@@ -68,6 +68,11 @@ float_opts = {
 }
 EOF
 
+" setup toggleterm
+lua << EOF
+require'nvim-tree'.setup()
+EOF
+
 lua << EOF
 require'compe'.setup {
   enabled = true;
