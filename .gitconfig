@@ -2,9 +2,9 @@
 	name = Stefan Römer
 	email = sroemer@github.com
 [diff]
-	tool = neovim
+	tool = meld
 [merge]
-	tool = neovim
+	tool = meld
 [difftool]
 	prompt = false
 [mergetool]
