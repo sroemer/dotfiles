@@ -1,26 +1,22 @@
-syntax enable
-filetype plugin indent on
-
-
-
 "------------------------------------------------------------------------------
 " plugins
 "------------------------------------------------------------------------------
 call plug#begin()
-Plug 'tanvirtin/monokai.nvim'
-Plug 'tpope/vim-repeat'
-Plug 'tversteeg/registers.nvim'
-Plug 'windwp/nvim-autopairs'
-Plug 'hoob3rt/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'tveskag/nvim-blame-line'
-Plug 'akinsho/nvim-toggleterm.lua'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'tanvirtin/monokai.nvim'                                   " colorscheme
+Plug 'kyazdani42/nvim-web-devicons'                             " icons - req. patched font
+Plug 'tpope/vim-repeat'                                         " repeatable plugin commands
+Plug 'tpope/vim-speeddating'                                    " <C-A>/<C-X> for date/times
+Plug 'tversteeg/registers.nvim'                                 " show register content when accessing registers
+Plug 'nvim-lua/popup.nvim'                                      " popup api - might be merged into nvim in the future
+Plug 'nvim-lua/plenary.nvim'                                    " common functions used by several plugins
+Plug 'windwp/nvim-autopairs'                                    " automatically add closing brackets etc.
+Plug 'hoob3rt/lualine.nvim'                                     " statusline written in lua
+Plug 'nvim-telescope/telescope.nvim'                            " fuzzy finder
+Plug 'lewis6991/gitsigns.nvim'                                  " git decorations
+Plug 'tveskag/nvim-blame-line'                                  " git blame for current line
+Plug 'akinsho/nvim-toggleterm.lua'                              " terminal window
+Plug 'kyazdani42/nvim-tree.lua'                                 " file explorer
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " treesitter for syntax highlight etc.
 Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -29,6 +25,9 @@ call plug#end()
 
 " setup monokai colorscheme
 colorscheme monokai
+
+" show content of registers with a rounded border
+let g:registers_window_border = "rounded"
 
 " setup autopairs
 lua require('nvim-autopairs').setup()
@@ -69,21 +68,21 @@ float_opts = {
 }
 EOF
 
-" setup toggleterm
+" setup nvim-tree
 lua << EOF
 require'nvim-tree'.setup()
 EOF
 
-" setup toggleterm
+" setup treesitter
 lua << EOF
 require'nvim-treesitter.configs'.setup {
-  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { "bash", "c", "cpp", "css", "html", "javascript", "lua", "make", "python", "regex", "rust", "toml", "vim", "yaml" },
+    -- One of "all", "maintained" (parsers with maintainers), or a list of languages
+ensure_installed = { "bash", "c", "cpp", "css", "html", "javascript", "lua", "make", "markdown", "python", "regex", "rust", "toml", "vim", "yaml" },
 
-  -- Install languages synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+-- Install languages synchronously (only applied to `ensure_installed`)
+sync_install = false,
 
-  highlight = {
+highlight = {
     -- `false` will disable the whole extension
     enable = true,
 
@@ -92,20 +91,21 @@ require'nvim-treesitter.configs'.setup {
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
-  },
+    },
 }
 EOF
 
+" setup code completion with compe
 lua << EOF
 require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  source = {
-    path = true;
-    buffer = true;
-    nvim_lsp = true;
-    vsnip = true;
-  };
+    enabled = true;
+    autocomplete = true;
+    source = {
+        path = true;
+        buffer = true;
+        nvim_lsp = true;
+        vsnip = true;
+    };
 }
 EOF
 
@@ -114,51 +114,39 @@ EOF
 "------------------------------------------------------------------------------
 " global vim settings
 "------------------------------------------------------------------------------
-set wildmenu                        " enable wildmenu
-set wildmode=longest:full,full      " set completion mode
-set completeopt=menuone,noselect    " rquired for nvim-compe
+set wildmode=longest:full,full                  " set completion mode
+set completeopt=menuone,noinsert,noselect       " rquired for nvim-compe
 
-set title                           " set terminal title
-set clipboard=unnamedplus           " use clipboard for all actions
-set termguicolors                   " use 24bit rgb colors in terminal
-set noerrorbells                    " no error sounds
-set novisualbell                    " no blink on error
+set title                                       " set terminal title
+set clipboard=unnamedplus                       " use clipboard for all actions
+set termguicolors                               " use 24bit rgb colors in terminal
 
-set confirm                         " show dialog when operation needs to be confirmed
-set ruler                           " show cursor position in status bar
-set number                          " show line numbers
-set relativenumber                  " numbers relative to current cursor position
+set confirm                                     " show dialog when operation needs to be confirmed
+set number                                      " show line numbers
+set relativenumber                              " numbers relative to current cursor position
 
-set hidden                          " allow hidden buffers
-set showcmd                         " show command in bottom bar
-set cursorline                      " highlight current line
-set showmatch                       " highlight matching brackets
+set cursorline                                  " highlight current line
+set showmatch                                   " highlight matching brackets
 
-set wrap                            " wrap lines by default
-set linebreak                       " ... at 'breakat'
-set showbreak=↪                     " ... and show symbol in front
+" set nowrap                                    " do not wrap lines by default
+set linebreak                                   " ... at 'breakat'
+set showbreak=↪                                 " ... and show symbol in front
 
-set backspace=indent,eol,start      " allow backspace over everything
-set whichwrap+=<,>,[,]              " allow cursors to wrap lines
+set whichwrap+=<,>,[,]                          " allow cursors to wrap lines
 
-set ignorecase                      " ignore case for search ...
-set smartcase                       " ... but only if no uppercase letter in pattern
-set incsearch                       " move cursor to matching string
-set hlsearch                        " highlight matches while typing
-set wrapscan                        " searches wrap around at end of file
+set ignorecase                                  " ignore case for search ...
+set smartcase                                   " ... but only if no uppercase letter in pattern
 
-set nobackup                        " do not use backup files
+set nobackup                                    " do not use backup files
 
-set tabstop=4                       " number of spaces a tab counts for
-set softtabstop=4                   " number of spaces a tab counts for in edition operations
-set shiftwidth=4                    " number of spaces to use for auto indent
-set expandtab                       " use spaces instead of tabs
-set autoindent                      " do auto indent on new lines
-set smartindent                     " ... and do it smart (c-like languages)
+set tabstop=4                                   " number of spaces a tab counts for
+set softtabstop=4                               " number of spaces a tab counts for in editing operations
+set shiftwidth=4                                " number of spaces to use for auto indent
+set expandtab                                   " use spaces instead of tabs
+set smartindent                                 " ... and do it smart (works for c-like languages)
 
-set foldenable						" enable folding
-set foldmethod=syntax               " TODO
-set foldlevelstart=5				" open most folds by default
+set foldmethod=syntax                           " TODO: maybe switch to expr with treesitter
+set foldlevelstart=5				            " open most folds by default
 
 
 
@@ -176,13 +164,12 @@ au InsertLeave * :set relativenumber
 "------------------------------------------------------------------------------
 let mapleader=","					" leader is comma
 
-" make Y consistent with C and D
-nnoremap <silent> Y y$
-
 " disable highliighting search results
-nnoremap <silent> <Leader><space> :nohlsearch<CR>
-nnoremap <silent> <Leader>/ :nohlsearch<CR>
-nnoremap <silent> <Leader>? :nohlsearch<CR>
+nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
+
+" edit / source configuration file
+nnoremap <silent> <Leader>ec :e $MYVIMRC<CR>
+nnoremap <silent> <Leader>sc :source $MYVIMRC<CR>
 
 " toggle relative line numbering
 nnoremap <silent> <Leader>n :setlocal relativenumber!<CR>
@@ -191,29 +178,25 @@ nnoremap <silent> <Leader>n :setlocal relativenumber!<CR>
 nnoremap <silent> <Leader>w :setlocal wrap!<CR>
 
 " reindent whole file
-nnoremap <silent> <Leader><TAB> :call MyPreserveState("normal gg=G")<CR>
+nnoremap <silent> <Leader>= :call MyPreserveState("normal gg=G")<CR>
 
 " remove trailing whitespaces
 nnoremap <silent> <Leader>$ :call MyPreserveState("%s/\\s\\+$//ge")<CR>
 
 " fast switching between buffers
 nnoremap <silent> <C-l> :bNext<CR>
-nnoremap <silent> <C-Right> :bNext<CR>
 nnoremap <silent> <C-h> :bprevious<CR>
-nnoremap <silent> <C-Left> :bprevious<CR>
 
 " moving lines up/down
 nnoremap <silent> <C-k>   :m-2<CR>
-nnoremap <silent> <C-UP>   :m-2<CR>
 nnoremap <silent> <C-j> :m+1<CR>
-nnoremap <silent> <C-DOWN> :m+1<CR>
 
 " make backspace delete selection in visual mode
 vnoremap <silent> <BS> d
 
 " telescope plugin
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>    " req. ripgrep
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
@@ -223,7 +206,6 @@ nnoremap <silent> <leader>b :ToggleBlameLine<CR>
 " nvim tree plugin
 nnoremap <silent> <C-n> :NvimTreeToggle<CR>
 nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
-nnoremap <silent> <leader>n :NvimTreeFindFile<CR>
 
 " nvim-compe / nvim-autopairs
 inoremap <silent><expr> <CR> compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
@@ -261,7 +243,7 @@ endfunction
 "------------------------------------------------------------------------------
 " highlighting
 "------------------------------------------------------------------------------
-hi Trailingwhitespaces guibg=red
+hi Trailingwhitespaces guibg=yellow
 match TrailingWhitespaces '\s\+$'
 
 
