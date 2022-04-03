@@ -17,6 +17,8 @@ Plug 'tveskag/nvim-blame-line'                                  " git blame for 
 Plug 'akinsho/nvim-toggleterm.lua'                              " terminal window
 Plug 'kyazdani42/nvim-tree.lua'                                 " file explorer
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " treesitter for syntax highlight etc.
+Plug 'neovim/nvim-lspconfig'                                    " configurations for builtin language server client
+Plug 'simrat39/rust-tools.nvim'                                 " extra tools for rust development
 Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
@@ -95,6 +97,15 @@ highlight = {
 }
 EOF
 
+" setup lsp - using servers for bash,  c/c++, python and rust
+lua require'lspconfig'.bashls.setup{}
+lua require'lspconfig'.clangd.setup{}
+lua require'lspconfig'.pyright.setup{}
+lua require'lspconfig'.rust_analyzer.setup{}
+
+" setup rust-tools
+lua require('rust-tools').setup({})
+
 " setup code completion with compe
 lua << EOF
 require'compe'.setup {
@@ -146,7 +157,7 @@ set expandtab                                   " use spaces instead of tabs
 set smartindent                                 " ... and do it smart (works for c-like languages)
 
 set foldmethod=syntax                           " TODO: maybe switch to expr with treesitter
-set foldlevelstart=5				            " open most folds by default
+set foldlevelstart=5                            " open most folds by default
 
 
 
@@ -162,7 +173,7 @@ au InsertLeave * :set relativenumber
 "------------------------------------------------------------------------------
 " key mappings
 "------------------------------------------------------------------------------
-let mapleader=","					" leader is comma
+let mapleader=","                    " leader is comma
 
 " disable highliighting search results
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
@@ -196,7 +207,7 @@ vnoremap <silent> <BS> d
 
 " telescope plugin
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>    " req. ripgrep
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
