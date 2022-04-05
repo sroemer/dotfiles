@@ -1,3 +1,4 @@
+#!/bin/bash
 # /etc/skel/.bashrc
 #
 # This file is sourced by all *interactive* bash shells on startup,
@@ -8,14 +9,14 @@
 # Test for an interactive shell.  There is no need to set anything
 # past this point for scp and rcp, and it's important to refrain from
 # outputting anything in those cases.
-if [[ $- != *i* ]] ; then
-	# Shell is non-interactive.  Be done now!
-	return
+if [[ $- != *i* ]]; then
+    # Shell is non-interactive.  Be done now!
+    return
 fi
 
 # start ssh-agent on login and ensure just one instance is running
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+if ! pgrep -u "$USER" ssh-agent >/dev/null; then
+    ssh-agent -t 1h >"$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
@@ -47,15 +48,15 @@ alias open='xdg-open'
 
 # automatically use git dotfiles alias in home directory
 git() {
-    if [[ "$PWD" == $HOME ]]; then
-        /usr/bin/git df $@
+    if [[ "$PWD" == "$HOME" ]]; then
+        /usr/bin/git df "$@"
     else
-        /usr/bin/git $@
+        /usr/bin/git "$@"
     fi
 }
 
 # set PS1 and show git branch
 parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 export PS1='\[\033]0;\u@\h:\w\007\]\[\033[01;32m\]\u \[\033[01;34m\]\w \[\033[01;33m\]$(parse_git_branch) \[\033[01;34m\]\$ \[\033[00m\]'
