@@ -17,6 +17,7 @@ Plug 'tveskag/nvim-blame-line'                                  " git blame for 
 Plug 'akinsho/nvim-toggleterm.lua'                              " terminal window
 Plug 'kyazdani42/nvim-tree.lua'                                 " file explorer
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " treesitter for syntax highlight etc.
+Plug 'p00f/nvim-ts-rainbow'                                     " rainbow parentheses
 Plug 'neovim/nvim-lspconfig'                                    " configurations for builtin language server client
 Plug 'simrat39/rust-tools.nvim'                                 " extra tools for rust development
 Plug 'hrsh7th/nvim-compe'
@@ -25,100 +26,85 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 call plug#end()
 
-" setup monokai colorscheme
+" use monokai colorscheme
 colorscheme monokai
 
 " show content of registers with a rounded border
 let g:registers_window_border = "rounded"
 
 " setup autopairs
-lua require('nvim-autopairs').setup()
+lua require('nvim-autopairs').setup {}
 
 " setup lualine
-lua << EOF
-require('lualine').setup{
-options = {
-    theme = 'codedark',
-    }
-}
-EOF
+lua require('lualine').setup { options = { theme = 'codedark', }, }
 
 " setup gitsigns
-lua require('gitsigns').setup()
+lua require('gitsigns').setup {}
 
 " setup toggleterm
 lua << EOF
-require('toggleterm').setup{
-open_mapping = [[<c-\>]],
-direction = 'float',
-close_on_exit = true, -- close the terminal window when the process exits
--- This field is only relevant if direction is set to 'float'
-float_opts = {
-    -- The border key is *almost* the same as 'nvim_win_open'
-    -- see :h nvim_win_open for details on borders however
-    -- the 'curved' border is a custom border type
-    -- not natively supported but implemented in this plugin.
-    border = 'rounded',
-    -- width = 40,
-    -- height = 20,
-    winblend = 3,
-    highlights = {
-        border = 'Normal',
-        background = 'Normal',
-        }
-    }
+require('toggleterm').setup {
+    open_mapping = [[<c-\>]],
+    direction = 'float',
+    close_on_exit = true, -- close the terminal window when the process exits
+    -- This field is only relevant if direction is set to 'float'
+    float_opts = {
+        -- The border key is *almost* the same as 'nvim_win_open'
+        -- see :h nvim_win_open for details on borders however
+        -- the 'curved' border is a custom border type
+        -- not natively supported but implemented in this plugin.
+        border = 'rounded',
+        -- width = 40,
+        -- height = 20,
+        winblend = 3,
+        highlights = {
+            border = 'Normal',
+            background = 'Normal',
+        },
+    },
 }
 EOF
 
 " setup nvim-tree
-lua << EOF
-require'nvim-tree'.setup()
-EOF
+lua require('nvim-tree').setup {}
 
 " setup treesitter
 lua << EOF
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-ensure_installed = { "bash", "c", "cpp", "css", "html", "javascript", "lua", "make", "markdown", "python", "regex", "rust", "toml", "vim", "yaml" },
-
--- Install languages synchronously (only applied to `ensure_installed`)
-sync_install = false,
-
-highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
+    ensure_installed = { "bash", "c", "cpp", "css", "html", "javascript", "lua", "make", "markdown", "python", "regex", "rust", "toml", "vim", "yaml" },
+    -- Install languages synchronously (only applied to `ensure_installed`)
+    sync_install = false,
+    -- highlighting
+    highlight = {
+        -- `false` will disable the whole extension
+        enable = true,
+        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+        -- Using this option may slow down your editor, and you may see some duplicate highlights.
+        -- Instead of true it can also be a list of languages
+        additional_vim_regex_highlighting = false,
+    },
+    -- rainbow parentheses
+    rainbow = {
+        enable = true,
+        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        max_file_lines = 10000, -- Do not enable for files with more than n lines, int
     },
 }
 EOF
 
 " setup lsp - using servers for bash,  c/c++, python and rust
-lua require'lspconfig'.bashls.setup{}
-lua require'lspconfig'.clangd.setup{}
-lua require'lspconfig'.pyright.setup{}
-lua require'lspconfig'.rust_analyzer.setup{}
+lua require('lspconfig').bashls.setup {}
+lua require('lspconfig').clangd.setup {}
+lua require('lspconfig').pyright.setup {}
+lua require('lspconfig').rust_analyzer.setup {}
 
 " setup rust-tools
-lua require('rust-tools').setup({})
+lua require('rust-tools').setup {}
 
 " setup code completion with compe
-lua << EOF
-require'compe'.setup {
-    enabled = true;
-    autocomplete = true;
-    source = {
-        path = true;
-        buffer = true;
-        nvim_lsp = true;
-        vsnip = true;
-    };
-}
-EOF
+lua require('compe').setup { enabled = true, autocomplete = true, source = { path = true, buffer = true, nvim_lsp = true, vsnip = true, }, }
 
 
 
@@ -175,7 +161,7 @@ au InsertLeave * :set relativenumber
 "------------------------------------------------------------------------------
 let mapleader=","                    " leader is comma
 
-" disable highliighting search results
+" disable highlighting search results
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 
 " edit / source configuration file
