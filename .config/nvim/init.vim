@@ -10,6 +10,7 @@ Plug 'tversteeg/registers.nvim'                                 " show register 
 Plug 'nvim-lua/popup.nvim'                                      " popup api - might be merged into nvim in the future
 Plug 'nvim-lua/plenary.nvim'                                    " common functions used by several plugins
 Plug 'windwp/nvim-autopairs'                                    " automatically add closing brackets etc.
+Plug 'windwp/nvim-ts-autotag'                                   " automatically close and rename tags
 Plug 'hoob3rt/lualine.nvim'                                     " statusline written in lua
 Plug 'nvim-telescope/telescope.nvim'                            " fuzzy finder
 Plug 'lewis6991/gitsigns.nvim'                                  " git decorations
@@ -75,6 +76,10 @@ require('nvim-treesitter.configs').setup {
     ensure_installed = { "bash", "c", "cpp", "css", "html", "javascript", "lua", "make", "markdown", "python", "regex", "rust", "toml", "vim", "yaml" },
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
+    -- autotag
+    autotag = {
+        enable = true,
+    },
     -- highlighting
     highlight = {
         -- `false` will disable the whole extension
