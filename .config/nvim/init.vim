@@ -147,7 +147,8 @@ set shiftwidth=4                                " number of spaces to use for au
 set expandtab                                   " use spaces instead of tabs
 set smartindent                                 " ... and do it smart (works for c-like languages)
 
-set foldmethod=syntax                           " TODO: maybe switch to expr with treesitter
+set foldmethod=expr                             " using folding expr ...
+set foldexpr=nvim_treesitter#foldexpr()         " ... based on treesitter
 set foldlevelstart=5                            " open most folds by default
 
 
