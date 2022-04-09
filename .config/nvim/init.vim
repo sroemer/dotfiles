@@ -22,7 +22,11 @@ Plug 'SmiteshP/nvim-gps'                                        " show context (
 Plug 'p00f/nvim-ts-rainbow'                                     " rainbow parentheses
 Plug 'neovim/nvim-lspconfig'                                    " configurations for builtin language server client
 Plug 'simrat39/rust-tools.nvim'                                 " extra tools for rust development
-Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
@@ -112,16 +116,47 @@ EOF
 lua require("nvim-gps").setup()
 
 " setup lsp - using servers for bash,  c/c++, python and rust
-lua require('lspconfig').bashls.setup {}
-lua require('lspconfig').clangd.setup {}
-lua require('lspconfig').pyright.setup {}
-lua require('lspconfig').rust_analyzer.setup {}
+lua << EOF
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require('lspconfig').bashls.setup { capabilities = capabilities }
+require('lspconfig').clangd.setup { capabilities = capabilities }
+require('lspconfig').pyright.setup { capabilities = capabilities }
+require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
+EOF
 
 " setup rust-tools
 lua require('rust-tools').setup {}
 
-" setup code completion with compe
-lua require('compe').setup { enabled = true, autocomplete = true, source = { path = true, buffer = true, nvim_lsp = true, vsnip = true, }, }
+lua << EOF
+local cmp = require('cmp')
+cmp.setup {
+    -- REQUIRED - you must specify a snippet engine
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    mapping = {
+        ['<C-b>'] = cmp.mapping( cmp.mapping.scroll_docs(-4), { 'i', 'c' } ),
+        ['<C-f>'] = cmp.mapping( cmp.mapping.scroll_docs(4), { 'i', 'c' } ),
+        ['<C-Space>'] = cmp.mapping( cmp.mapping.complete(), { 'i', 'c' } ),
+        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+        ['<C-e>'] = cmp.mapping {
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        },
+        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    },
+    sources = cmp.config.sources {
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+      { name = 'buffer' },
+      { name = 'path' },
+    },
+}
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done( { map_char = { tex = '' } } ) )
+EOF
 
 " setup hop
 lua require('hop').setup {}
@@ -132,7 +167,7 @@ lua require('hop').setup {}
 " global vim settings
 "------------------------------------------------------------------------------
 set wildmode=longest:full,full                  " set completion mode
-set completeopt=menuone,noinsert,noselect       " rquired for nvim-compe
+set completeopt=menuone,noinsert,noselect       " required for nvim-cmp
 
 set title                                       " set terminal title
 set clipboard=unnamedplus                       " use clipboard for all actions
@@ -225,9 +260,6 @@ nnoremap <silent> <leader>b :ToggleBlameLine<CR>
 " nvim tree plugin
 nnoremap <silent> <C-n> :NvimTreeToggle<CR>
 nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
-
-" nvim-compe / nvim-autopairs
-inoremap <silent><expr> <CR> compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
 
 " hop around
 nnoremap <silent> <Leader><Leader>w :HopWord<CR>
