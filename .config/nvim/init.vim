@@ -25,7 +25,8 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
-Plug 'phaazon/hop.nvim'                                         " hop around - easy motions
+Plug 'phaazon/hop.nvim', { 'branch': 'v1' }                     " hop around - easy motions
+Plug 'romgrk/barbar.nvim'                                       " tab bar on top of the screen
 call plug#end()
 
 " use monokai colorscheme
@@ -126,6 +127,7 @@ set completeopt=menuone,noinsert,noselect       " rquired for nvim-compe
 set title                                       " set terminal title
 set clipboard=unnamedplus                       " use clipboard for all actions
 set termguicolors                               " use 24bit rgb colors in terminal
+set mouse+=a                                    " enable mouse support
 
 set confirm                                     " show dialog when operation needs to be confirmed
 set number                                      " show line numbers
