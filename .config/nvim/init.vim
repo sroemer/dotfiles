@@ -27,6 +27,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
+Plug 'petertriho/cmp-git'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
@@ -152,10 +153,14 @@ cmp.setup {
       { name = 'vsnip' },
       { name = 'buffer' },
       { name = 'path' },
+      { name = 'cmp_git' },
     },
 }
+-- autopairs: adding brackets when function is selected from completion menu
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done( { map_char = { tex = '' } } ) )
+-- cmp_git: setup
+require("cmp_git").setup()
 EOF
 
 " setup hop
