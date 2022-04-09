@@ -25,6 +25,7 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
+Plug 'phaazon/hop.nvim'                                         " hop around - easy motions
 call plug#end()
 
 " use monokai colorscheme
@@ -110,6 +111,9 @@ lua require('rust-tools').setup {}
 
 " setup code completion with compe
 lua require('compe').setup { enabled = true, autocomplete = true, source = { path = true, buffer = true, nvim_lsp = true, vsnip = true, }, }
+
+" setup hop
+lua require('hop').setup {}
 
 
 
@@ -212,6 +216,12 @@ nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
 
 " nvim-compe / nvim-autopairs
 inoremap <silent><expr> <CR> compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+
+" hop around
+nnoremap <silent> <Leader><Leader>w :HopWord<CR>
+nnoremap <silent> <Leader><Leader>W :HopWordCurrentLine<CR>
+nnoremap <silent> <Leader><Leader>c :HopChar1<CR>
+nnoremap <silent> <Leader><Leader>C :HopChar1CurrentLine<CR>
 
 
 
