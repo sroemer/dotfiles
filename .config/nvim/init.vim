@@ -258,6 +258,8 @@ nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 " edit / source configuration file
 nnoremap <silent> <Leader>ec :e $MYVIMRC<CR>
 nnoremap <silent> <Leader>sc :source $MYVIMRC<CR>
+nnoremap <silent> <Leader>eb :e ~/.bashrc<CR>
+nnoremap <silent> <Leader>ep :e ~/.bash_profile<CR>
 
 " toggle relative line numbering
 nnoremap <silent> <Leader>n :setlocal relativenumber!<CR>
