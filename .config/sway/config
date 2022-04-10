@@ -67,7 +67,10 @@ exec swayidle -w \
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-input * xkb_layout "us(altgr-intl),vn(us)"
+input * {
+    xkb_layout "us(altgr-intl),vn(us)"
+    xkb_options "caps:escape"
+}
 bindsym $mod+Mod1+1 input * xkb_switch_layout 0
 bindsym $mod+Mod1+2 input * xkb_switch_layout 1
 
