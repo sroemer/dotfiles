@@ -23,10 +23,10 @@ if [[ ! "$SSH_AUTH_SOCK" ]]; then
 fi
 
 # Put your fun stuff here.
-alias l='ls -l'
-alias ll='ls -l'
-alias la='ls -lA'
-alias lh='ls -ld .*'
+alias l='ls -lh'
+alias ll='ls -lh'
+alias la='ls -lAh'
+alias lh='ls -ldh .*'
 
 alias ..='cd ..'
 alias ...='cd ../../'
