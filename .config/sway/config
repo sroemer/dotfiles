@@ -245,6 +245,8 @@ include /etc/sway/config.d/*
 
 # Start ALSAmixer
 bindsym $mod+Mod1+a exec $term -e alsamixer
+# Start bc (calculator)
+bindsym $mod+Mod1+b exec $term -e bc -q
 # Start Calcurse
 bindsym $mod+Mod1+c exec $term -e calcurse
 # Start Firefox
