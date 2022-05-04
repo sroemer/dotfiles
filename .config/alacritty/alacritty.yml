@@ -48,3 +48,7 @@ colors:
     magenta: '#AE81FF'
     cyan:    '#66D9EF'
     white:   '#F8F8F2'
+
+key_bindings:
+  - { key: Q,              mods: Control|Shift,                   action: Quit             }
+  - { key: F11,                                                   action: ToggleFullscreen }
