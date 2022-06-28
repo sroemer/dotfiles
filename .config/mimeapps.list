@@ -1,5 +1,12 @@
 [Default Applications]
+application/pdf=org.pwmt.zathura.desktop
+application/xml=nvim.desktop
+image/bmp=imv.desktop
+image/gif=imv.desktop
+image/jpeg=imv.desktop
+image/png=imv.desktop
+image/tiff=imv.desktop
+image/webp=imv.desktop
 text/html=firefox.desktop
-
-[Added Associations]
-application/vnd.openxmlformats-officedocument.wordprocessingml.document=abiword.desktop;
+text/plain=nvim.desktop
+text/xml=nvim.desktop
