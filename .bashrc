@@ -22,6 +22,9 @@ if [[ ! "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
 fi
 
+# fzf key bindings
+[ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
+
 # Put your fun stuff here.
 alias l='ls -lh'
 alias ll='ls -lh'
