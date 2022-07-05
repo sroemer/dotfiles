@@ -19,11 +19,21 @@ if ! pgrep -u "$USER" ssh-agent >/dev/null; then
     ssh-agent -t 1h >"$XDG_RUNTIME_DIR/ssh-agent.env"
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    # shellcheck source=/dev/null
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
 fi
 
-# fzf key bindings
-[ -f /usr/share/fzf/key-bindings.bash ] && source /usr/share/fzf/key-bindings.bash
+# fzf key bindings and completion
+FZF_KEY_BINDINGS_FILE=/usr/share/fzf/key-bindings.bash
+if [[ -f "$FZF_KEY_BINDINGS_FILE" ]]; then
+    # shellcheck source=/dev/null
+    source "$FZF_KEY_BINDINGS_FILE"
+fi
+FZF_COMPLETION_FILE=/usr/share/fzf/completion.bash
+if [[ -f "$FZF_COMPLETION_FILE" ]]; then
+    # shellcheck source=/dev/null
+    source "$FZF_COMPLETION_FILE"
+fi
 
 # Put your fun stuff here.
 alias l='ls -lh'
