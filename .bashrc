@@ -14,15 +14,6 @@ if [[ $- != *i* ]]; then
     return
 fi
 
-# start ssh-agent on login and ensure just one instance is running
-if ! pgrep -u "$USER" ssh-agent >/dev/null; then
-    ssh-agent -t 1h >"$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    # shellcheck source=/dev/null
-    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-fi
-
 # fzf key bindings and completion
 FZF_KEY_BINDINGS_FILE=/usr/share/fzf/key-bindings.bash
 if [[ -f "$FZF_KEY_BINDINGS_FILE" ]]; then
