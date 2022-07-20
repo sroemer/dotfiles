@@ -14,6 +14,13 @@ if [[ $- != *i* ]]; then
     return
 fi
 
+# bash history: do not save duplicates and ignore commands starting with space
+HISTCONTROL=ignorespace:ignoredups:erasedups
+# bash history: max. 5000 entries
+HISTSIZE=5000
+# bash history: append to history instead of overwriting it
+shopt -s histappend
+
 # fzf key bindings and completion
 FZF_KEY_BINDINGS_FILE=/usr/share/fzf/key-bindings.bash
 if [[ -f "$FZF_KEY_BINDINGS_FILE" ]]; then
