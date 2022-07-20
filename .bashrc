@@ -25,6 +25,16 @@ if [[ -f "$FZF_COMPLETION_FILE" ]]; then
     # shellcheck source=/dev/null
     source "$FZF_COMPLETION_FILE"
 fi
+RUSTUP_COMPLETION_FILE=$HOME/.local/share/bash-completion/completions/rustup
+if [[ -f "$RUSTUP_COMPLETION_FILE" ]]; then
+    # shellcheck source=/dev/null
+    source "$RUSTUP_COMPLETION_FILE"
+fi
+CARGO_COMPLETION_FILE=$HOME/.local/share/bash-completion/completions/cargo
+if [[ -f "$CARGO_COMPLETION_FILE" ]]; then
+    # shellcheck source=/dev/null
+    source "$CARGO_COMPLETION_FILE"
+fi
 
 # Put your fun stuff here.
 alias l='ls -lh'
