@@ -18,7 +18,7 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu dmenu_path | bemenu -p "RUN COMMAND:" --fn "Hack NF 14" --tf=#FFFFFF --hf=#AAFFAA | xargs swaymsg exec --
 
 ### Output configuration
 #
@@ -84,6 +84,13 @@ input "1267:12479:ELAN1402:00_04F3:30BF_Touchpad" {
         events disabled_on_external_mouse
 }
 focus_follows_mouse no
+
+#
+# Configure gaps
+#
+gaps inner 5
+gaps outer 10
+smart_gaps inverse_outer
 
 ### Key bindings
 #
@@ -262,10 +269,9 @@ bindsym $mod+Mod1+t exec thunderbird
 # Start Neovim
 bindsym $mod+Mod1+v exec $term -e nvim
 # Start Abiword
-bindsym $mod+Mod1+w exec abiword
+bindsym $mod+Mod1+w exec libreoffice --writer
 # Start Gnumeric
-bindsym $mod+Mod1+x exec gnumeric
+bindsym $mod+Mod1+x exec libreoffice --calc
 
 # Screenshot
 bindsym $mod+Shift+s exec grim -g "$(slurp)" $HOME/$(date +'grim_%Y-%m-%d_%H-%M-%S.png')
-
