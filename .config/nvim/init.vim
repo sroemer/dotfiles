@@ -311,6 +311,8 @@ nnoremap <silent> <Leader><Leader>W :HopWordCurrentLine<CR>
 nnoremap <silent> <Leader><Leader>c :HopChar1<CR>
 nnoremap <silent> <Leader><Leader>C :HopChar1CurrentLine<CR>
 
+" save file as root
+cmap w!! w !sudo -A tee > /dev/null %
 
 
 "------------------------------------------------------------------------------
