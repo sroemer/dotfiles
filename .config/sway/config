@@ -35,7 +35,8 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 exec mako
 
 ### Color correction
-exec gammastep
+#   (disabled due to not being available in Artix repositories)
+# exec gammastep
 
 ### Idle configuration
 #
