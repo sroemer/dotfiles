@@ -39,7 +39,12 @@ call plug#end()
 colorscheme monokai
 
 " show content of registers with a rounded border
-let g:registers_window_border = "rounded"
+lua << EOF
+local registers = require("registers")
+registers.setup {
+    window = { border = "rounded" }
+}
+EOF
 
 " setup autopairs
 lua require('nvim-autopairs').setup {}
@@ -118,7 +123,7 @@ lua require("nvim-gps").setup()
 
 " setup lsp - using servers for bash,  c/c++, python and rust
 lua << EOF
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require('lspconfig').bashls.setup { capabilities = capabilities }
 require('lspconfig').clangd.setup { capabilities = capabilities }
 require('lspconfig').pyright.setup { capabilities = capabilities }
