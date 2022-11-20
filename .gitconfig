@@ -18,7 +18,7 @@
     a = add
     c = commit
     ca = commit --amend
-    dotfiles = !git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME
+    dotfiles = !git --git-dir=$HOME/Git/sroemer/dotfiles/ --work-tree=$HOME
     df = dotfiles
 
     lg = !"git lg1"
