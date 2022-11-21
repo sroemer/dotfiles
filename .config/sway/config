@@ -23,7 +23,7 @@ set $menu dmenu_path | bemenu -p "RUN COMMAND:" --fn "Hack NF 14" --tf=#FFFFFF -
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg #003060 solid_color
 #
 # Example configuration:
 #
