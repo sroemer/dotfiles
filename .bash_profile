@@ -35,5 +35,5 @@ fi
 #fi
 
 if [ "$(tty)" = "/dev/tty1" ] ; then
-    exec sway
+    exec dbus-launch --exit-with-session sway
 fi
