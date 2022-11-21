@@ -71,6 +71,7 @@ exec swayidle -w \
 input * {
     xkb_layout "us(altgr-intl),vn(us)"
     xkb_options "caps:escape"
+    xkb_numlock enabled
 }
 bindsym $mod+Mod1+1 input * xkb_switch_layout 0
 bindsym $mod+Mod1+2 input * xkb_switch_layout 1
