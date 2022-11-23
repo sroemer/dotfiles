@@ -87,13 +87,6 @@ input "1267:12479:ELAN1402:00_04F3:30BF_Touchpad" {
 }
 focus_follows_mouse no
 
-#
-# Configure gaps
-#
-gaps inner 5
-gaps outer 10
-smart_gaps inverse_outer
-
 ### Key bindings
 #
 # Basics:
