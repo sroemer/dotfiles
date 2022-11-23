@@ -18,7 +18,7 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | bemenu -p "RUN COMMAND:" --fn "Hack NF 14" --tf=#FFFFFF --hf=#AAFFAA | xargs swaymsg exec --
+set $menu dmenu_path | bemenu -p "" -l 20 -B 2 --bdr=#4C7899 --tf=#FFFFFF --tb=#222222 --hf=#FFFFFF --hb=#4C7899 --fn "Hack NF 14"  | xargs swaymsg exec --
 
 ### Output configuration
 #
