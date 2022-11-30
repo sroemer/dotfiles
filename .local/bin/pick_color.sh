@@ -1,31 +1,38 @@
 #!/bin/bash
-CLIPBOARD_COMMAND="wl-copy"
-GRIM_COMMAND="grim"
-SLURP_COMMAND="slurp"
-IM_CONVERT_COMMAND="convert"
-GM_CONVERT_COMMAND="gm"
+CLIPBOARD_CMD="wl-copy"
+GRAB_IMAGE_CMD="grim"
+SELECT_REGION_CMD="slurp"
+IM_CONVERT_CMD="convert"
+GM_CONVERT_CMD="gm"
 
 # wl-copy is required - check if it is available
-if ! [[ -x "$(command -v $CLIPBOARD_COMMAND)" ]]; then
-    echo "error: required command '${CLIPBOARD_COMMAND}' not found"
+if ! [[ -x "$(command -v $CLIPBOARD_CMD)" ]]; then
+    echo "error: required command '${CLIPBOARD_CMD}' not found"
     exit
 fi
 # grim is required - check if it is available
-if ! [[ -x "$(command -v $GRIM_COMMAND)" ]]; then
-    echo "error: required command '${GRIM_COMMAND}' not found"
+if ! [[ -x "$(command -v $GRAB_IMAGE_CMD)" ]]; then
+    echo "error: required command '${GRAB_IMAGE_CMD}' not found"
     exit
 fi
 # slurp is required - check if it is available
-if ! [[ -x "$(command -v $SLURP_COMMAND)" ]]; then
-    echo "error: required command '${SLURP_COMMAND}' not found"
+if ! [[ -x "$(command -v $SELECT_REGION_CMD)" ]]; then
+    echo "error: required command '${SELECT_REGION_CMD}' not found"
     exit
 fi
 # either imagemagick or graphicsmagick is required for convert - check if one of it is available and use it
-if [[ -x "$(command -v $IM_CONVERT_COMMAND)" ]]; then
-    grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | grep -Eo "#[0-9ABCDEF]{6}" | tr -d "\n" | $CLIPBOARD_COMMAND
-elif [[ -x "$(command -v $GM_CONVERT_COMMAND)" ]]; then
-    grim -g "$(slurp -p)" -t ppm - | gm convert - -format '%[pixel:p{0,0}]' txt:- | grep -Eo "#[0-9ABCDEF]{6}" | tr -d "\n" | $CLIPBOARD_COMMAND
+if [[ -x "$(command -v $IM_CONVERT_CMD)" ]]; then
+    CONVERT_CMD_TO_USE="convert"
+elif [[ -x "$(command -v $GM_CONVERT_CMD)" ]]; then
+    CONVERT_CMD_TO_USE="gm convert"
 else
-    echo "error: required command '${IM_CONVERT_COMMAND}|${GM_CONVERT_COMMAND}' not found"
+    echo "error: required command '${IM_CONVERT_CMD}|${GM_CONVERT_CMD}' not found"
     exit
 fi
+
+$GRAB_IMAGE_CMD -g "$($SELECT_REGION_CMD -p)" -t ppm - \
+    | $CONVERT_CMD_TO_USE - -format '%[pixel:p{0,0}]' txt:- \
+    | grep -Eo "#[0-9ABCDEF]{6}" \
+    | tee /dev/tty \
+    | tr -d "\n" \
+    | $CLIPBOARD_CMD
