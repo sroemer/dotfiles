@@ -44,6 +44,7 @@ if [[ -f "$CARGO_COMPLETION_FILE" ]]; then
 fi
 
 # Put your fun stuff here.
+alias ls='ls --color=auto'
 alias l='ls -lh'
 alias ll='ls -lh'
 alias la='ls -lAh'
@@ -58,7 +59,9 @@ alias Gc='git commit'
 alias Gl='git lg'
 alias Gd='git difftool'
 alias Gdc='git difftool --cached'
+alias Gf='git fetch'
 alias Gp='git push'
+alias Gpl='git pull'
 
 alias mutt='neomutt'
 alias vim='nvim'
