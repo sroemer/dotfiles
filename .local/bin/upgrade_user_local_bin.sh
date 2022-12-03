@@ -6,7 +6,7 @@ if ! [[ -x $(command -v pip) ]]; then
     exit 1
 fi
 echo "INFO : installing/upgrading td-watson and nodeenv"
-if ! pip install --upgrade --user td-watson nodeenv; then
+if ! pip install --upgrade --user pyright nodeenv td-watson; then
     echo "ERROR: installing/upgrading td-watson and nodeenv failed (pip returned $?)"
 else
     echo "INFO : installing/upgrading td-watson and nodeenv finished"
@@ -38,5 +38,4 @@ else
         echo "INFO : deactivating nodejs environment"
         deactivate_node
     fi
-
 fi
