@@ -38,6 +38,9 @@ else
         echo "INFO : installing diagnostic-languageserver"
         npm i -g diagnostic-languageserver
 
+        echo "INFO : installing yaml-language-server"
+        npm i -g yaml-language-server
+
         echo "INFO : deactivating nodejs environment"
         deactivate_node
     fi

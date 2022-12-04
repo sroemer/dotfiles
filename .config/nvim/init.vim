@@ -129,6 +129,7 @@ require('lspconfig').bashls.setup { capabilities = capabilities }
 require('lspconfig').clangd.setup { capabilities = capabilities }
 require('lspconfig').pyright.setup { capabilities = capabilities }
 require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
+require('lspconfig').yamlls.setup { capabilities = capabilities }
 require('lspconfig').diagnosticls.setup{
     capabilities = capabilities,
     filetypes = { "sh" },
