@@ -124,6 +124,7 @@ lua require("nvim-gps").setup()
 " setup lsp - using servers for bash,  c/c++, python and rust
 lua << EOF
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+require('lspconfig').awk_ls.setup { capabilities = capabilities }
 require('lspconfig').bashls.setup { capabilities = capabilities }
 require('lspconfig').clangd.setup { capabilities = capabilities }
 require('lspconfig').pyright.setup { capabilities = capabilities }

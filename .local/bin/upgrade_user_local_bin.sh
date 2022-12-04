@@ -29,6 +29,9 @@ else
         # shellcheck source=/dev/null
         . "$NODE_DIR/bin/activate"
 
+        echo "INFO : installing awk-language-server"
+        npm i -g awk-language-server
+
         echo "INFO : installing bash-language-server"
         npm i -g bash-language-server
 
