@@ -38,6 +38,9 @@ else
         echo "INFO : installing diagnostic-languageserver"
         npm i -g diagnostic-languageserver
 
+        echo "INFO : installing vscode-langservers-extracted"
+        npm i -g vscode-langservers-extracted
+
         echo "INFO : installing yaml-language-server"
         npm i -g yaml-language-server
 

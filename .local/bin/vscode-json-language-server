@@ -1,0 +1,5 @@
+#!/bin/bash
+# shellcheck source=/dev/null
+. ~/.local/nodejs/bin/activate
+vscode-json-language-server "$@"
+deactivate_node
