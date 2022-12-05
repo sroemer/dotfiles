@@ -1,0 +1,7 @@
+#!/bin/bash
+SYSTEM_COMMAND=$(echo -e "logout\npoweroff\nreboot\nsuspend\nhibernate" | bemenu -p "" -l 20 -B 2 --bdr=#4C7899 --fb=#4C7899 --hf=#4C7899  --hb=#2F343A --fn "Hack NF 14")
+if [[ $SYSTEM_COMMAND == "logout" ]]; then
+    swaymsg exit
+elif [[ -n $SYSTEM_COMMAND ]]; then
+    loginctl "$SYSTEM_COMMAND"
+fi
