@@ -73,7 +73,7 @@ alias open='xdg-open'
 # automatically use git dotfiles alias in home directory
 git() {
     if [[ "$PWD" == "$HOME" ]]; then
-        /usr/bin/git df "$@"
+        /usr/bin/git dotfiles "$@"
     else
         /usr/bin/git "$@"
     fi
