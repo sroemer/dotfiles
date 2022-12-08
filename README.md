@@ -43,8 +43,9 @@ git() {
 
 Some parts of this repository have their own licensing conditions. This notably is the case for:
 
-1.) The fonts located in .local/share/fonts (see separate LICENSE files within this directory)
-2.) The 'Vim plugin manager' located in .local/share/nvim/site/autoload/ uses the 'MIT' license
+1. The fonts located in .local/share/fonts (see separate LICENSE files within this directory)
+2. The 'Vim plugin manager' located in .local/share/nvim/site/autoload/ uses the
+   ['MIT'](./.local/share/nvim/site/autoload/VIM-PLUG-LICENSE) license
 
 I doubt that a license for dotfiles really is needed, but anyway to be clear about it:
 The general license for my dotfiles repository is the 'BSD Zero Clause License' as shown below:
