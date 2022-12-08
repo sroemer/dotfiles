@@ -36,3 +36,32 @@ git() {
     fi
 }
 ```
+
+
+
+#### License
+
+Some parts of this repository have their own licensing conditions. This notably is the case for:
+
+1.) The fonts located in .local/share/fonts (see separate LICENSE files within this directory)
+2.) The 'Vim plugin manager' located in .local/share/nvim/site/autoload/ uses the 'MIT' license
+
+I doubt that a license for dotfiles really is needed, but anyway to be clear about it:
+The general license for my dotfiles repository is the 'BSD Zero Clause License' as shown below:
+
+```
+BSD Zero Clause License
+
+Copyright (c) 2022 Stefan Römer
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+```
