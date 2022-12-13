@@ -33,6 +33,7 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'phaazon/hop.nvim', { 'branch': 'v1' }                     " hop around - easy motions
 Plug 'romgrk/barbar.nvim'                                       " tab bar on top of the screen
+Plug 'nvim-neorg/neorg'
 call plug#end()
 
 " use monokai colorscheme
@@ -213,6 +214,13 @@ EOF
 " setup hop
 lua require('hop').setup {}
 
+lua << EOF
+require('neorg').setup {
+    load = {
+        ["core.defaults"] = {}
+    }
+}
+EOF
 
 
 "------------------------------------------------------------------------------
