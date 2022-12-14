@@ -365,6 +365,10 @@ endfunction
 "------------------------------------------------------------------------------
 " highlighting
 "------------------------------------------------------------------------------
+" fix neorg bold and italic for neorg
+hi @text.strong cterm=bold gui=bold
+hi @text.emphasis cterm=italic gui=italic
+
 hi Trailingwhitespaces guibg=yellow
 match TrailingWhitespaces '\s\+$'
 
