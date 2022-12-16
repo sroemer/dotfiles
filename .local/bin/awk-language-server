@@ -1,5 +1,0 @@
-#!/bin/bash
-# shellcheck source=/dev/null
-. ~/.local/nodejs/bin/activate
-awk-language-server "$@"
-deactivate_node

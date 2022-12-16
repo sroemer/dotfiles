@@ -1,5 +1,0 @@
-#!/bin/bash
-# shellcheck source=/dev/null
-. ~/.local/nodejs/bin/activate
-bash-language-server "$@"
-deactivate_node
