@@ -93,7 +93,7 @@ lua require('nvim-tree').setup {}
 lua << EOF
 require('nvim-treesitter.configs').setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-    ensure_installed = { "bash", "c", "cpp", "css", "html", "javascript", "lua", "make", "markdown", "python", "regex", "rust", "toml", "vim", "yaml" },
+    ensure_installed = { "bash", "c", "cmake", "cpp", "css", "diff", "git_rebase", "html", "javascript", "json", "lua", "make", "markdown","markdown_inline", "python", "regex", "rust", "scss", "toml", "vim", "yaml" },
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
     -- autotag
