@@ -44,6 +44,9 @@ else
         echo "INFO : installing yaml-language-server"
         npm i -g yaml-language-server
 
+        echo "INFO : installing tree-sitter-cli"
+        npm i -g tree-sitter-cli
+
         echo "INFO : deactivating nodejs environment"
         deactivate_node
     fi
