@@ -85,7 +85,7 @@ input "1267:12479:ELAN1402:00_04F3:30BF_Touchpad" {
         middle_emulation enabled
         events disabled_on_external_mouse
 }
-focus_follows_mouse no
+focus_follows_mouse yes
 
 ### Key bindings
 #
