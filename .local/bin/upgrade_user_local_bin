@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Install/Download AppImages
+APPIMG_INSTALL_SCRIPT=$HOME/.local/bin/appimages/install_appimages
+if [[ -x "$APPIMG_INSTALL_SCRIPT" ]]; then
+    $APPIMG_INSTALL_SCRIPT
+fi
+
 # Install td-watson and nodejs via python pip
 if ! [[ -x $(command -v pip) ]]; then
     echo "ERROR: pip required but not available"

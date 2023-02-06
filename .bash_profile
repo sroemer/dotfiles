@@ -34,6 +34,9 @@ fi
 if [[ -d ~/.cargo/bin ]] ; then
     PATH=~/.cargo/bin:$PATH
 fi
+if [[ -d ~/.local/bin/appimages ]] ; then
+    PATH=~/.local/bin/appimages:$PATH
+fi
 if [[ -d ~/.local/bin ]] ; then
     PATH=~/.local/bin:$PATH
 fi
