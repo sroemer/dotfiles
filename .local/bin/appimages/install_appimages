@@ -1,0 +1,35 @@
+#!/bin/bash
+SCRIPT=$(realpath "$0")
+SCRIPT_PATH=$(dirname "$SCRIPT")
+echo "INFO : installing/upgrading appimages"
+
+# CHECK FOR DOWNLOAD TOOL
+if ! [[ -x $(command -v wget) ]]; then
+    echo "ERROR: wget required but not available"
+    exit 1
+fi
+
+# DOWNLOAD APPIMAGES
+ARDUINO_OUTPUT_FILE="$SCRIPT_PATH/arduino-ide"
+ARDUINO_VERSION="2.0.3"
+ARDUINO_LINK="https://github.com/arduino/arduino-ide/releases/download/${ARDUINO_VERSION}/arduino-ide_${ARDUINO_VERSION}_Linux_64bit.AppImage"
+if !  wget -O "$ARDUINO_OUTPUT_FILE" "$ARDUINO_LINK"; then
+    echo "ERROR: downloading appimage $ARDUINO_OUTPUT_FILE failed"
+else
+    echo "INFO : $ARDUINO_OUTPUT_FILE v$ARDUINO_VERSION successfully downloaded"
+fi
+
+MQTT_EXPLORER_OUTPUT_FILE="$SCRIPT_PATH/mqtt-explorer"
+MQTT_EXPLORER_VERSION="0.4.0-beta1"
+MQTT_EXPLORER_LINK="https://github.com/thomasnordquist/MQTT-Explorer/releases/download/0.0.0-${MQTT_EXPLORER_VERSION}/MQTT-Explorer-${MQTT_EXPLORER_VERSION}.AppImage"
+if !  wget -O "$MQTT_EXPLORER_OUTPUT_FILE" "$MQTT_EXPLORER_LINK"; then
+    echo "ERROR: downloading appimage $MQTT_EXPLORER_OUTPUT_FILE failed"
+else
+    echo "INFO : $MQTT_EXPLORER_OUTPUT_FILE v$MQTT_EXPLORER_VERSION successfully downloaded"
+fi
+
+# MAKE APP IMAGES EXECUTABLE
+echo "INFO : making appimages executable"
+chmod +x "$SCRIPT_PATH"/*
+
+echo "INFO : installing/upgrading appimages finished"
