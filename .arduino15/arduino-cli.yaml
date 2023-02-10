@@ -1,5 +1,5 @@
 board_manager:
-  additional_urls: []
+  additional_urls: [ "https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json" ]
 daemon:
   port: "50051"
 directories:
