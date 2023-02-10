@@ -1,9 +1,35 @@
 #!/bin/bash
+UPG_USR_LOCAL_BIN_SCRIPT=$(realpath "$0")
+UPG_USR_LOCAL_BIN_SCRIPT_PATH=$(dirname "$UPG_USR_LOCAL_BIN_SCRIPT")
+
+# CHECK FOR DOWNLOAD TOOL
+if ! [[ -x $(command -v wget) ]]; then
+    echo "ERROR: wget required but not available"
+    exit 1
+fi
 
 # Install/Download AppImages
 APPIMG_INSTALL_SCRIPT=$HOME/.local/bin/appimages/install_appimages
 if [[ -x "$APPIMG_INSTALL_SCRIPT" ]]; then
     $APPIMG_INSTALL_SCRIPT
+fi
+
+# Install arduino-cli
+ARDUINO_CLI_TEMP_ARCHIVE_FILE="/tmp/arduino-cli.tar.gz"
+ARDUINO_CLI_FILE="arduino-cli"
+ARDUINO_CLI_VERSION="0.30.0"
+ARDUINO_CLI_LINK="https://github.com/arduino/arduino-cli/releases/download/${ARDUINO_CLI_VERSION}/arduino-cli_${ARDUINO_CLI_VERSION}_Linux_64bit.tar.gz"
+if !  wget -q -O "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" "$ARDUINO_CLI_LINK"; then
+    echo "ERROR: downloading appimage $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
+else
+    echo "INFO : $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_VERSION successfully downloaded"
+    echo "INFO : extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_VERSION"
+    if ! tar -C "$UPG_USR_LOCAL_BIN_SCRIPT_PATH" -xvzf "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" arduino-cli ; then
+        echo "ERROR: extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
+    else
+        echo "INFO : extracted $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE"
+    fi
+    rm -f "$ARDUINO_CLI_TEMP_ARCHIVE_FILE"
 fi
 
 # Install td-watson and nodejs via python pip
