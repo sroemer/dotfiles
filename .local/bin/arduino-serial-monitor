@@ -1,0 +1,4 @@
+#!/bin/bash
+TERMINAL_DEVICE=/dev/ttyUSB0
+TERMINAL_BAUD=115200
+pyserial-miniterm "$TERMINAL_DEVICE" "$TERMINAL_BAUD"
