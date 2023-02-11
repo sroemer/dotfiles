@@ -272,3 +272,6 @@ bindsym $mod+Mod1+x exec gnumeric
 bindsym $mod+Shift+s exec grim -g "$(slurp)" $HOME/$(date +'grim_%Y-%m-%d_%H-%M-%S.png')
 # Pick color from screen and copy its value to the clipboard
 bindsym $mod+Shift+p exec pick_color.sh
+
+# enable floating option for firefox picture-in-picture windows automatically
+for_window [title="Picture-in-Picture"] floating enable
