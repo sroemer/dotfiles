@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "synchronizing addressbooks and calendars"
+vdirsyncer sync
