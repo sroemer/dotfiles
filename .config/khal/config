@@ -1,15 +1,15 @@
 [calendars]
 
     [[personal]]
-        path = ~/.local/calendars/personal/
+        path = ~/.local/calendars/personal-cal/
         color = dark green
 
     [[business]]
-        path = ~/.local/calendars/business/
+        path = ~/.local/calendars/business-cal/
         color = dark blue
 
     [[birthdays]]
-        path = ~/.local/calendars/birthdays/
+        path = ~/.local/calendars/birthday-cal/
         color = yellow
 
 [default]
