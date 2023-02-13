@@ -20,16 +20,34 @@ ARDUINO_CLI_FILE="arduino-cli"
 ARDUINO_CLI_VERSION="0.30.0"
 ARDUINO_CLI_LINK="https://github.com/arduino/arduino-cli/releases/download/${ARDUINO_CLI_VERSION}/arduino-cli_${ARDUINO_CLI_VERSION}_Linux_64bit.tar.gz"
 if !  wget -q -O "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" "$ARDUINO_CLI_LINK"; then
-    echo "ERROR: downloading appimage $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
+    echo "ERROR: downloading $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
 else
-    echo "INFO : $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_VERSION successfully downloaded"
-    echo "INFO : extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_VERSION"
+    echo "INFO : $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION successfully downloaded"
+    echo "INFO : extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION"
     if ! tar -C "$UPG_USR_LOCAL_BIN_SCRIPT_PATH" -xvzf "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" arduino-cli ; then
         echo "ERROR: extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
     else
         echo "INFO : extracted $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE"
     fi
     rm -f "$ARDUINO_CLI_TEMP_ARCHIVE_FILE"
+fi
+
+# Install arduino-language-server
+ARDUINO_LS_TEMP_ARCHIVE_FILE="/tmp/arduino-language-server.tar.gz"
+ARDUINO_LS_FILE="arduino-language-server"
+ARDUINO_LS_VERSION="0.7.4"
+ARDUINO_LS_LINK="https://github.com/arduino/arduino-language-server/releases/download/${ARDUINO_LS_VERSION}/arduino-language-server_${ARDUINO_LS_VERSION}_Linux_64bit.tar.gz"
+if !  wget -q -O "$ARDUINO_LS_TEMP_ARCHIVE_FILE" "$ARDUINO_LS_LINK"; then
+    echo "ERROR: downloading $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
+else
+    echo "INFO : $ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION successfully downloaded"
+    echo "INFO : extracting $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION"
+    if ! tar -C "$UPG_USR_LOCAL_BIN_SCRIPT_PATH" -xvzf "$ARDUINO_LS_TEMP_ARCHIVE_FILE" arduino-language-server ; then
+        echo "ERROR: extracting $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
+    else
+        echo "INFO : extracted $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE"
+    fi
+    rm -f "$ARDUINO_LS_TEMP_ARCHIVE_FILE"
 fi
 
 # Install td-watson and nodejs via python pip
