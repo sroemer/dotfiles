@@ -12,6 +12,12 @@
         path = ~/.local/calendars/birthdays/
         color = yellow
 
+[default]
+    highlight_event_days = True
+
+[highlight_days]
+    color = light red
+
 [locale]
     timeformat = %H:%M
     dateformat = %Y-%m-%d
