@@ -134,6 +134,7 @@ require('lspconfig').html.setup { capabilities = capabilities }
 require('lspconfig').pyright.setup { capabilities = capabilities }
 require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
 require('lspconfig').yamlls.setup { capabilities = capabilities }
+require('lspconfig').arduino_language_server.setup { capabilities = capabilities }
 require('lspconfig').diagnosticls.setup{
     capabilities = capabilities,
     filetypes = { "sh" },
