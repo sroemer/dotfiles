@@ -1,0 +1,23 @@
+[calendars]
+
+    [[personal]]
+        path = ~/.local/calendars/personal/
+        color = dark green
+
+    [[business]]
+        path = ~/.local/calendars/business/
+        color = dark blue
+
+    [[birthdays]]
+        path = ~/.local/calendars/birthdays/
+        color = yellow
+
+[locale]
+    timeformat = %H:%M
+    dateformat = %Y-%m-%d
+    longdateformat = %Y-%m-%d
+    datetimeformat = %Y-%m-%d %H:%M
+    longdatetimeformat = %Y-%m-%d %H:%M
+
+[view]
+    dynamic_days = False
