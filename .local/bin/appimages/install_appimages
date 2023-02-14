@@ -22,6 +22,15 @@ else
     echo "INFO : $MQTT_EXPLORER_OUTPUT_FILE v$MQTT_EXPLORER_VERSION successfully downloaded"
 fi
 
+PRUSA_SLICER_OUTPUT_FILE="$INST_APPIMG_SCRIPT_PATH/prusaslicer"
+PRUSA_SLICER_VERSION=2.5.0
+PRUSA_SLICER_LINK=https://github.com/prusa3d/PrusaSlicer/releases/download/version_${PRUSA_SLICER_VERSION}/PrusaSlicer-${PRUSA_SLICER_VERSION}+linux-x64-GTK3-202209060725.AppImage
+if !  wget -q -O "$PRUSA_SLICER_OUTPUT_FILE" "$PRUSA_SLICER_LINK"; then
+    echo "ERROR: downloading appimage $PRUSA_SLICER_OUTPUT_FILE failed"
+else
+    echo "INFO : $PRUSA_SLICER_OUTPUT_FILE v$PRUSA_SLICER_VERSION successfully downloaded"
+fi
+
 # MAKE APP IMAGES EXECUTABLE
 echo "INFO : making appimages executable"
 chmod +x "$INST_APPIMG_SCRIPT_PATH"/*
