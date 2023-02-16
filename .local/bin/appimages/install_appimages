@@ -7,7 +7,7 @@ echo "INFO : installing/upgrading appimages"
 ARDUINO_OUTPUT_FILE="$INST_APPIMG_SCRIPT_PATH/arduino-ide"
 ARDUINO_VERSION="2.0.3"
 ARDUINO_LINK="https://github.com/arduino/arduino-ide/releases/download/${ARDUINO_VERSION}/arduino-ide_${ARDUINO_VERSION}_Linux_64bit.AppImage"
-if !  wget -q -O "$ARDUINO_OUTPUT_FILE" "$ARDUINO_LINK"; then
+if ! curl -s -L -o "$ARDUINO_OUTPUT_FILE" "$ARDUINO_LINK"; then
     echo "ERROR: downloading appimage $ARDUINO_OUTPUT_FILE failed"
 else
     echo "INFO : $ARDUINO_OUTPUT_FILE v$ARDUINO_VERSION successfully downloaded"
@@ -16,7 +16,7 @@ fi
 MQTT_EXPLORER_OUTPUT_FILE="$INST_APPIMG_SCRIPT_PATH/mqtt-explorer"
 MQTT_EXPLORER_VERSION="0.4.0-beta1"
 MQTT_EXPLORER_LINK="https://github.com/thomasnordquist/MQTT-Explorer/releases/download/0.0.0-${MQTT_EXPLORER_VERSION}/MQTT-Explorer-${MQTT_EXPLORER_VERSION}.AppImage"
-if !  wget -q -O "$MQTT_EXPLORER_OUTPUT_FILE" "$MQTT_EXPLORER_LINK"; then
+if ! curl -s -L -o "$MQTT_EXPLORER_OUTPUT_FILE" "$MQTT_EXPLORER_LINK"; then
     echo "ERROR: downloading appimage $MQTT_EXPLORER_OUTPUT_FILE failed"
 else
     echo "INFO : $MQTT_EXPLORER_OUTPUT_FILE v$MQTT_EXPLORER_VERSION successfully downloaded"
@@ -25,7 +25,7 @@ fi
 PRUSA_SLICER_OUTPUT_FILE="$INST_APPIMG_SCRIPT_PATH/prusaslicer"
 PRUSA_SLICER_VERSION=2.5.0
 PRUSA_SLICER_LINK=https://github.com/prusa3d/PrusaSlicer/releases/download/version_${PRUSA_SLICER_VERSION}/PrusaSlicer-${PRUSA_SLICER_VERSION}+linux-x64-GTK3-202209060725.AppImage
-if !  wget -q -O "$PRUSA_SLICER_OUTPUT_FILE" "$PRUSA_SLICER_LINK"; then
+if ! curl -s -L -o "$PRUSA_SLICER_OUTPUT_FILE" "$PRUSA_SLICER_LINK"; then
     echo "ERROR: downloading appimage $PRUSA_SLICER_OUTPUT_FILE failed"
 else
     echo "INFO : $PRUSA_SLICER_OUTPUT_FILE v$PRUSA_SLICER_VERSION successfully downloaded"

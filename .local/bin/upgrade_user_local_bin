@@ -3,8 +3,8 @@ UPG_USR_LOCAL_BIN_SCRIPT=$(realpath "$0")
 UPG_USR_LOCAL_BIN_SCRIPT_PATH=$(dirname "$UPG_USR_LOCAL_BIN_SCRIPT")
 
 # CHECK FOR DOWNLOAD TOOL
-if ! [[ -x $(command -v wget) ]]; then
-    echo "ERROR: wget required but not available"
+if ! [[ -x $(command -v curl) ]]; then
+    echo "ERROR: curl required but not available"
     exit 1
 fi
 
@@ -19,7 +19,7 @@ ARDUINO_CLI_TEMP_ARCHIVE_FILE="/tmp/arduino-cli.tar.gz"
 ARDUINO_CLI_FILE="arduino-cli"
 ARDUINO_CLI_VERSION="0.30.0"
 ARDUINO_CLI_LINK="https://github.com/arduino/arduino-cli/releases/download/${ARDUINO_CLI_VERSION}/arduino-cli_${ARDUINO_CLI_VERSION}_Linux_64bit.tar.gz"
-if !  wget -q -O "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" "$ARDUINO_CLI_LINK"; then
+if ! curl -s -L -o "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" "$ARDUINO_CLI_LINK"; then
     echo "ERROR: downloading $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
 else
     echo "INFO : $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION successfully downloaded"
@@ -37,7 +37,7 @@ ARDUINO_LS_TEMP_ARCHIVE_FILE="/tmp/arduino-language-server.tar.gz"
 ARDUINO_LS_FILE="arduino-language-server"
 ARDUINO_LS_VERSION="0.7.4"
 ARDUINO_LS_LINK="https://github.com/arduino/arduino-language-server/releases/download/${ARDUINO_LS_VERSION}/arduino-language-server_${ARDUINO_LS_VERSION}_Linux_64bit.tar.gz"
-if !  wget -q -O "$ARDUINO_LS_TEMP_ARCHIVE_FILE" "$ARDUINO_LS_LINK"; then
+if ! curl -s -L -o "$ARDUINO_LS_TEMP_ARCHIVE_FILE" "$ARDUINO_LS_LINK"; then
     echo "ERROR: downloading $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
 else
     echo "INFO : $ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION successfully downloaded"
