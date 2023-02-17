@@ -4,9 +4,9 @@ board_manager:
 daemon:
   port: "50051"
 directories:
-  data: ~/.arduino15
-  downloads: ~/.arduino15/staging
-  user: ~/Git/sroemer/arduino-esp32-projects
+  data: /home/sroemer/.arduino15
+  downloads: /home/sroemer/.arduino15/staging
+  user: /home/sroemer/Git/sroemer/arduino-esp32-projects
 library:
   enable_unsafe_install: false
 logging:
