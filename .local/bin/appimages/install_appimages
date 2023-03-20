@@ -37,8 +37,8 @@ else
 fi
 
 PRUSA_SLICER_OUTPUT_FILE="$SCRIPT_PATH/prusaslicer"
-PRUSA_SLICER_VERSION="2.5.0"
-PRUSA_SLICER_LINK=https://github.com/prusa3d/PrusaSlicer/releases/download/version_${PRUSA_SLICER_VERSION}/PrusaSlicer-${PRUSA_SLICER_VERSION}+linux-x64-GTK3-202209060725.AppImage
+PRUSA_SLICER_VERSION="2.5.1"
+PRUSA_SLICER_LINK=https://github.com/prusa3d/PrusaSlicer/releases/download/version_${PRUSA_SLICER_VERSION}/PrusaSlicer-${PRUSA_SLICER_VERSION}+linux-x64-GTK3-202303151247.AppImage
 if [[ -z $PRUSA_SLICER_VERSION ]]; then
     error_log "getting latest release version for ${PRUSA_SLICER_OUTPUT_FILE} failed"
 else
