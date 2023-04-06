@@ -19,6 +19,7 @@
     c = commit
     ca = commit --amend
     dotfiles = !git --git-dir=$HOME/Git/sroemer/dotfiles/ --work-tree=$HOME
-    lg = !"git log --oneline --graph --decorate --date=iso --all --format=format:'%x09%C(bold dim red)%h%C(reset) %C(green)%ad%C(reset) %C(normal)%s%C(reset) %C(dim white)(%an)%C(reset) %C(cyan)%d%C(reset)'"
+    lg = !"git log --oneline --graph --decorate --date=iso --format=format:'%x09%C(bold dim red)%h%C(reset) %C(green)%ad%C(reset) %C(normal)%s%C(reset) %C(dim white)(%an)%C(reset) %C(cyan)%d%C(reset)'"
+    lga = !"git log --oneline --graph --decorate --date=iso --all --format=format:'%x09%C(bold dim red)%h%C(reset) %C(green)%ad%C(reset) %C(normal)%s%C(reset) %C(dim white)(%an)%C(reset) %C(cyan)%d%C(reset)'"
 [init]
 	defaultBranch = main
