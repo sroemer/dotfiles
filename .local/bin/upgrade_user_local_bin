@@ -68,7 +68,7 @@ if ! [[ -x $(command -v pip) ]]; then
     exit 1
 fi
 log "installing/upgrading python tools"
-if ! pip install --quiet --upgrade --break-system-packages --user pyright nodeenv td-watson pyserial yq khal khard vdirsyncer platformio; then
+if ! pip install --quiet --upgrade --break-system-packages --user pyright nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl; then
     error_log "installing/upgrading python tools failed (pip returned $?)"
 else
     log "installing/upgrading td-watson and nodeenv finished"
