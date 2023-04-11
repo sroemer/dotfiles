@@ -4,6 +4,15 @@
 SCRIPT=$(realpath "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 
+# Parse script parameters
+while getopts ab opts; do
+    case ${opts} in
+        a) OPT_UPDATE_APPIMAGES=1 ;;
+        b) OPT_UPDATE_BINARIES=1 ;;
+        *) ;;
+    esac
+done
+
 # CHECK FOR DOWNLOAD TOOL
 if ! [[ -x $(command -v curl) ]]; then
     error_log "curl required but not available"
@@ -11,105 +20,113 @@ if ! [[ -x $(command -v curl) ]]; then
 fi
 
 # Install/Download AppImages
-APPIMG_INSTALL_SCRIPT=$HOME/.local/bin/appimages/install_appimages
-if [[ -x "$APPIMG_INSTALL_SCRIPT" ]]; then
-    $APPIMG_INSTALL_SCRIPT
-fi
-
-# Install arduino-cli
-ARDUINO_CLI_TEMP_ARCHIVE_FILE="/tmp/arduino-cli.tar.gz"
-ARDUINO_CLI_FILE="arduino-cli"
-ARDUINO_CLI_VERSION=$(get_github_latest_release_version arduino arduino-cli)
-ARDUINO_CLI_LINK="https://github.com/arduino/arduino-cli/releases/download/${ARDUINO_CLI_VERSION}/arduino-cli_${ARDUINO_CLI_VERSION}_Linux_64bit.tar.gz"
-if [[ -z $ARDUINO_CLI_VERSION ]]; then
-    error_log "getting latest release version for ${ARDUINO_CLI_FILE} failed"
+if [[ -z $OPT_UPDATE_APPIMAGES ]]; then
+    log "not updating appimages (use -a if intended)"
 else
-    log "downloading $ARDUINO_CLI_FILE v$ARDUINO_CLI_VERSION"
-    if ! curl -s -L -o "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" "$ARDUINO_CLI_LINK"; then
-        error_log "downloading $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
-    else
-        log "$ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION successfully downloaded"
-        log "extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION"
-        if ! tar -C "$SCRIPT_PATH" -xvzf "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" arduino-cli ; then
-            error_log "extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
-        else
-            log "extracted $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE"
-        fi
-        rm -f "$ARDUINO_CLI_TEMP_ARCHIVE_FILE"
+    APPIMG_INSTALL_SCRIPT=$HOME/.local/bin/appimages/install_appimages
+    if [[ -x "$APPIMG_INSTALL_SCRIPT" ]]; then
+        $APPIMG_INSTALL_SCRIPT
     fi
 fi
 
-# Install arduino-language-server
-ARDUINO_LS_TEMP_ARCHIVE_FILE="/tmp/arduino-language-server.tar.gz"
-ARDUINO_LS_FILE="arduino-language-server"
-ARDUINO_LS_VERSION=$(get_github_latest_release_version arduino arduino-language-server)
-ARDUINO_LS_LINK="https://github.com/arduino/arduino-language-server/releases/download/${ARDUINO_LS_VERSION}/arduino-language-server_${ARDUINO_LS_VERSION}_Linux_64bit.tar.gz"
-if [[ -z $ARDUINO_LS_VERSION ]]; then
-    error_log "getting latest release version for ${ARDUINO_LS_FILE} failed"
+if [[ -z $OPT_UPDATE_BINARIES ]]; then
+    log "not updating binaries (use -b if intended)"
 else
-    log "downloading $ARDUINO_LS_FILE v$ARDUINO_LS_VERSION"
-    if ! curl -s -L -o "$ARDUINO_LS_TEMP_ARCHIVE_FILE" "$ARDUINO_LS_LINK"; then
-        error_log "downloading $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
+    # Install arduino-cli
+    ARDUINO_CLI_TEMP_ARCHIVE_FILE="/tmp/arduino-cli.tar.gz"
+    ARDUINO_CLI_FILE="arduino-cli"
+    ARDUINO_CLI_VERSION=$(get_github_latest_release_version arduino arduino-cli)
+    ARDUINO_CLI_LINK="https://github.com/arduino/arduino-cli/releases/download/${ARDUINO_CLI_VERSION}/arduino-cli_${ARDUINO_CLI_VERSION}_Linux_64bit.tar.gz"
+    if [[ -z $ARDUINO_CLI_VERSION ]]; then
+        error_log "getting latest release version for ${ARDUINO_CLI_FILE} failed"
     else
-        log "$ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION successfully downloaded"
-        log "extracting $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION"
-        if ! tar -C "$SCRIPT_PATH" -xvzf "$ARDUINO_LS_TEMP_ARCHIVE_FILE" arduino-language-server ; then
-            error_log "extracting $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
+        log "downloading $ARDUINO_CLI_FILE v$ARDUINO_CLI_VERSION"
+        if ! curl -s -L -o "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" "$ARDUINO_CLI_LINK"; then
+            error_log "downloading $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
         else
-            log "extracted $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE"
+            log "$ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION successfully downloaded"
+            log "extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION"
+            if ! tar -C "$SCRIPT_PATH" -xvzf "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" arduino-cli ; then
+                error_log "extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
+            else
+                log "extracted $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE"
+            fi
+            rm -f "$ARDUINO_CLI_TEMP_ARCHIVE_FILE"
         fi
-        rm -f "$ARDUINO_LS_TEMP_ARCHIVE_FILE"
     fi
-fi
 
-# Install td-watson and nodejs via python pip
-if ! [[ -x $(command -v pip) ]]; then
-    error_log "pip required but not available"
-    exit 1
-fi
-log "installing/upgrading python tools"
-if ! pip install --quiet --upgrade --break-system-packages --user pyright nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl; then
-    error_log "installing/upgrading python tools failed (pip returned $?)"
+    # Install arduino-language-server
+    ARDUINO_LS_TEMP_ARCHIVE_FILE="/tmp/arduino-language-server.tar.gz"
+    ARDUINO_LS_FILE="arduino-language-server"
+    ARDUINO_LS_VERSION=$(get_github_latest_release_version arduino arduino-language-server)
+    ARDUINO_LS_LINK="https://github.com/arduino/arduino-language-server/releases/download/${ARDUINO_LS_VERSION}/arduino-language-server_${ARDUINO_LS_VERSION}_Linux_64bit.tar.gz"
+    if [[ -z $ARDUINO_LS_VERSION ]]; then
+        error_log "getting latest release version for ${ARDUINO_LS_FILE} failed"
+    else
+        log "downloading $ARDUINO_LS_FILE v$ARDUINO_LS_VERSION"
+        if ! curl -s -L -o "$ARDUINO_LS_TEMP_ARCHIVE_FILE" "$ARDUINO_LS_LINK"; then
+            error_log "downloading $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
+        else
+            log "$ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION successfully downloaded"
+            log "extracting $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION"
+            if ! tar -C "$SCRIPT_PATH" -xvzf "$ARDUINO_LS_TEMP_ARCHIVE_FILE" arduino-language-server ; then
+                error_log "extracting $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
+            else
+                log "extracted $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE"
+            fi
+            rm -f "$ARDUINO_LS_TEMP_ARCHIVE_FILE"
+        fi
+    fi
+
+    # Install td-watson and nodejs via python pip
+    if ! [[ -x $(command -v pip) ]]; then
+        error_log "pip required but not available"
+        exit 1
+    fi
+    log "installing/upgrading python tools"
+    if ! pip install --quiet --upgrade --break-system-packages --user pyright nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl; then
+        error_log "installing/upgrading python tools failed (pip returned $?)"
 else
     log "installing/upgrading td-watson and nodeenv finished"
 
-    # Install nodejs runtime environment and bash-/diagnostic-language-servers
-    NODE_DIR="$HOME/.local/nodejs/"
-    if [[ -d "$NODE_DIR" ]]; then
-        log "removing existing nodejs directory"
-        rm -rf "$NODE_DIR"
-    fi
+        # Install nodejs runtime environment and bash-/diagnostic-language-servers
+        NODE_DIR="$HOME/.local/nodejs/"
+        if [[ -d "$NODE_DIR" ]]; then
+            log "removing existing nodejs directory"
+            rm -rf "$NODE_DIR"
+        fi
 
-    if [[ -d "$NODE_DIR" ]]; then
-        error_log "nodejs installation directory still exists."
-        exit 1
-    else
-        log "installing latest nodejs to $NODE_DIR"
-        nodeenv "$NODE_DIR"
+        if [[ -d "$NODE_DIR" ]]; then
+            error_log "nodejs installation directory still exists."
+            exit 1
+        else
+            log "installing latest nodejs to $NODE_DIR"
+            nodeenv "$NODE_DIR"
 
-        log "activating nodejs environment"
-        # shellcheck source=/dev/null
-        . "$NODE_DIR/bin/activate"
+            log "activating nodejs environment"
+            # shellcheck source=/dev/null
+            . "$NODE_DIR/bin/activate"
 
-        log "installing awk-language-server"
-        npm i -g awk-language-server
+            log "installing awk-language-server"
+            npm i -g awk-language-server
 
-        log "installing bash-language-server"
-        npm i -g bash-language-server
+            log "installing bash-language-server"
+            npm i -g bash-language-server
 
-        log "installing diagnostic-languageserver"
-        npm i -g diagnostic-languageserver
+            log "installing diagnostic-languageserver"
+            npm i -g diagnostic-languageserver
 
-        log "installing vscode-langservers-extracted"
-        npm i -g vscode-langservers-extracted
+            log "installing vscode-langservers-extracted"
+            npm i -g vscode-langservers-extracted
 
-        log "installing yaml-language-server"
-        npm i -g yaml-language-server
+            log "installing yaml-language-server"
+            npm i -g yaml-language-server
 
-        log "installing tree-sitter-cli"
-        npm i -g tree-sitter-cli
+            log "installing tree-sitter-cli"
+            npm i -g tree-sitter-cli
 
-        log "deactivating nodejs environment"
-        deactivate_node
+            log "deactivating nodejs environment"
+            deactivate_node
+        fi
     fi
 fi
