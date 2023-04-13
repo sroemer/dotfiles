@@ -22,15 +22,9 @@ Plug 'SmiteshP/nvim-gps'                                        " show context (
 Plug 'p00f/nvim-ts-rainbow'                                     " rainbow parentheses
 Plug 'neovim/nvim-lspconfig'                                    " configurations for builtin language server client
 Plug 'simrat39/rust-tools.nvim'                                 " extra tools for rust development
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'petertriho/cmp-git'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'rafamadriz/friendly-snippets'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " auto-completion with coc
+Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
+Plug 'rafamadriz/friendly-snippets'                             " snippet collection
 Plug 'phaazon/hop.nvim', { 'branch': 'v1' }                     " hop around - easy motions
 Plug 'romgrk/barbar.nvim'                                       " tab bar on top of the screen
 Plug 'nvim-neorg/neorg'
@@ -93,7 +87,7 @@ lua require('nvim-tree').setup {}
 lua << EOF
 require('nvim-treesitter.configs').setup {
     -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-    ensure_installed = { "bash", "c", "cmake", "cpp", "css", "diff", "git_rebase", "html", "javascript", "json", "lua", "make", "markdown","markdown_inline", "python", "regex", "rust", "scss", "toml", "vim", "yaml" },
+    ensure_installed = { "bash", "c", "cmake", "cpp", "css", "diff", "git_rebase", "html", "javascript", "json", "lua", "make", "markdown", "markdown_inline", "python", "regex", "rust", "scss", "toml", "vim", "yaml" },
     -- Install languages synchronously (only applied to `ensure_installed`)
     sync_install = false,
     -- autotag
@@ -124,19 +118,17 @@ lua require("nvim-gps").setup()
 
 " setup lsp - using servers for bash,  c/c++, python and rust
 lua << EOF
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
-require('lspconfig').awk_ls.setup { capabilities = capabilities }
-require('lspconfig').bashls.setup { capabilities = capabilities }
-require('lspconfig').cssls.setup { capabilities = capabilities }
-require('lspconfig').clangd.setup { capabilities = capabilities }
-require('lspconfig').jsonls.setup { capabilities = capabilities }
-require('lspconfig').html.setup { capabilities = capabilities }
-require('lspconfig').pyright.setup { capabilities = capabilities }
-require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
-require('lspconfig').yamlls.setup { capabilities = capabilities }
-require('lspconfig').arduino_language_server.setup { capabilities = capabilities }
+require('lspconfig').awk_ls.setup {}
+require('lspconfig').bashls.setup {}
+require('lspconfig').cssls.setup {}
+require('lspconfig').clangd.setup {}
+require('lspconfig').jsonls.setup {}
+require('lspconfig').html.setup {}
+require('lspconfig').pyright.setup {}
+require('lspconfig').rust_analyzer.setup {}
+require('lspconfig').yamlls.setup {}
+require('lspconfig').arduino_language_server.setup {}
 require('lspconfig').diagnosticls.setup{
-    capabilities = capabilities,
     filetypes = { "sh" },
     init_options = {
         linters = require('user/diagnosticls-linters'),
@@ -147,58 +139,6 @@ EOF
 
 " setup rust-tools
 lua require('rust-tools').setup {}
-
-lua << EOF
-
-local cmp = require('cmp')
-cmp.setup {
-    -- REQUIRED - you must specify a snippet engine
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-    mapping = {
-        ['<C-b>'] = cmp.mapping( cmp.mapping.scroll_docs(-4), { 'i', 'c' } ),
-        ['<C-f>'] = cmp.mapping( cmp.mapping.scroll_docs(4), { 'i', 'c' } ),
-        ['<C-Space>'] = cmp.mapping( cmp.mapping.complete(), { 'i', 'c' } ),
-        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        ['<C-e>'] = cmp.mapping {
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        },
-        ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ['<Down>'] = cmp.mapping( function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            else
-                fallback()
-            end
-        end, { "i", "s" }
-        ),
-        ['<Up>'] = cmp.mapping( function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            else
-                fallback()
-            end
-        end, { "i", "s" }
-        ),
-    },
-    sources = cmp.config.sources {
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-        { name = 'buffer' },
-        { name = 'path' },
-        { name = 'cmp_git' },
-    },
-}
--- autopairs: adding brackets when function is selected from completion menu
-local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done( { map_char = { tex = '' } } ) )
--- cmp_git: setup
-require("cmp_git").setup()
-EOF
 
 " setup hop
 lua require('hop').setup {}
@@ -314,14 +254,54 @@ nnoremap <silent> <C-n> :NvimTreeToggle<CR>
 nnoremap <silent> <leader>r :NvimTreeRefresh<CR>
 
 " hop around
-nnoremap <silent> <Leader><Leader>w :HopWord<CR>
-nnoremap <silent> <Leader><Leader>W :HopWordCurrentLine<CR>
-nnoremap <silent> <Leader><Leader>c :HopChar1<CR>
-nnoremap <silent> <Leader><Leader>C :HopChar1CurrentLine<CR>
+nnoremap <silent> <Leader>hw :HopWord<CR>
+nnoremap <silent> <Leader>hW :HopWordCurrentLine<CR>
+nnoremap <silent> <Leader>hc :HopChar1<CR>
+nnoremap <silent> <Leader>hC :HopChar1CurrentLine<CR>
 
 " save file as root
 cmap w!! w !sudo -A tee > /dev/null %<CR>
 
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+            \ : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 "------------------------------------------------------------------------------
 " helper functions
@@ -348,6 +328,10 @@ function MyPreserveState(command)
     call setpos('.', save_cursor)
 endfunction
 
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 
 
