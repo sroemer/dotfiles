@@ -25,7 +25,7 @@ Plug 'simrat39/rust-tools.nvim'                                 " extra tools fo
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " auto-completion with coc
 Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'}
 Plug 'rafamadriz/friendly-snippets'                             " snippet collection
-Plug 'phaazon/hop.nvim', { 'branch': 'v1' }                     " hop around - easy motions
+Plug 'phaazon/hop.nvim', { 'branch': 'v2' }                     " hop around - easy motions
 Plug 'romgrk/barbar.nvim'                                       " tab bar on top of the screen
 Plug 'nvim-neorg/neorg'
 call plug#end()
