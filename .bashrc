@@ -71,6 +71,8 @@ alias ssh='TERM=xterm ssh'
 
 alias open='xdg-open'
 
+alias :q='exit'
+
 # automatically use git dotfiles alias in home directory
 git() {
     if [[ "$PWD" == "$HOME" ]]; then
