@@ -78,32 +78,6 @@ else
         fi
     fi
 
-    # Install rust-analyzer
-    RUST_ANALYZER_RUSTUP_FILE="$HOME/.cargo/bin/rust-analyzer"
-    RUST_ANALYZER_TEMP_ARCHIVE_FILE="/tmp/rust-analyzer.gz"
-    RUST_ANALYZER_FILE="rust-analyzer"
-    RUST_ANALYZER_LINK="https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz"
-    if [[ -x $RUST_ANALYZER_RUSTUP_FILE ]]; then
-        log "rust-analyzer already installed by rustup"
-    else
-        log "downloading $RUST_ANALYZER_TEMP_ARCHIVE_FILE"
-        if ! curl -s -L -o "$RUST_ANALYZER_TEMP_ARCHIVE_FILE" "$RUST_ANALYZER_LINK"; then
-            error_log "downloading $RUST_ANALYZER_TEMP_ARCHIVE_FILE failed"
-        else
-            log "$RUST_ANALYZER_TEMP_ARCHIVE_FILE successfully downloaded"
-            log "extracting $RUST_ANALYZER_FILE from $RUST_ANALYZER_TEMP_ARCHIVE_FILE"
-            if ! gunzip -c "$RUST_ANALYZER_TEMP_ARCHIVE_FILE" > "$SCRIPT_PATH"/"$RUST_ANALYZER_FILE"; then
-                error_log "extracting $RUST_ANALYZER_FILE from $RUST_ANALYZER_TEMP_ARCHIVE_FILE failed"
-            else
-                log "extracted $RUST_ANALYZER_FILE from $RUST_ANALYZER_TEMP_ARCHIVE_FILE"
-                chmod +x "$SCRIPT_PATH"/"$RUST_ANALYZER_FILE"
-            fi
-            if [[ -f $RUST_ANALYZER_TEMP_ARCHIVE_FILE ]]; then
-                rm -f "$RUST_ANALYZER_TEMP_ARCHIVE_FILE"
-            fi
-        fi
-    fi
-
     # Install td-watson and nodejs via python pip
     if ! [[ -x $(command -v pip) ]]; then
         error_log "pip required but not available"
