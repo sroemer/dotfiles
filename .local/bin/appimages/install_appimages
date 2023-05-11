@@ -50,20 +50,6 @@ else
     fi
 fi
 
-FREECAD_OUTPUT_FILE="$SCRIPT_PATH/freecad"
-FREECAD_VERSION=$(get_github_latest_release_version FreeCAD FreeCAD)
-FREECAD_LINK=https://github.com/FreeCAD/FreeCAD/releases/download/0.20.2/FreeCAD_0.20.2-2022-12-27-conda-Linux-x86_64-py310.AppImage
-if [[ -z $FREECAD_VERSION ]]; then
-    error_log "getting latest release version for ${FREECAD_OUTPUT_FILE} failed"
-else
-    log "downloading $FREECAD_OUTPUT_FILE v$FREECAD_VERSION"
-    if ! curl -s -L -o "$FREECAD_OUTPUT_FILE" "$FREECAD_LINK"; then
-        error_log "downloading appimage $FREECAD_OUTPUT_FILE failed"
-    else
-        log "$FREECAD_OUTPUT_FILE v$FREECAD_VERSION successfully downloaded"
-    fi
-fi
-
 # MAKE APP IMAGES EXECUTABLE
 log "making appimages executable"
 chmod +x "$SCRIPT_PATH"/*
