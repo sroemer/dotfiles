@@ -41,6 +41,11 @@ if [[ -d ~/.local/bin ]] ; then
     PATH=~/.local/bin:$PATH
 fi
 
+# use input method 'ibus'
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+
 # start sway if we are running on first terminal
 if [ "$(tty)" = "/dev/tty1" ] ; then
     exec dbus-launch --exit-with-session sway

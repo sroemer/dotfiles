@@ -34,9 +34,8 @@ output * bg #003060 solid_color
 ### Notification daemon
 exec mako
 
-### Color correction
-#   (disabled due to not being available in Artix repositories)
-# exec gammastep
+### Intelligent Input Bus (ibus)
+exec ibus-daemon -dr
 
 ### Idle configuration
 #
@@ -69,12 +68,10 @@ exec swayidle -w \
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 input * {
-    xkb_layout "us(altgr-intl),vn(us)"
+    xkb_layout "us(altgr-intl)"
     xkb_options "caps:escape"
     xkb_numlock enabled
 }
-bindsym $mod+Mod1+1 input * xkb_switch_layout 0
-bindsym $mod+Mod1+2 input * xkb_switch_layout 1
 
 input "1267:12479:ELAN1402:00_04F3:30BF_Touchpad" {
         accel_profile adaptive
@@ -272,6 +269,10 @@ bindsym $mod+Mod1+x exec gnumeric
 bindsym $mod+Shift+s exec grim -g "$(slurp)" $HOME/$(date +'grim_%Y-%m-%d_%H-%M-%S.png')
 # Pick color from screen and copy its value to the clipboard
 bindsym $mod+Shift+p exec pick_color.sh
+
+# Select input language
+bindsym $mod+Mod1+1 exec ibus engine xkb:us:altgr-intl:eng
+bindsym $mod+Mod1+2 exec ibus engine Unikey
 
 # enable floating option for firefox picture-in-picture windows automatically
 for_window [title="Picture-in-Picture"] floating enable
