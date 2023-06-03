@@ -255,7 +255,7 @@ bindsym $mod+Mod1+h exec $term -e htop
 # Start CMus
 bindsym $mod+Mod1+l exec $term -e cmus
 # Start Neomutt
-bindsym $mod+Mod1+m exec $term -e neomutt
+bindsym $mod+Mod1+m exec $term -e vifm
 # Start Thunderbird
 bindsym $mod+Mod1+t exec thunderbird
 # Start Neovim
@@ -268,7 +268,7 @@ bindsym $mod+Mod1+x exec gnumeric
 # Screenshot
 bindsym $mod+Shift+s exec grim -g "$(slurp)" $HOME/$(date +'grim_%Y-%m-%d_%H-%M-%S.png')
 # Pick color from screen and copy its value to the clipboard
-bindsym $mod+Shift+p exec pick_color.sh
+bindsym $mod+Shift+p exec pick_color
 
 # Select input language
 bindsym $mod+Mod1+1 exec ibus engine xkb:us:altgr-intl:eng
