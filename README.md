@@ -16,15 +16,23 @@ For working with such a bare repository you need to setup a work tree separate f
 The nice thing about using a bare repository for 'dotfiles' is that $HOME directly can be
 used as the work tree while the repository can be located wherever wanted.
 
-I use $HOME/Git/sroemer/dotfiles/ for the 'dotfiles' repository and set the work tree to
+I use $HOME/Git/sroemer/dotfiles.bare/ for the 'dotfiles' repository and set the work tree to
 $HOME. The git parameters --git-dir and --work-tree are used for that.
+
+For cloning the repository and setting up the configurations I call following commands from
+the home directory:
+```
+git clone --bare git@github.com:sroemer/dotfiles.git $HOME/Git/sroemer/dotfiles.bare
+git --git-dir=$HOME/Git/sroemer/dotfiles.bare config --local status.showUntrackedFiles no
+git --git-dir=$HOME/Git/sroemer/dotfiles.bare/ --work-tree=$HOME checkout
+```
 
 For comfort and usability my configurations contain some magic dust:
 
 1.) There is an alias 'dotfiles' defined in my `.gitconfig` file:
 ```gitconfig
 [alias]
-    dotfiles = !git --git-dir=$HOME/Git/sroemer/dotfiles/ --work-tree=$HOME
+    dotfiles = !git --git-dir=$HOME/Git/sroemer/dotfiles.bare/ --work-tree=$HOME
 ```
 
 2.) A wrapper function in my `.bashrc` automatically selects the right git call.
@@ -38,8 +46,6 @@ git() {
     fi
 }
 ```
-
-
 
 #### License
 
