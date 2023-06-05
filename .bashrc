@@ -89,3 +89,7 @@ parse_git_branch() {
 if [[ "$XDG_SESSION_TYPE" != "tty" ]]; then
     export PS1='\[\033]0;\u@\h:\w\007\]\[\033[01;32m\]  \u \[\033[01;34m\] \w \[\033[01;33m\]$(parse_git_branch) \[\033[01;34m\]\$ \[\033[00m\]'
 fi
+
+# set tty to use for gnupg
+GPG_TTY=$(tty)
+export GPG_TTY
