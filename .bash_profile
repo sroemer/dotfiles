@@ -10,16 +10,10 @@ if [[ -z "${XDG_RUNTIME_DIR}" ]]; then
     fi
 fi
 
-# start ssh-agent on login and ensure just one instance is running
-SSH_ENV="$XDG_RUNTIME_DIR/ssh-agent.env"
-if pgrep -u "$USER" ssh-agent >/dev/null; then
-    pkill -u "$USER" ssh-agent >/dev/null
-fi
-if ! pgrep -u "$USER" ssh-agent >/dev/null; then
-    ssh-agent -t 1h > "$SSH_ENV"
-    # shellcheck source=/dev/null
-    source "$SSH_ENV" >/dev/null
-fi
+# start gpg-agent on login (replacing ssh-agent)
+SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export SSH_AUTH_SOCK
+gpgconf --launch gpg-agent
 
 # This file is sourced by bash for login shells.  The following line
 # runs your .bashrc and is recommended by the bash info pages.
