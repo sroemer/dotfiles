@@ -148,6 +148,14 @@ require('neorg').setup {
     load = {
         ["core.defaults"] = {},
         ["core.concealer"] = {},
+        ["core.dirman"] = {
+            config = {
+                workspaces = {
+                    notes = "~/Git/sroemer/note-taking/",
+                },
+                default_workspace = "notes",
+            },
+        },
     }
 }
 EOF
@@ -258,6 +266,10 @@ nnoremap <silent> <Leader>hw :HopWord<CR>
 nnoremap <silent> <Leader>hW :HopWordCurrentLine<CR>
 nnoremap <silent> <Leader>hc :HopChar1<CR>
 nnoremap <silent> <Leader>hC :HopChar1CurrentLine<CR>
+
+" neorg notes
+nnoremap <silent> <leader>ni :Neorg index<CR>
+nnoremap <silent> <leader>nr :Neorg return<CR>
 
 " save file as root
 cmap w!! w !sudo -A tee > /dev/null %<CR>
