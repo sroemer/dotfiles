@@ -30,14 +30,14 @@ volume master {
 }
 
 ethernet _first_ {
-        format_up = " %ip (%speed)"
-        format_down = ""
+        format_up = "󱊪 %ip (%speed)"
+        format_down = "󰌙"
         separator_block_width = 30
 }
 
 wireless _first_ {
-        format_up = " %quality ('%essid' %ip)"
-        format_down = "睊"
+        format_up = "󱚽 %quality ('%essid' %ip)"
+        format_down = "󱛅"
         separator_block_width = 30
 }
 
