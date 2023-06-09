@@ -3,7 +3,7 @@
 "------------------------------------------------------------------------------
 call plug#begin()
 Plug 'tanvirtin/monokai.nvim'                                   " colorscheme
-Plug 'kyazdani42/nvim-web-devicons'                             " icons - req. patched font
+Plug 'nvim-tree/nvim-web-devicons'                              " icons - req. patched font
 Plug 'tpope/vim-repeat'                                         " repeatable plugin commands
 Plug 'tpope/vim-speeddating'                                    " <C-A>/<C-X> for date/times
 Plug 'tversteeg/registers.nvim'                                 " show register content when accessing registers
@@ -16,7 +16,7 @@ Plug 'nvim-telescope/telescope.nvim'                            " fuzzy finder
 Plug 'lewis6991/gitsigns.nvim'                                  " git decorations
 Plug 'tveskag/nvim-blame-line'                                  " git blame for current line
 Plug 'akinsho/nvim-toggleterm.lua'                              " terminal window
-Plug 'kyazdani42/nvim-tree.lua'                                 " file explorer
+Plug 'nvim-tree/nvim-tree.lua'                                  " file explorer
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " treesitter for syntax highlight etc.
 Plug 'p00f/nvim-ts-rainbow'                                     " rainbow parentheses
 Plug 'neovim/nvim-lspconfig'                                    " configurations for builtin language server client
