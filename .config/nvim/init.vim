@@ -18,7 +18,6 @@ Plug 'tveskag/nvim-blame-line'                                  " git blame for 
 Plug 'akinsho/nvim-toggleterm.lua'                              " terminal window
 Plug 'kyazdani42/nvim-tree.lua'                                 " file explorer
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}     " treesitter for syntax highlight etc.
-Plug 'SmiteshP/nvim-gps'                                        " show context (function etc.) in statusline
 Plug 'p00f/nvim-ts-rainbow'                                     " rainbow parentheses
 Plug 'neovim/nvim-lspconfig'                                    " configurations for builtin language server client
 Plug 'simrat39/rust-tools.nvim'                                 " extra tools for rust development
@@ -46,10 +45,8 @@ lua require('nvim-autopairs').setup {}
 
 " setup lualine
 lua << EOF
-local gps = require("nvim-gps")
 require('lualine').setup {
     options = { theme = 'codedark', },
-    sections = { lualine_c = { { gps.get_location, cond = gps.is_available, }, }, },
 }
 EOF
 
@@ -112,9 +109,6 @@ require('nvim-treesitter.configs').setup {
     },
 }
 EOF
-
-" setup nvim-gps for showing context in statusbar
-lua require("nvim-gps").setup()
 
 " setup lsp - using servers for bash,  c/c++, python and rust
 lua << EOF
@@ -214,7 +208,8 @@ au InsertLeave * :set relativenumber
 "------------------------------------------------------------------------------
 " key mappings
 "------------------------------------------------------------------------------
-let mapleader=","                    " leader is comma
+let mapleader="\\"              " leader is backslash
+let maplocalleader=","          " local leader is backslash
 
 " disable highlighting search results
 nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
