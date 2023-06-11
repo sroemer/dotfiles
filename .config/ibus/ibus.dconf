@@ -3,7 +3,7 @@
 # - Load settings from file with:
 #   dconf load /desktop/ibus/ < ~/.config/ibus/ibus.dconf
 [general]
-preload-engines=@as ['xkb:us:altgr-intl:eng', 'Unikey']
-engines-order=@as ['xkb:us:altgr-intl:eng', 'Unikey']
+preload-engines=@as ['xkb:us:altgr-intl:eng']
+engines-order=@as ['xkb:us:altgr-intl:eng']
 enable-by-default=false
 version='1.5.27'
