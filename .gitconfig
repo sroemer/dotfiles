@@ -1,7 +1,5 @@
-[user]
-	name = Stefan Römer
-	email = sroemer@github.com
-	signingkey = 1B2F863656B381335B965E708012A30B3812F2EE
+[include]
+    path = ~/.gitconfig-user
 [diff]
 	tool = meld
 [merge]
