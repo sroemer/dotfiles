@@ -1,1 +1,2 @@
+.gitattributes !filter !diff
 .gitconfig-user filter=git-crypt diff=git-crypt
