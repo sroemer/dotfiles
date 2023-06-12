@@ -73,15 +73,6 @@ alias open='xdg-open'
 
 alias :q='exit'
 
-# automatically use git dotfiles alias in home directory
-git() {
-    if [[ "$PWD" == "$HOME" ]]; then
-        /usr/bin/git dotfiles "$@"
-    else
-        /usr/bin/git "$@"
-    fi
-}
-
 # set PS1 and show git branch if we are not in a tty session
 parse_git_branch() {
     git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
