@@ -1,51 +1,42 @@
 # dotfiles
 
-A git repository to keep track of my configurations, scripts, etc.
+A git repository to synchronize and keep track of my configurations, scripts, etc.
 
 
 
-#### What is a bare git repository and why to use it for 'dotfiles'?
+#### How do I use it?
 
-The default way of working with a git repository is having a directory which contains
-the work tree (the files you work on and keep track of) and an additional .git directory
-in which git stores its data.
+While in the past the repository was intended to be used as a bare git repository I
+switched to using a regular repository directly within my home directory. The main
+reason for the switch was git-crypt not working with my previous approach.
 
-A bare repository essentially consists of **only** the contents of this .git directory.
-For working with such a bare repository you need to setup a work tree separate from it.
-
-The nice thing about using a bare repository for 'dotfiles' is that $HOME directly can be
-used as the work tree while the repository can be located wherever wanted.
-
-I use $HOME/Git/sroemer/dotfiles.bare/ for the 'dotfiles' repository and set the work tree to
-$HOME. The git parameters --git-dir and --work-tree are used for that.
-
-For cloning the repository and setting up the configurations I call following commands from
-the home directory:
+For setting up a new machine, I run the following commands in my home directory:
 ```
-git clone --bare git@github.com:sroemer/dotfiles.git $HOME/Git/sroemer/dotfiles.bare
-git --git-dir=$HOME/Git/sroemer/dotfiles.bare config --local status.showUntrackedFiles no
-git --git-dir=$HOME/Git/sroemer/dotfiles.bare/ --work-tree=$HOME checkout
+git clone git@github.com:sroemer/dotfiles.git .
+git config --local status.showUntrackedFiles no
+git-crypt unlock
 ```
 
-For comfort and usability my configurations contain some magic dust:
+The call of `git-crypt unlock` requires my private gpg key which is only on my
+Yubikey and stored at a safe place guarded by Orcs - good luck with that ;)
 
-1.) There is an alias 'dotfiles' defined in my `.gitconfig` file:
-```gitconfig
-[alias]
-    dotfiles = !git --git-dir=$HOME/Git/sroemer/dotfiles.bare/ --work-tree=$HOME
-```
 
-2.) A wrapper function in my `.bashrc` automatically selects the right git call.
-```bash
-# automatically use git dotfiles alias in home directory
-git() {
-    if [[ "$PWD" == "$HOME" ]]; then
-        /usr/bin/git dotfiles "$@"
-    else
-        /usr/bin/git "$@"
-    fi
-}
-```
+
+#### What is git-crypt and why to use it for 'dotfiles'?
+
+When keeping track of configuration files and scripts in a git repository
+sooner or later you will find yourself in a situation where you also would
+like to synchronize some kind of sensitive information.
+
+This could be API keys, passwords or keys that obviously shouldn't be shared
+publicly. In my case the primary usecase is to hide my email address from
+robots crawling around for collecting it and sending spam.
+
+[git-crypt](https://github.com/AGWA/git-crypt) allows you to selectively
+choose files to protect. Those files then will be encrypted when commited
+and decrypted when checked out.
+
+
 
 #### License
 
