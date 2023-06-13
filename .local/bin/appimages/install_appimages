@@ -5,21 +5,6 @@ SCRIPT=$(realpath "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 log "installing/upgrading appimages"
 
-# DOWNLOAD APPIMAGES
-ARDUINO_OUTPUT_FILE="$SCRIPT_PATH/arduino-ide"
-ARDUINO_VERSION=$(get_github_latest_release_version arduino arduino-ide)
-ARDUINO_LINK="https://github.com/arduino/arduino-ide/releases/download/${ARDUINO_VERSION}/arduino-ide_${ARDUINO_VERSION}_Linux_64bit.AppImage"
-if [[ -z $ARDUINO_VERSION ]]; then
-    error_log "getting latest release version for ${ARDUINO_OUTPUT_FILE} failed"
-else
-    log "downloading $ARDUINO_OUTPUT_FILE v$ARDUINO_VERSION"
-    if ! curl -s -L -o "$ARDUINO_OUTPUT_FILE" "$ARDUINO_LINK"; then
-        error_log "downloading appimage $ARDUINO_OUTPUT_FILE failed"
-    else
-        log "$ARDUINO_OUTPUT_FILE v$ARDUINO_VERSION successfully downloaded"
-    fi
-fi
-
 MQTT_EXPLORER_OUTPUT_FILE="$SCRIPT_PATH/mqtt-explorer"
 # MQTT_EXPLORER_VERSION=$(get_github_latest_release_version thomasnordquist MQTT-Explorer)
 # Use fix version due to latest release version being an outdated version and we want the beta
