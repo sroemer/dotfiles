@@ -121,7 +121,6 @@ require('lspconfig').html.setup {}
 require('lspconfig').pyright.setup {}
 require('lspconfig').rust_analyzer.setup {}
 require('lspconfig').yamlls.setup {}
-require('lspconfig').arduino_language_server.setup {}
 require('lspconfig').diagnosticls.setup{
     filetypes = { "sh" },
     init_options = {

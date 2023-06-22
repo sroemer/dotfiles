@@ -3,6 +3,7 @@
 . ~/.local/lib/lib_bash_utils.sh
 SCRIPT=$(realpath "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
+log "detected script path is ${SCRIPT_PATH}"
 
 # Parse script parameters
 while getopts ab opts; do
@@ -32,52 +33,6 @@ fi
 if [[ -z $OPT_UPDATE_BINARIES ]]; then
     log "not updating binaries (use -b if intended)"
 else
-    # Install arduino-cli
-    ARDUINO_CLI_TEMP_ARCHIVE_FILE="/tmp/arduino-cli.tar.gz"
-    ARDUINO_CLI_FILE="arduino-cli"
-    ARDUINO_CLI_VERSION=$(get_github_latest_release_version arduino arduino-cli)
-    ARDUINO_CLI_LINK="https://github.com/arduino/arduino-cli/releases/download/${ARDUINO_CLI_VERSION}/arduino-cli_${ARDUINO_CLI_VERSION}_Linux_64bit.tar.gz"
-    if [[ -z $ARDUINO_CLI_VERSION ]]; then
-        error_log "getting latest release version for ${ARDUINO_CLI_FILE} failed"
-    else
-        log "downloading $ARDUINO_CLI_FILE v$ARDUINO_CLI_VERSION"
-        if ! curl -s -L -o "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" "$ARDUINO_CLI_LINK"; then
-            error_log "downloading $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
-        else
-            log "$ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION successfully downloaded"
-            log "extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE v$ARDUINO_CLI_VERSION"
-            if ! tar -C "$SCRIPT_PATH" -xvzf "$ARDUINO_CLI_TEMP_ARCHIVE_FILE" arduino-cli ; then
-                error_log "extracting $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE failed"
-            else
-                log "extracted $ARDUINO_CLI_FILE from $ARDUINO_CLI_TEMP_ARCHIVE_FILE"
-            fi
-            rm -f "$ARDUINO_CLI_TEMP_ARCHIVE_FILE"
-        fi
-    fi
-
-    # Install arduino-language-server
-    ARDUINO_LS_TEMP_ARCHIVE_FILE="/tmp/arduino-language-server.tar.gz"
-    ARDUINO_LS_FILE="arduino-language-server"
-    ARDUINO_LS_VERSION=$(get_github_latest_release_version arduino arduino-language-server)
-    ARDUINO_LS_LINK="https://github.com/arduino/arduino-language-server/releases/download/${ARDUINO_LS_VERSION}/arduino-language-server_${ARDUINO_LS_VERSION}_Linux_64bit.tar.gz"
-    if [[ -z $ARDUINO_LS_VERSION ]]; then
-        error_log "getting latest release version for ${ARDUINO_LS_FILE} failed"
-    else
-        log "downloading $ARDUINO_LS_FILE v$ARDUINO_LS_VERSION"
-        if ! curl -s -L -o "$ARDUINO_LS_TEMP_ARCHIVE_FILE" "$ARDUINO_LS_LINK"; then
-            error_log "downloading $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
-        else
-            log "$ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION successfully downloaded"
-            log "extracting $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE v$ARDUINO_LS_VERSION"
-            if ! tar -C "$SCRIPT_PATH" -xvzf "$ARDUINO_LS_TEMP_ARCHIVE_FILE" arduino-language-server ; then
-                error_log "extracting $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE failed"
-            else
-                log "extracted $ARDUINO_LS_FILE from $ARDUINO_LS_TEMP_ARCHIVE_FILE"
-            fi
-            rm -f "$ARDUINO_LS_TEMP_ARCHIVE_FILE"
-        fi
-    fi
-
     # Update Rust via rustup
     if ! which rustup; then
         error_log "Cannot update Rust due to rustup not being available"
