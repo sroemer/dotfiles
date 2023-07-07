@@ -16,7 +16,7 @@
     type = "carddav"
     url = "https://dav.senvang.org/"
     username = "sroemer"
-    password.fetch = ["prompt", "Password for carddav server"]
+    password.fetch = ["shell", "pass Infrastructure/Dav/login | head -n1"]
 
 [pair calendar]
     a = "calendar_local"
@@ -33,4 +33,4 @@
     type = "caldav"
     url = "https://dav.senvang.org/"
     username = "sroemer"
-    password.fetch = ["prompt", "Password for caldav server"]
+    password.fetch = ["shell", "pass Infrastructure/Dav/login | head -n1"]
