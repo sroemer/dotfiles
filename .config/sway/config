@@ -274,5 +274,10 @@ bindsym $mod+Shift+p exec pick_color
 bindsym $mod+Mod1+1 exec ibus engine xkb:us:altgr-intl:eng
 bindsym $mod+Mod1+2 exec ibus engine Unikey
 
+# Volume control
+bindsym XF86AudioMute exec amixer sset Master toggle
+bindsym XF86AudioRaiseVolume exec amixer sset Master 1dB+
+bindsym XF86AudioLowerVolume exec amixer sset Master 1dB-
+
 # enable floating option for firefox picture-in-picture windows automatically
 for_window [title="Picture-in-Picture"] floating enable
