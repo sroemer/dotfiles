@@ -1,0 +1,44 @@
+#!/bin/bash
+# shellcheck source=/dev/null
+. ~/.local/lib/lib_bash_utils.sh
+
+# check for xdg-open tool
+if ! [[ -x $(command -v xdg-open) ]]; then
+    error_log "xdg-open required but not available"
+    exit 1
+fi
+
+# check for gpg command
+if ! [[ -x $(command -v gpg) ]]; then
+    error_log "gpg required but not available"
+    exit 1
+fi
+
+# verify number of parameters
+if [[ $# != 1 ]]; then
+    error_log "invalid number of parameters"
+    echo "usage: gpg-open encrypted-file"
+    exit 1
+fi
+
+# verify file ending on '.gpg'
+if [[ $1 != *.gpg ]]; then
+    error_log "invalid input file (gpg file expected)"
+    exit 1
+fi
+
+ENCRYPTED_FILE=$1
+ORIGINAL_FILE="${ENCRYPTED_FILE%.*}"
+DECRYPT_PATH=$XDG_RUNTIME_DIR
+DECRYPTED_FILE=$DECRYPT_PATH/${ORIGINAL_FILE##*/}
+
+log "opening encrypted file $ENCRYPTED_FILE"
+
+log "decrypting file to $DECRYPTED_FILE"
+gpg --output "$DECRYPTED_FILE" --decrypt "$ENCRYPTED_FILE"
+
+log "opening decrypted file $DECRYPTED_FILE"
+xdg-open "$DECRYPTED_FILE"
+
+log "removing decrypted file $DECRYPTED_FILE"
+rm -f "$DECRYPTED_FILE"
