@@ -281,3 +281,4 @@ bindsym XF86AudioLowerVolume exec amixer sset Master 1dB-
 
 # enable floating option for firefox picture-in-picture windows automatically
 for_window [title="Picture-in-Picture"] floating enable
+for_window [title=".* - mpv"] floating enable
