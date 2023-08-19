@@ -12,6 +12,9 @@ function log() {
 function error_log() {
     echo "ERROR: $*" >&2
 }
+function warn_log() {
+    echo "WARN : $*"
+}
 
 ###
 # Request latest release version of Github repository
