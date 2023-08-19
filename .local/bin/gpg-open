@@ -2,6 +2,20 @@
 # shellcheck source=/dev/null
 . ~/.local/lib/lib_bash_utils.sh
 
+# Print script usage information
+function print_usage() {
+    echo "usage: gpg-open [OPTION] GPG-FILE"
+    echo "    -k            keep decrypted file"
+}
+
+# Parse script parameters
+while getopts k opts; do
+    case ${opts} in
+        k) OPT_KEEP_FILE_DECRYPTED=1 ;;
+        *) ;;
+    esac
+done
+
 # check for xdg-open tool
 if ! [[ -x $(command -v xdg-open) ]]; then
     error_log "xdg-open required but not available"
@@ -15,30 +29,41 @@ if ! [[ -x $(command -v gpg) ]]; then
 fi
 
 # verify number of parameters
-if [[ $# != 1 ]]; then
+if [[ $# -lt 1 ]]; then
     error_log "invalid number of parameters"
-    echo "usage: gpg-open encrypted-file"
+    print_usage
     exit 1
 fi
 
-# verify file ending on '.gpg'
-if [[ $1 != *.gpg ]]; then
-    error_log "invalid input file (gpg file expected)"
-    exit 1
-fi
-
-ENCRYPTED_FILE=$1
+ENCRYPTED_FILE=${*: -1}
 ORIGINAL_FILE="${ENCRYPTED_FILE%.*}"
 DECRYPT_PATH=$XDG_RUNTIME_DIR
 DECRYPTED_FILE=$DECRYPT_PATH/${ORIGINAL_FILE##*/}
 
-log "opening encrypted file $ENCRYPTED_FILE"
+# verify file ending on '.gpg'
+if [[ $ENCRYPTED_FILE != *.gpg ]]; then
+    error_log "invalid input file (gpg file expected)"
+    exit 1
+fi
 
-log "decrypting file to $DECRYPTED_FILE"
-gpg --output "$DECRYPTED_FILE" --decrypt "$ENCRYPTED_FILE"
+# verify that file exists
+if ! [[ -e $ENCRYPTED_FILE ]]; then
+    error_log "input file '$ENCRYPTED_FILE' does not exist"
+    exit 1
+fi
+
+log "decrypting file $ENCRYPTED_FILE to $DECRYPTED_FILE"
+if ! gpg --output "$DECRYPTED_FILE" --decrypt "$ENCRYPTED_FILE"; then
+    error_log "gpg decrypt operation failed"
+    exit 1
+fi
 
 log "opening decrypted file $DECRYPTED_FILE"
 xdg-open "$DECRYPTED_FILE"
 
-log "removing decrypted file $DECRYPTED_FILE"
-rm -f "$DECRYPTED_FILE"
+if [[ -z $OPT_KEEP_FILE_DECRYPTED ]]; then
+    log "removing decrypted file $DECRYPTED_FILE"
+    rm -f "$DECRYPTED_FILE"
+else
+    warn_log "decrypted file $DECRYPTED_FILE not removed"
+fi
