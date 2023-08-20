@@ -10,10 +10,10 @@ function log() {
     echo "INFO : $*"
 }
 function error_log() {
-    echo "ERROR: $*" >&2
+    echo -e "\e[1;31mERROR: $*\e[0m" >&2
 }
 function warn_log() {
-    echo "WARN : $*"
+    echo -e "\e[1;33mWARN : $*\e[0m"
 }
 
 ###
