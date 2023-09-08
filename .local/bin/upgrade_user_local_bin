@@ -42,6 +42,12 @@ else
             error_log "Updating Rust with rustup failed"
         else
             log "Successfully updated Rust with rustup"
+
+            if ! rustup component add rust-analyzer; then
+                error_log "Adding component 'rust-analyzer' with rustup failed"
+            else
+                log "Successfully added component 'rust-analyzer' with rustup"
+            fi
         fi
     fi
 
