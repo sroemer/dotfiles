@@ -65,7 +65,7 @@ alias Gp='git push'
 alias Gpl='git pull'
 
 alias mutt='neomutt'
-alias vim='nvim'
+alias vi='hx'
 
 alias ssh='TERM=xterm ssh'
 

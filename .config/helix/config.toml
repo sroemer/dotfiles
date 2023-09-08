@@ -1,0 +1,25 @@
+theme = "molokai"
+
+[editor]
+color-modes = true
+cursorcolumn = true
+cursorline = true
+line-number = "relative"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+render = true
+
+[editor.soft-wrap]
+enable = true
+
+[editor.statusline]
+left = ["spinner", "mode", "version-control", "file-name", "file-modification-indicator"]
+right = ["file-encoding", "file-line-ending", "file-type", "diagnostics", "selections", "position", "position-percentage"]
+
+[editor.whitespace]
+render = "all"

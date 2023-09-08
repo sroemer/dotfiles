@@ -248,6 +248,8 @@ bindsym $mod+Mod1+a exec $term -e alsamixer
 bindsym $mod+Mod1+b exec $term -e bc -q
 # Start Calcurse
 bindsym $mod+Mod1+c exec $term -e calcurse
+# Start Helix
+bindsym $mod+Mod1+e exec $term -e hx
 # Start Firefox
 bindsym $mod+Mod1+f exec firefox
 # Start Htop
@@ -258,8 +260,6 @@ bindsym $mod+Mod1+l exec $term -e cmus
 bindsym $mod+Mod1+m exec $term -e vifm
 # Start Thunderbird
 bindsym $mod+Mod1+t exec thunderbird
-# Start Neovim
-bindsym $mod+Mod1+v exec $term -e nvim
 # Start Abiword
 bindsym $mod+Mod1+w exec abiword
 # Start Gnumeric
