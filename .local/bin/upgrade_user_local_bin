@@ -57,10 +57,10 @@ else
         exit 1
     fi
     log "installing/upgrading python tools"
-    if ! pip install --quiet --upgrade --break-system-packages --user pyright nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl; then
+    if ! pip install --quiet --upgrade --break-system-packages --user pyright python-lsp-server nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl; then
         error_log "installing/upgrading python tools failed (pip returned $?)"
 else
-    log "installing/upgrading td-watson and nodeenv finished"
+    log "installing/upgrading python tools finished"
 
         # Install nodejs runtime environment and bash-/diagnostic-language-servers
         NODE_DIR="$HOME/.local/nodejs/"
