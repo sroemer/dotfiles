@@ -197,9 +197,14 @@ focus_follows_mouse yes
 
     # Move the floating terminal window to the scratchpad
     for_window [title=$float-term-title]  move container to scratchpad
+    for_window [title=$float-term-title]  border pixel 20
 
     # Show/Hide the floating terminal window with width and height of 80%
-    bindsym $mod+backslash scratchpad show, resize set width 80ppt, resize set height 80ppt 
+    bindsym $mod+backslash scratchpad show, \
+                            resize set width 80ppt, \
+                            resize set height 80ppt, \
+                            move position 10ppt 0ppt
+
 #
 # Resizing containers:
 #
