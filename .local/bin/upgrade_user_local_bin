@@ -33,6 +33,25 @@ fi
 if [[ -z $OPT_UPDATE_BINARIES ]]; then
     log "not updating binaries (use -b if intended)"
 else
+    # Update Marksman (markdown language server)
+    MARKSMAN_OUTPUT_FILE="$SCRIPT_PATH/marksman"
+    MARKSMAN_OWNER="artempyanykh"
+    MARKSMAN_REPOSITORY="marksman"
+    MARKSMAN_VERSION=$(get_github_latest_release_version $MARKSMAN_OWNER $MARKSMAN_REPOSITORY)
+    MARKSMAN_LINK=""https://github.com/${MARKSMAN_OWNER}/${MARKSMAN_REPOSITORY}/releases/download/${MARKSMAN_VERSION}/marksman-linux-x64
+    if [[ -z $MARKSMAN_VERSION ]]; then
+        error_log "getting latest release version for ${MARKSMAN_OUTPUT_FILE} failed"
+    else
+        log "downloading $MARKSMAN_OUTPUT_FILE $MARKSMAN_VERSION"
+        if ! curl -s -L -o "$MARKSMAN_OUTPUT_FILE" "$MARKSMAN_LINK"; then
+            error_log "downloading binary $MARKSMAN_OUTPUT_FILE failed"
+        else
+            log "$MARKSMAN_OUTPUT_FILE v$MARKSMAN_VERSION successfully downloaded"
+            chmod +x "$MARKSMAN_OUTPUT_FILE"
+        fi
+    fi
+    exit 0
+    
     # Update Rust via rustup
     if ! which rustup; then
         error_log "Cannot update Rust due to rustup not being available"
@@ -59,8 +78,8 @@ else
     log "installing/upgrading python tools"
     if ! pip install --quiet --upgrade --break-system-packages --user pyright python-lsp-server nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl; then
         error_log "installing/upgrading python tools failed (pip returned $?)"
-else
-    log "installing/upgrading python tools finished"
+    else
+        log "installing/upgrading python tools finished"
 
         # Install nodejs runtime environment and bash-/diagnostic-language-servers
         NODE_DIR="$HOME/.local/nodejs/"
