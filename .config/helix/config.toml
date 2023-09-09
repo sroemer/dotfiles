@@ -21,5 +21,9 @@ enable = true
 left = ["spinner", "mode", "version-control", "file-name", "file-modification-indicator"]
 right = ["file-encoding", "file-line-ending", "file-type", "diagnostics", "selections", "position", "position-percentage"]
 
-[editor.whitespace]
-render = "all"
+[editor.whitespace.render]
+nbsp= "all"
+newline = "all"
+space = "none"
+tab = "all"
+tabpad = "."
