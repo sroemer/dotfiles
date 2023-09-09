@@ -50,7 +50,6 @@ else
             chmod +x "$MARKSMAN_OUTPUT_FILE"
         fi
     fi
-    exit 0
     
     # Update Rust via rustup
     if ! which rustup; then
