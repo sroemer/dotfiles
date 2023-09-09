@@ -15,6 +15,10 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term alacritty
+# Start floating terminal with specific title
+# and later move it to the scratchpad automatically
+set $float-term-title " - Floating Terminal - "
+exec $term -t $float-term-title
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -191,12 +195,11 @@ focus_follows_mouse yes
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
 
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
+    # Move the floating terminal window to the scratchpad
+    for_window [title=$float-term-title]  move container to scratchpad
 
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+    # Show/Hide the floating terminal window with width and height of 80%
+    bindsym $mod+backslash scratchpad show, resize set width 80ppt, resize set height 80ppt 
 #
 # Resizing containers:
 #
