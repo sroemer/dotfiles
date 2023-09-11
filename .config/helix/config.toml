@@ -40,3 +40,6 @@ o = ":config-open"                            # open helix configuration file
 p = ":open ~/.bash_profile"                   # open .bash_profile file
 r = ":config-reload"                          # refresh helix configuration
 s = ":open ~/.config/sway/config"             # open sway configuration file
+
+[keys.normal."\\".n]
+i = ":open ~/Git/sroemer/note-taking/index.md"
