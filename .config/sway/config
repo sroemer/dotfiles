@@ -18,7 +18,7 @@ set $term alacritty
 # Start floating terminal with specific title
 # and later move it to the scratchpad automatically
 set $float-term-title " - Floating Terminal - "
-exec $term -t $float-term-title
+exec sway_floating_terminal -t $float-term-title
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
