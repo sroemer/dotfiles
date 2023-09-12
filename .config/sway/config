@@ -13,12 +13,9 @@ set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
+# Set terminal emulator and specific id for floating terminal in scratchpad
 set $term alacritty
-# Start floating terminal with specific title
-# and later move it to the scratchpad automatically
-set $float-term-title " - Floating Terminal - "
-exec sway_floating_terminal -t $float-term-title
+set $float-term-class "SwayFloatingTerminal"
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -192,19 +189,11 @@ focus_follows_mouse yes
 #
 # Scratchpad:
 #
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
+    # Move the floating terminal window to the scratchpad and set border
+    for_window [app_id=$float-term-class] move container to scratchpad, border pixel 20
 
-    # Move the floating terminal window to the scratchpad
-    for_window [title=$float-term-title]  move container to scratchpad
-    for_window [title=$float-term-title]  border pixel 20
-
-    # Show/Hide the floating terminal window with width and height of 80%
-    bindsym $mod+backslash scratchpad show, \
-                            resize set width 80ppt, \
-                            resize set height 80ppt, \
-                            move position 10ppt 0ppt
-
+    # Show/Hide the floating terminal window with specific width and height
+    bindsym $mod+backslash exec sway_floating_terminal -t alacritty -c $float-term-class
 #
 # Resizing containers:
 #
@@ -287,6 +276,8 @@ bindsym XF86AudioMute exec amixer sset Master toggle
 bindsym XF86AudioRaiseVolume exec amixer sset Master 1dB+
 bindsym XF86AudioLowerVolume exec amixer sset Master 1dB-
 
-# enable floating option for firefox picture-in-picture windows automatically
-for_window [title="Picture-in-Picture"] floating enable
-for_window [title=".* - mpv"] floating enable
+# enable floating option for some specific windows automatically
+for_window {
+    [title="Picture-in-Picture"] floating enable
+    [title=".* - mpv"] floating enable
+}

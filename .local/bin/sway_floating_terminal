@@ -1,5 +1,29 @@
 #!/bin/bash
-while [ true ]; do 
-    alacritty "$@"
-    sleep 1
+
+# Parse script parameters
+while getopts "c:t:" opts; do
+    case ${opts} in
+        c)
+            OPT_TERMINAL_CLASS=$OPTARG
+            ;;
+        t)
+            OPT_TERMINAL=$OPTARG
+            ;;
+        *) ;;
+    esac
 done
+
+# Abort when required argument is missing
+if [[ -z $OPT_TERMINAL || -z $OPT_TERMINAL_CLASS ]]; then
+    exit 1
+fi
+
+# Start new terminal if none is running yet
+TERMINAL_COMMAND="$OPT_TERMINAL --class $OPT_TERMINAL_CLASS"
+if ! pgrep -f "$TERMINAL_COMMAND"; then
+    swaymsg exec "$TERMINAL_COMMAND"
+    sleep 1
+fi
+
+# Open scratchpad and resize window
+swaymsg "scratchpad show, resize set width 95ppt, resize set height 95ppt"
