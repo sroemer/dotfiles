@@ -28,6 +28,9 @@ space = "none"
 tab = "all"
 tabpad = "."
 
+[keys.normal]
+X = "extend_line_above"                       # select current line or extend selection with line above it
+
 [keys.normal."\\"]
 q = ":bc"                                     # close buffer
 Q = ":bca"                                    # close all buffers
@@ -42,4 +45,7 @@ r = ":config-reload"                          # refresh helix configuration
 s = ":open ~/.config/sway/config"             # open sway configuration file
 
 [keys.normal."\\".n]
-i = ":open ~/Git/sroemer/note-taking/index.md"
+b = ":open ~/Git/sroemer/note-taking/cheat-sheets/linux/bash.md"        # open bash cheat sheet
+d = ":open ~/Git/sroemer/note-taking/cheat-sheets/linux/development.md" # open development cheat sheet
+h = ":open ~/Git/sroemer/note-taking/cheat-sheets/linux/helix.md"       # open helix editor cheat sheet
+i = ":open ~/Git/sroemer/note-taking/index.md"                          # open index file of notes
