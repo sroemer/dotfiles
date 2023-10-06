@@ -13,3 +13,7 @@ text/csv=nvim.desktop
 text/html=firefox.desktop
 text/plain=nvim.desktop
 text/xml=nvim.desktop
+application/msword=abiword.desktop
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=abiword.desktop
+application/vnd.ms-excel=abiword.desktop
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=abiword.desktop
