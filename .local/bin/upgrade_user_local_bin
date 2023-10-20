@@ -98,9 +98,6 @@ else
             # shellcheck source=/dev/null
             . "$NODE_DIR/bin/activate"
 
-            log "installing neovim"
-            npm i -g neovim
-
             log "installing awk-language-server"
             npm i -g awk-language-server
 
