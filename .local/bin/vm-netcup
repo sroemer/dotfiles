@@ -1,0 +1,127 @@
+#!/bin/bash
+# shellcheck source=/dev/null
+. ~/.local/lib/lib_bash_utils.sh
+SCRIPT=$(realpath "$0")
+SCRIPT_PATH=$(dirname "$SCRIPT")
+log "detected script path is ${SCRIPT_PATH}"
+
+# Usage message to be shown
+print_usage() {
+  echo -e "\nUsage: $0 OPTIONS\n\nAvailable options:\n" \
+          "    -c ISO_IMAGE      use ISO_IMAGE as CR-ROM image\n" \
+          "    -h DISK_IMAGE     use DISK_IMAGE as hard disk image\n" \
+          "    -l LOG_FILE       write qemu messages to LOG_FILE"
+}
+
+# Parse script parameters
+while getopts :c:h:l: opts; do
+    case ${opts} in
+        c) OPT_CD_ROM_IMAGE=$OPTARG ;;
+        h) OPT_HD_IMAGE=$OPTARG ;;
+        l) OPT_VM_LOGGING=$OPTARG ;;
+        ?) print_usage; exit 1 ;;
+        *)  ;;
+    esac
+done
+
+# Generate qemu cdrom options
+if [[ -z $OPT_CD_ROM_IMAGE ]]; then
+  QEMU_CDROM_OPTIONS=""
+  log "not using cdrom"
+else
+  QEMU_CDROM_OPTIONS=${OPT_CD_ROM_IMAGE}
+  log "using cdrom image ${OPT_CD_ROM_IMAGE}"
+fi
+
+# Generate qemu cdrom options
+if [[ -z $OPT_HD_IMAGE ]]; then
+  QEMU_HD_OPTIONS=""
+  error_log "hard disk required"
+  print_usage
+  exit 1
+else
+  QEMU_HD_OPTIONS=${OPT_HD_IMAGE}
+  log "using hard disk image ${OPT_HD_IMAGE}"
+fi
+
+# We do not log unless -l option was used
+if [[ -z $OPT_VM_LOGGING ]]; then
+  VM_LOG_FILE=/dev/null
+  log "not writing to log file (redirecting output to /dev/null)"
+else
+  VM_LOG_FILE="${OPT_VM_LOGGING}"
+  log "writing to log file ${VM_LOG_FILE}"
+fi
+
+# Starting virtual machine
+log "starting qemu ..."
+nohup qemu-system-x86_64 \
+          -enable-kvm \
+          -machine pc-i440fx-2.8 \
+          -cpu qemu64-v1,+pclmulqdq,+ssse3,+pcid,+sse4_1,+sse4_2,+popcnt,+aes,+xsave,+rdrand,+abm,+ssbd,+ibrs,+ibpb,+invpcid,md_clear=on,arch_capabilities=on \
+          -smp 2 \
+          -m 2G \
+          -vga std \
+          -netdev type=user,id=net0 \
+          -device virtio-net-pci,netdev=net0 \
+          -cdrom "$QEMU_CDROM_OPTIONS" \
+          -drive file="$QEMU_HD_OPTIONS",index=0,media=disk,if=virtio &> "$VM_LOG_FILE" &
+exit
+#
+# Netcup VPS hardware description:
+#
+# lspci:
+# 00:00.0 Host bridge: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)
+# 00:01.0 ISA bridge: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II]
+# 00:01.1 IDE interface: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II]
+# 00:01.2 USB controller: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] (rev 01)
+# 00:01.3 Bridge: Intel Corporation 82371AB/EB/MB PIIX4 ACPI (rev 03)
+# 00:02.0 VGA compatible controller: Device 1234:1111 (rev 02)
+# 00:03.0 Ethernet controller: Red Hat, Inc. Virtio network device
+# 00:10.0 SCSI storage controller: Red Hat, Inc. Virtio block device
+# 00:1c.0 Communication controller: Red Hat, Inc. Virtio console
+# 00:1e.0 Unclassified device [00ff]: Red Hat, Inc. Virtio memory balloon
+#
+# lscpu:
+# Architecture:            x86_64
+#   CPU op-mode(s):        32-bit, 64-bit
+#   Address sizes:         40 bits physical, 48 bits virtual
+#   Byte Order:            Little Endian
+# CPU(s):                  2
+#   On-line CPU(s) list:   0,1
+# Vendor ID:               GenuineIntel
+#   Model name:            QEMU Virtual CPU version 2.5+
+#     CPU family:          15
+#     Model:               107
+#     Thread(s) per core:  1
+#     Core(s) per socket:  2
+#     Socket(s):           1
+#     Stepping:            1
+#     BogoMIPS:            4799.91
+#     Flags:               fpu de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx lm constant_tsc nopl xtopology cpuid tsc_known_freq pni pclmulqdq ssse3 cx16 pcid sse4_1 sse4_2 x2apic popcnt aes xsave rdrand hypervisor lahf_lm abm cpuid_fault invpcid_single pti ssbd ibrs ibpb invpcid md_clear arch_capabilities
+# Virtualization features:
+#   Hypervisor vendor:     KVM
+#   Virtualization type:   full
+# Caches (sum of all):
+#   L1d:                   64 KiB (2 instances)
+#   L1i:                   64 KiB (2 instances)
+#   L2:                    8 MiB (2 instances)
+#   L3:                    16 MiB (1 instance)
+# NUMA:
+#   NUMA node(s):          1
+#   NUMA node0 CPU(s):     0,1
+# Vulnerabilities:
+#   Gather data sampling:  Not affected
+#   Itlb multihit:         KVM: Mitigation: VMX unsupported
+#   L1tf:                  Mitigation; PTE Inversion
+#   Mds:                   Mitigation; Clear CPU buffers; SMT Host state unknown
+#   Meltdown:              Mitigation; PTI
+#   Mmio stale data:       Unknown: No mitigations
+#   Retbleed:              Not affected
+#   Spec rstack overflow:  Not affected
+#   Spec store bypass:     Mitigation; Speculative Store Bypass disabled via prctl
+#   Spectre v1:            Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+#   Spectre v2:            Mitigation; Retpolines, IBPB conditional, IBRS_FW, STIBP disabled, RSB filling, PBRSB-eIBRS
+#                           Not affected
+#   Srbds:                 Not affected
+#   Tsx async abort:       Not affected
