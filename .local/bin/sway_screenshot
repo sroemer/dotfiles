@@ -1,0 +1,21 @@
+#!/bin/bash
+GRAB_IMAGE_CMD="grim"
+SELECT_REGION_CMD="slurp"
+SCREENSHOT_DIR="${HOME}/Screenshots"
+
+# grim is required - check if it is available
+if ! [[ -x "$(command -v $GRAB_IMAGE_CMD)" ]]; then
+    echo "error: required command '${GRAB_IMAGE_CMD}' not found"
+    exit
+fi
+# slurp is required - check if it is available
+if ! [[ -x "$(command -v $SELECT_REGION_CMD)" ]]; then
+    echo "error: required command '${SELECT_REGION_CMD}' not found"
+    exit
+fi
+# create screenshot directory if it does not exist
+if ! [[ -d "$SCREENSHOT_DIR" ]]; then
+    mkdir -p "$SCREENSHOT_DIR"
+fi
+# take screenshot
+$GRAB_IMAGE_CMD -g "$(slurp)" "$SCREENSHOT_DIR/$(date +'screenshot_%Y%m%d_%H%M%S.png')"

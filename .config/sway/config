@@ -263,9 +263,9 @@ bindsym $mod+Mod1+w exec abiword
 bindsym $mod+Mod1+x exec gnumeric
 
 # Screenshot
-bindsym $mod+Shift+s exec grim -g "$(slurp)" $HOME/$(date +'grim_%Y-%m-%d_%H-%M-%S.png')
+bindsym $mod+Shift+s exec sway_screenshot
 # Pick color from screen and copy its value to the clipboard
-bindsym $mod+Shift+p exec pick_color
+bindsym $mod+Shift+p exec sway_pick_color
 
 # Select input language
 bindsym $mod+Mod1+1 exec ibus engine xkb:us:altgr-intl:eng
