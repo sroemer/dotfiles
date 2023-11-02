@@ -249,6 +249,8 @@ bindsym $mod+Mod1+c exec $term -e calcurse
 bindsym $mod+Mod1+e exec $term -e hx
 # Start Firefox
 bindsym $mod+Mod1+f exec firefox
+# Start Tor-Browser
+bindsym $mod+Mod1+g exec tor-browser
 # Start Htop
 bindsym $mod+Mod1+h exec $term -e htop
 # Start CMus

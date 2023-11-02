@@ -1,0 +1,4 @@
+#!/bin/bash
+cd "$HOME/.local/tor-browser/" || exit
+./start-tor-browser.desktop
+cd - || exit
