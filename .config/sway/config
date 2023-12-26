@@ -24,7 +24,8 @@ set $menu dmenu_path | bemenu -p "" -l 20 -B 2 --bdr=#4C7899 --fb=#4C7899 --hf=#
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg #003060 solid_color
+#output * bg #003060 solid_color
+output * bg ~/.local/share/backgrounds/bg_senvang_logo_bottom_right.png center
 #
 # Example configuration:
 #
@@ -54,6 +55,8 @@ exec swayidle -w \
         timeout 600 'echo 0 > "/sys/class/leds/asus::kbd_backlight/brightness"' \
             resume 'cp "/var/cache/my-backlights/asus_keyboard-my-brightness" "/sys/class/leds/asus::kbd_backlight/brightness"' \
         timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+        timeout 900 'swaylock -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
+        before-sleep 'swaylock -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
 
 ### Input configuration
 #
@@ -239,6 +242,8 @@ bar {
 
 include /etc/sway/config.d/*
 
+# Lock screen
+bindsym $mod+Mod1+l exec 'swaylock -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png'
 # Start ALSAmixer
 bindsym $mod+Mod1+a exec $term -e alsamixer
 # Start bc (calculator)
@@ -254,15 +259,13 @@ bindsym $mod+Mod1+g exec tor-browser
 # Start Htop
 bindsym $mod+Mod1+h exec $term -e htop
 # Start CMus
-bindsym $mod+Mod1+l exec $term -e cmus
-# Start Neomutt
-bindsym $mod+Mod1+m exec $term -e vifm
+bindsym $mod+Mod1+m exec $term -e cmus
 # Start Thunderbird
 bindsym $mod+Mod1+t exec thunderbird
-# Start Abiword
-bindsym $mod+Mod1+w exec abiword
-# Start Gnumeric
-bindsym $mod+Mod1+x exec gnumeric
+# Start LibreOffice
+bindsym $mod+Mod1+o exec libreoffice
+# Start ViFM
+bindsym $mod+Mod1+v exec $term -e vifm
 
 # Screenshot
 bindsym $mod+Shift+s exec sway_screenshot
