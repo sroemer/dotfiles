@@ -1,10 +1,10 @@
 [Default Applications]
 application/json=Helix.desktop
-application/msword=abiword.desktop
+application/msword=libreoffice-writer.desktop;
 application/pdf=org.pwmt.zathura.desktop
-application/vnd.ms-excel=gnumeric.desktop
-application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=gnumeric.desktop
-application/vnd.openxmlformats-officedocument.wordprocessingml.document=abiword.desktop
+application/vnd.ms-excel=libreoffice-calc.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop;
 application/xml=Helix.desktop
 image/bmp=imv.desktop
 image/gif=imv.desktop
