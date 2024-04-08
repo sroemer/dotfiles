@@ -32,6 +32,11 @@ output * bg ~/.local/share/backgrounds/bg_senvang_logo_bottom_right.png center
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+output "ASUSTek COMPUTER INC PA278CV NALMQS019484" resolution 2560x1440 position 0 0
+output "ASUSTek COMPUTER INC PA278CV NALMQS019488" resolution 2560x1440 position 2560 0
+
+### Pipewire
+exec gentoo-pipewire-launcher &
 
 ### Notification daemon
 exec mako
@@ -45,18 +50,18 @@ exec ibus-daemon -dr
 #
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 #          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 exec swayidle -w \
+        timeout 600 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
         timeout 600 'echo 0 > "/sys/class/leds/asus::kbd_backlight/brightness"' \
             resume 'cp "/var/cache/my-backlights/asus_keyboard-my-brightness" "/sys/class/leds/asus::kbd_backlight/brightness"' \
-        timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-        timeout 900 'swaylock -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
-        before-sleep 'swaylock -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
+        timeout 610 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+        before-sleep 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
 
 ### Input configuration
 #
@@ -243,7 +248,7 @@ bar {
 include /etc/sway/config.d/*
 
 # Lock screen
-bindsym $mod+Mod1+l exec 'swaylock -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png'
+bindsym $mod+Mod1+l exec 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png'
 # Start ALSAmixer
 bindsym $mod+Mod1+a exec $term -e alsamixer
 # Start bc (calculator)
@@ -277,13 +282,20 @@ bindsym $mod+Mod1+1 exec ibus engine xkb:us:altgr-intl:eng
 bindsym $mod+Mod1+2 exec ibus engine Unikey
 
 # Volume control
-bindsym XF86AudioMute exec amixer sset Master toggle
-bindsym XF86AudioRaiseVolume exec amixer sset Master 1dB+
-bindsym XF86AudioLowerVolume exec amixer sset Master 1dB-
+bindsym XF86AudioMute        exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-
 
 # enable floating option for some specific windows automatically
 for_window {
     [title="Picture-in-Picture"] floating enable
     [title=".* - mpv"] floating enable
     [title="[0-9]* Reminder"] floating enable
+    [title="SecurityCameras"] floating enable
 }
+
+workspace number 1
+exec firefox
+workspace number 2
+exec thunderbird
+

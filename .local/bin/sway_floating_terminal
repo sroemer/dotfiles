@@ -26,4 +26,4 @@ if ! pgrep -f "$TERMINAL_COMMAND"; then
 fi
 
 # Open scratchpad and resize window
-swaymsg "scratchpad show, resize set width 95ppt, resize set height 95ppt"
+swaymsg "scratchpad show, for_window [app_id=$OPT_TERMINAL_CLASS] { resize set width 75ppt, resize set height 75ppt, move position center }"
