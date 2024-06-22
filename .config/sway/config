@@ -42,7 +42,7 @@ exec gentoo-pipewire-launcher &
 exec mako
 
 ### Intelligent Input Bus (ibus)
-exec ibus-daemon -dr
+exec ibus-daemon -dr -p disable
 
 ### Idle configuration
 #
@@ -295,7 +295,12 @@ for_window {
 }
 
 workspace number 1
+workspace 1 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
 exec firefox
 workspace number 2
+workspace 2 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
 exec thunderbird
-
+workspace number 4
+workspace 4 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+exec $term
+workspace number 1
