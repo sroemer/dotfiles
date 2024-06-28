@@ -294,13 +294,12 @@ for_window {
     [title="SecurityCameras"] floating enable
 }
 
-workspace number 1
-workspace 1 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
-exec firefox
-workspace number 2
-workspace 2 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
-exec thunderbird
 workspace number 4
 workspace 4 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
 exec $term
+workspace number 2
+workspace 2 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+exec thunderbird
 workspace number 1
+workspace 1 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+exec firefox
