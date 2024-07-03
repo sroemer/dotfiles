@@ -66,6 +66,12 @@ else
             else
                 log "Successfully added component 'rust-analyzer' with rustup"
             fi
+
+            if ! cargo install openscad-lsp; then
+                error_log "Installing 'openscad-lsp' with cargo failed"
+            else
+                log "Successfully installed 'openscad-lsp' with cargo"
+            fi        
         fi
     fi
 
