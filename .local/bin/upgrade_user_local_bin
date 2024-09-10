@@ -81,7 +81,7 @@ else
         exit 1
     fi
     log "installing/upgrading python tools"
-    if ! pip install --quiet --upgrade --break-system-packages --user pyright python-lsp-server nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl yt-dlp; then
+    if ! pip install --quiet --upgrade --break-system-packages --user bleak pyright python-lsp-server nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl yt-dlp; then
         error_log "installing/upgrading python tools failed (pip returned $?)"
     else
         log "installing/upgrading python tools finished"
