@@ -73,6 +73,8 @@ alias open='xdg-open'
 
 alias :q='exit'
 
+alias update_gentoo='sudo /root/.local/bin/update_gentoo'
+
 # set PS1 and show git branch if we are not in a tty session
 parse_git_branch() {
     git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
