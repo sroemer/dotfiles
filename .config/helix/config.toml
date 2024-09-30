@@ -5,6 +5,8 @@ color-modes = true
 cursorcolumn = true
 cursorline = true
 line-number = "relative"
+rulers = [120]
+bufferline = "always"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -38,7 +40,14 @@ tabpad = "."
 "esc" = ["normal_mode", "collapse_selection", "keep_primary_selection"]
 "*" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection",  "make_search_word_bounded", "search_next"]
 "#" = ["move_char_right", "move_prev_word_start", "move_next_word_end", "search_selection", "make_search_word_bounded", "search_prev"]
-X = "extend_line_above"                       # select current line or extend selection with line above it
+A-x = "extend_line_above"
+X = ["extend_line_up", "extend_to_line_bounds"]
+A-X = ["extend_line_down", "extend_to_line_bounds"]
+
+[keys.select]
+A-x = "extend_line_above"
+X = ["extend_line_up", "extend_to_line_bounds"]
+A-X = ["extend_line_down", "extend_to_line_bounds"]
 
 [keys.normal."\\"]
 q = ":bc"                                     # close buffer
