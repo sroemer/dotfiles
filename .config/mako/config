@@ -1,3 +1,23 @@
+layer=overlay
 anchor=bottom-center
-text-alignment=center
+width=500
+height=200
+font=hack 14
+
+background-color=#003060
+border-color=#cccccc
+border-size=1
+border-radius=8
+
+default-timeout=5000
+ignore-timeout=1
+
+[urgency=low]
+background-color=#205080
+
+[urgency=normal]
+background-color=#003060
+
+[urgency=high]
+background-color=#401040
 default-timeout=15000
