@@ -62,6 +62,7 @@ exec swayidle -w \
             resume 'cp "/var/cache/my-backlights/asus_keyboard-my-brightness" "/sys/class/leds/asus::kbd_backlight/brightness"' \
         timeout 610 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
         before-sleep 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
+        timeout 3600 'loginctl suspend'
 
 ### Input configuration
 #
