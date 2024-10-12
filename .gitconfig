@@ -6,6 +6,7 @@
     diffFilter = delta --color-only
 [delta]
     navigate = true    # use n and N to move between diff sections
+    line-numbers = true
 [diff]
     tool = meld
     colorMoved = default
@@ -27,6 +28,7 @@
     ca = commit --amend
     lg = !"git log --oneline --graph --decorate --date=iso --format=format:'%x09%C(bold dim red)%h%C(reset) %C(green)%ad%C(reset) %C(normal)%s%C(reset) %C(dim white)(%an)%C(reset) %C(cyan)%d%C(reset)'"
     lga = !"git log --oneline --graph --decorate --date=iso --all --format=format:'%x09%C(bold dim red)%h%C(reset) %C(green)%ad%C(reset) %C(normal)%s%C(reset) %C(dim white)(%an)%C(reset) %C(cyan)%d%C(reset)'"
+    dss = -c delta.features=side-by-side diff
 [init]
     defaultBranch = main
 [commit]
