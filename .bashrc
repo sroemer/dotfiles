@@ -44,7 +44,14 @@ if [[ -f "$CARGO_COMPLETION_FILE" ]]; then
 fi
 
 # Put your fun stuff here.
-alias ls='ls --color=auto'
+if [[ -f /usr/bin/bat ]]; then
+    alias cat='bat -p'
+fi
+if [[ -f /usr/bin/eza ]]; then
+    alias ls='eza'
+else
+    alias ls='ls --color=auto'
+fi
 alias l='ls -lh'
 alias ll='ls -lh'
 alias la='ls -lAh'
