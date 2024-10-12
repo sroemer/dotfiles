@@ -14,7 +14,7 @@
 
 [storage contacts_remote]
     type = "carddav"
-    url = "https://dav.senvang.org/"
+    url = "https://senvang.org/radicale/"
     username = "sroemer"
     password.fetch = ["shell", "pass Infrastructure/Dav/login | head -n1"]
 
@@ -31,6 +31,6 @@
 
 [storage calendar_remote]
     type = "caldav"
-    url = "https://dav.senvang.org/"
+    url = "https://senvang.org/radicale/"
     username = "sroemer"
     password.fetch = ["shell", "pass Infrastructure/Dav/login | head -n1"]
