@@ -45,10 +45,10 @@ fi
 
 # Put your fun stuff here.
 if [[ -f /usr/bin/bat ]]; then
-    alias cat='bat -p'
+    alias cat='bat -pp'
 fi
-if [[ -f /usr/bin/eza ]]; then
-    alias ls='eza'
+if [[ -f /usr/bin/lsd ]]; then
+    alias ls='lsd'
 else
     alias ls='ls --color=auto'
 fi
@@ -56,6 +56,7 @@ alias l='ls -lh'
 alias ll='ls -lh'
 alias la='ls -lAh'
 alias lh='ls -ldh .*'
+alias lt='ls -lt'
 
 alias ..='cd ..'
 alias ...='cd ../../'
