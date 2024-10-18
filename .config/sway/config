@@ -58,11 +58,12 @@ exec ibus-daemon -dr -p disable
 # resumed. It will also lock your screen before your computer goes to sleep.
 exec swayidle -w \
         timeout 600 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
-        timeout 600 'echo 0 > "/sys/class/leds/asus::kbd_backlight/brightness"' \
-            resume 'cp "/var/cache/my-backlights/asus_keyboard-my-brightness" "/sys/class/leds/asus::kbd_backlight/brightness"' \
-        timeout 610 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+        timeout 660 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
         before-sleep 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
-        timeout 3600 'loginctl suspend'
+        after-resume 'swaymsg "output * power on"' \
+        timeout 1800 'loginctl suspend'
+#        timeout 6 'echo 0 > "/sys/class/leds/asus::kbd_backlight/brightness"' \
+#        resume 'cp "/var/cache/my-backlights/asus_keyboard-my-brightness" "/sys/class/leds/asus::kbd_backlight/brightness"'
 
 ### Input configuration
 #
@@ -272,6 +273,8 @@ bindsym $mod+Mod1+t exec thunderbird
 bindsym $mod+Mod1+o exec libreoffice
 # Start ViFM
 bindsym $mod+Mod1+v exec $term -e vifm
+# Start Weechat
+bindsym $mod+Mod1+w exec $term -e weechat
 
 # Screenshot
 bindsym $mod+Shift+s exec sway_screenshot
@@ -298,9 +301,15 @@ for_window {
 workspace number 4
 workspace 4 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
 exec $term
+
+workspace number 3
+workspace 3 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+exec $term -e weechat
+
 workspace number 2
 workspace 2 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
 exec thunderbird
+
 workspace number 1
 workspace 1 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
 exec firefox
