@@ -54,8 +54,10 @@ else
 fi
 
 PRUSA_SLICER_OUTPUT_FILE="$SCRIPT_PATH/prusaslicer"
-PRUSA_SLICER_VERSION=$(get_github_latest_release_version prusa3d PrusaSlicer)
-PRUSA_SLICER_VERSION_FILE=$(get_latest_prusaslicer_release_file prusa3d PrusaSlicer)
+#PRUSA_SLICER_VERSION=$(get_github_latest_release_version prusa3d PrusaSlicer)
+PRUSA_SLICER_VERSION="version_2.7.4"
+#PRUSA_SLICER_VERSION_FILE=$(get_latest_prusaslicer_release_file prusa3d PrusaSlicer)
+PRUSA_SLICER_VERSION_FILE="PrusaSlicer-2.7.4+linux-x64-GTK3-202404050928.AppImage"
 if [[ -f $PRUSA_SLICER_OUTPUT_FILE ]]; then
     PRUSA_SLICER_INSTALLED_VERSION=version_$(prusaslicer --help | head -n 1 | cut -d"-" -f 2 | cut -d "+" -f 1)
     log "$PRUSA_SLICER_OUTPUT_FILE version $PRUSA_SLICER_INSTALLED_VERSION found"
