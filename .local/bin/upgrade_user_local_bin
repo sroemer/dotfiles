@@ -73,6 +73,12 @@ else
                 log "Successfully installed 'openscad-lsp' with cargo"
             fi
 
+            if ! cargo install hexyl; then
+                error_log "Installing 'hexyl' with cargo failed"
+            else
+                log "Successfully installed 'hexyl' with cargo"
+            fi
+
             if ! cargo install --locked --git https://github.com/Feel-ix-343/markdown-oxide.git; then
                 error_log "Installing 'markdown-oxide' with cargo failed"
             else
