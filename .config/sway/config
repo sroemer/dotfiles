@@ -58,10 +58,10 @@ exec ibus-daemon -dr -p disable
 # resumed. It will also lock your screen before your computer goes to sleep.
 exec swayidle -w \
         timeout 600 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
-        timeout 660 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+        timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
         before-sleep 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg_senvang_logo_center.png' \
         after-resume 'swaymsg "output * power on"' \
-        timeout 1800 'loginctl suspend'
+        timeout 9000 'loginctl suspend'
 #        timeout 6 'echo 0 > "/sys/class/leds/asus::kbd_backlight/brightness"' \
 #        resume 'cp "/var/cache/my-backlights/asus_keyboard-my-brightness" "/sys/class/leds/asus::kbd_backlight/brightness"'
 
