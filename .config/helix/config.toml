@@ -1,12 +1,13 @@
 theme = "molokai"
 
 [editor]
+bufferline = "always"
 color-modes = true
 cursorcolumn = true
 cursorline = true
 line-number = "relative"
+mouse = false
 rulers = [120]
-bufferline = "always"
 
 [editor.cursor-shape]
 insert = "bar"
