@@ -1,0 +1,6 @@
+[options]
+background=checks
+overlay=true
+overlay_font=Hack:12
+overlay_position_bottom=true
+scaling_mode=shrink
