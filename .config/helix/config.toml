@@ -44,6 +44,8 @@ tabpad = "."
 A-x = "extend_line_above"
 X = ["extend_line_up", "extend_to_line_bounds"]
 A-X = ["extend_line_down", "extend_to_line_bounds"]
+y =["yank", "yank_to_clipboard"]
+Y = ["save_selection", "extend_line_below", "yank", "yank_to_clipboard", "jump_backward"]
 
 [keys.select]
 A-x = "extend_line_above"
