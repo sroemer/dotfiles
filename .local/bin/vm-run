@@ -1,0 +1,64 @@
+#!/bin/bash
+# shellcheck source=/dev/null
+. ~/.local/lib/lib_bash_utils.sh
+SCRIPT=$(realpath "$0")
+SCRIPT_PATH=$(dirname "$SCRIPT")
+log "detected script path is ${SCRIPT_PATH}"
+
+# Usage message to be shown
+print_usage() {
+  echo -e "\nUsage: $0 OPTIONS\n\nAvailable options:\n" \
+          "    -c ISO_IMAGE      use ISO_IMAGE as CR-ROM image\n" \
+          "    -h DISK_IMAGE     use DISK_IMAGE as hard disk image\n" \
+          "    -l LOG_FILE       write qemu messages to LOG_FILE"
+}
+
+# Parse script parameters
+while getopts :c:h:l: opts; do
+    case ${opts} in
+        c) OPT_CD_ROM_IMAGE=$OPTARG ;;
+        h) OPT_HD_IMAGE=$OPTARG ;;
+        l) OPT_VM_LOGGING=$OPTARG ;;
+        ?) print_usage; exit 1 ;;
+        *)  ;;
+    esac
+done
+
+# Generate qemu cdrom options
+if [[ -z $OPT_CD_ROM_IMAGE ]]; then
+  QEMU_CDROM_OPTIONS=""
+  log "not using cdrom"
+else
+  QEMU_CDROM_OPTIONS=${OPT_CD_ROM_IMAGE}
+  log "using cdrom image ${OPT_CD_ROM_IMAGE}"
+fi
+
+# Generate qemu cdrom options
+if [[ -z $OPT_HD_IMAGE ]]; then
+  QEMU_HD_OPTIONS=""
+  error_log "hard disk required"
+  print_usage
+  exit 1
+else
+  QEMU_HD_OPTIONS=${OPT_HD_IMAGE}
+  log "using hard disk image ${OPT_HD_IMAGE}"
+fi
+
+# We do not log unless -l option was used
+if [[ -z $OPT_VM_LOGGING ]]; then
+  VM_LOG_FILE=/dev/null
+  log "not writing to log file (redirecting output to /dev/null)"
+else
+  VM_LOG_FILE="${OPT_VM_LOGGING}"
+  log "writing to log file ${VM_LOG_FILE}"
+fi
+
+# Starting virtual machine
+log "starting qemu ..."
+nohup qemu-system-x86_64 \
+          -enable-kvm \
+          -smp 2 \
+          -m 4G \
+          -cdrom "$QEMU_CDROM_OPTIONS" \
+          -drive file="$QEMU_HD_OPTIONS",index=0,media=disk,if=virtio &> "$VM_LOG_FILE" &
+exit

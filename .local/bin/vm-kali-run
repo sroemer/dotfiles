@@ -1,0 +1,3 @@
+#!/bin/bash
+VM_IMAGE="$HOME/VirtualMachines/KaliLinux/kali.qcow2"
+vm-run -h "$VM_IMAGE"
