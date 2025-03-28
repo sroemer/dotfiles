@@ -293,28 +293,54 @@ for_window {
     [title="Picture-in-Picture"] floating enable
     [title=".* - mpv"] floating enable
     [title="[0-9]* Reminder"] floating enable
+    [title="SecurityCamera1"] floating enable, move absolute position 0    px 25 px 
+    [title="SecurityCamera2"] floating enable, move absolute position 360  px 25 px 
+    [title="SecurityCamera3"] floating enable, move absolute position 720  px 25 px 
+    [title="SecurityCamera4"] floating enable, move absolute position 1080 px 25 px 
+    [title="SecurityCamera5"] floating enable, move absolute position 0    px 350 px 
+    [title="SecurityCamera6"] floating enable, move absolute position 650  px 350 px 
+    [title="SecurityCamera7"] floating enable, move absolute position 1300 px 350 px 
     [title="SecurityCamera.*"] floating enable
     [title="About Mozilla Firefox"] floating enable
     [title="About Tor Browser"] floating enable
     [title="QEMU"] floating enable
 }
 
+# workspaces with even numbers on right screen
+workspace number 2
+workspace 2 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace number 4
+workspace 4 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace number 6
+workspace 6 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace number 8
+workspace 8 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace number 10
+workspace 10 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+# workspaces with odd numbers on right screen
+workspace number 1
+workspace 1 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+workspace number 3
+workspace 3 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
 workspace number 5
 workspace 5 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+workspace number 7
+workspace 7 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+workspace number 9
+workspace 9 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+
+# Run applications on startup
+workspace number 5
 exec $term -e cmus
 
 workspace number 4
-workspace 4 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
 exec $term
 
 workspace number 3
-workspace 3 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
 exec $term -e weechat
 
 workspace number 2
-workspace 2 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
 exec thunderbird
 
 workspace number 1
-workspace 1 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
 exec firefox
