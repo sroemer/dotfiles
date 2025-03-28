@@ -265,14 +265,14 @@ bindsym $mod+Mod1+g exec tor-browser
 bindsym $mod+Mod1+h exec $term -e htop
 # Start CMus
 bindsym $mod+Mod1+m exec $term -e cmus
+# Start Gnumeric
+bindsym $mod+Mod1+n exec $term -e gnumeric
 # Start Thunderbird
 bindsym $mod+Mod1+t exec thunderbird
-# Start LibreOffice
-bindsym $mod+Mod1+o exec libreoffice
 # Start ViFM
 bindsym $mod+Mod1+v exec $term -e vifm
-# Start Weechat
-bindsym $mod+Mod1+w exec $term -e weechat
+# Start Abiword
+bindsym $mod+Mod1+w exec $term -e abiword
 
 # Screenshot
 bindsym $mod+Shift+s exec sway_screenshot
@@ -293,11 +293,15 @@ for_window {
     [title="Picture-in-Picture"] floating enable
     [title=".* - mpv"] floating enable
     [title="[0-9]* Reminder"] floating enable
-    [title="SecurityCameras"] floating enable
+    [title="SecurityCamera.*"] floating enable
     [title="About Mozilla Firefox"] floating enable
     [title="About Tor Browser"] floating enable
     [title="QEMU"] floating enable
 }
+
+workspace number 5
+workspace 5 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+exec $term -e cmus
 
 workspace number 4
 workspace 4 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
