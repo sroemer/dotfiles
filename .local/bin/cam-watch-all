@@ -1,0 +1,8 @@
+#!/bin/bash
+cam-watch -c 1 &
+cam-watch -c 2 &
+cam-watch -c 3 &
+cam-watch -c 4 &
+cam-watch -c 5 &
+cam-watch -c 6 &
+cam-watch -c 7 &
