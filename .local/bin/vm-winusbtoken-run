@@ -1,0 +1,3 @@
+#!/bin/bash
+VM_IMAGE="$HOME/VirtualMachines/WinUsbToken/WinUsbToken.qcow2"
+vm-run -h "$VM_IMAGE"
