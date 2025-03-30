@@ -1,70 +1,8 @@
 #!/bin/bash
-. $HOME/.local/lib/dahua_xvr_login
-
-STREAM_PROTOCOL="rtsp"
-STREAM_USER=$DAHUA_XVR_USER
-STREAM_PASSWORD=$DAHUA_XVR_PASSWORD
-STREAM_BASE_URL="192.168.1.5:554/cam/realmonitor"
-STREAM_CHANNEL=
-STREAM_SUBCHANNEL=0
-STREAM_MUTE="yes"
-
-
-
-function print_usage_and_exit() {
-          echo "USAGE: cam-watch [options]"
-          echo
-          echo "options:"
-          echo "    -m [yes|no]"
-          echo "    -c [CHANNEL]"
-          echo "    -s [SUBCHANNEL]"
-          exit
-}
-
-
-
-function get_full_stream_url() {
-          local CHANNEL=$1
-          local SUB_CHANNEL=1
-          local URL="$STREAM_PROTOCOL://$STREAM_USER:$STREAM_PASSWORD@$STREAM_BASE_URL?channel=$CHANNEL&subtype=$SUB_CHANNEL"
-          echo "$URL"
-}
-
-
-
-while getopts 'c:m:s:' OPTION; do
-          case "$OPTION" in
-          c) STREAM_CHANNEL="$OPTARG"
-                    ;;
-          m) STREAM_MUTE="$OPTARG"
-                    ;;
-          s) STREAM_SUBCHANNEL="$OPTARG"
-                    ;;
-          ?) print_usage_and_exit
-                    ;;
-          esac
-done
-
-if [[ -z $STREAM_CHANNEL ]]; then
-          echo "ERROR: Channel option required"
-          print_usage_and_exit
-fi
-
-if [[ $STREAM_CHANNEL -gt 0 ]]; then
-          mpv --title="SecurityCamera$STREAM_CHANNEL" --mute="$STREAM_MUTE" --profile=fast -no-correct-pts "$(get_full_stream_url "$STREAM_CHANNEL" "$STREAM_SUBCHANNEL")"
-else
-          echo "ERROR: invalid stream channel"
-fi
-
-
-
-
-
-
-
-#nohup mpv --title=SecurityCameras --mute=yes 'rtsp://admin:Nt123456@192.168.1.108:554/cam/realmonitory?channel=1&subtype=0' \
-#          --external-file='rtsp://admin:Nt123456@192.168.1.108:554/cam/realmonitor?channel=2&subtype=0' \
-#          --external-file='rtsp://admin:Nt123456@192.168.1.108:554/cam/realmonitor?channel=3&subtype=0' \
-#          --external-file='rtsp://admin:Nt123456@192.168.1.108:554/cam/realmonitor?channel=5&subtype=0' \
-#          --external-file='rtsp://admin:Nt123456@192.168.1.108:554/cam/realmonitor?channel=4&subtype=0' \
-#          --lavfi-complex='[vid1] [vid2] [vid3] [vid4] [vid5] vstack=inputs=5 [vo]' &> /dev/null &
+nohup cam-watch-stream -c 1 &> /dev/null &
+nohup cam-watch-stream -c 2 &> /dev/null &
+nohup cam-watch-stream -c 3 &> /dev/null &
+nohup cam-watch-stream -c 4 &> /dev/null &
+nohup cam-watch-stream -c 5 &> /dev/null &
+nohup cam-watch-stream -c 6 &> /dev/null &
+nohup cam-watch-stream -c 7 &> /dev/null &
