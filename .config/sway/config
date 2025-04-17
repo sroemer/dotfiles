@@ -25,7 +25,7 @@ set $menu dmenu_path | bemenu -p "" -l 20 -B 2 --bdr=#4C7899 --fb=#4C7899 --hf=#
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg #003060 solid_color
-output * bg ~/.local/share/backgrounds/bg_senvang_logo_bottom_right.png center
+output * bg ~/.local/share/backgrounds/bg_senvang_logo_bottom_right.png fit
 #
 # Example configuration:
 #
@@ -267,10 +267,14 @@ bindsym $mod+Mod1+f exec firefox
 bindsym $mod+Mod1+g exec tor-browser
 # Start Htop
 bindsym $mod+Mod1+h exec $term -e htop
+# Stop watching security cameras
+bindsym $mod+Mod1+k exec $term -e cam-kill
 # Start CMus
 bindsym $mod+Mod1+m exec $term -e cmus
 # Start Gnumeric
 bindsym $mod+Mod1+n exec $term -e gnumeric
+# Start watching security cameras
+bindsym $mod+Mod1+s exec $term -e cam-watch
 # Start Thunderbird
 bindsym $mod+Mod1+t exec thunderbird
 # Start ViFM
@@ -294,21 +298,20 @@ bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-
 
 # enable floating option for some specific windows automatically
 for_window {
-    [title="Picture-in-Picture"] floating enable
-    [title=".* - mpv"] floating enable
+    [title="^Picture-in-Picture$"] floating enable
+    [title="^.* - mpv$"] floating enable
     [title="[0-9]* Reminder"] floating enable
-    [title="SecurityCamera1"] floating enable, move absolute position 0    px 25 px 
-    [title="SecurityCamera2"] floating enable, move absolute position 360  px 25 px 
-    [title="SecurityCamera3"] floating enable, move absolute position 720  px 25 px 
-    [title="SecurityCamera4"] floating enable, move absolute position 1080 px 25 px 
-    [title="SecurityCamera5"] floating enable, move absolute position 0    px 350 px 
-    [title="SecurityCamera6"] floating enable, move absolute position 650  px 350 px 
-    [title="SecurityCamera7"] floating enable, move absolute position 1300 px 350 px 
-    [title="SecurityCamera.*"] floating enable
-    [title="About Mozilla Firefox"] floating enable
-    [title="About Tor Browser"] floating enable
-    [title="QEMU"] floating enable
-    [title="Qalculate!"] floating enable
+    [title="^SecurityCamera1$"] floating enable, move absolute position 0    px 25 px 
+    [title="^SecurityCamera2$"] floating enable, move absolute position 360  px 25 px 
+    [title="^SecurityCamera3$"] floating enable, move absolute position 720  px 25 px 
+    [title="^SecurityCamera4$"] floating enable, move absolute position 1080 px 25 px 
+    [title="^SecurityCamera5$"] floating enable, move absolute position 0    px 350 px 
+    [title="^SecurityCamera6$"] floating enable, move absolute position 630  px 350 px 
+    [title="^SecurityCamera7$"] floating enable, move absolute position 1260 px 350 px 
+    [title="^About Mozilla Firefox$"] floating enable
+    [title="^About Tor Browser$"] floating enable
+    [title="^QEMU$"] floating enable
+    [title="^Qalculate!$"] floating enable
 }
 
 # workspaces with even numbers on right screen
