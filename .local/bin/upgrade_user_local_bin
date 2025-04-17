@@ -51,41 +51,24 @@ else
         fi
     fi
     
-    # Update Rust via rustup
-    if ! which rustup; then
-        error_log "Cannot update Rust due to rustup not being available"
+    # Install via Rust Cargo
+    if ! cargo install openscad-lsp; then
+        error_log "Installing 'openscad-lsp' with cargo failed"
     else
-        log "Starting Rust update with rustup"
-        if ! rustup update; then
-            error_log "Updating Rust with rustup failed"
-        else
-            log "Successfully updated Rust with rustup"
-
-            if ! rustup component add rust-analyzer; then
-                error_log "Adding component 'rust-analyzer' with rustup failed"
-            else
-                log "Successfully added component 'rust-analyzer' with rustup"
-            fi
-
-            if ! cargo install openscad-lsp; then
-                error_log "Installing 'openscad-lsp' with cargo failed"
-            else
-                log "Successfully installed 'openscad-lsp' with cargo"
-            fi
-
-            if ! cargo install hexyl; then
-                error_log "Installing 'hexyl' with cargo failed"
-            else
-                log "Successfully installed 'hexyl' with cargo"
-            fi
-
-            if ! cargo install --locked --git https://github.com/Feel-ix-343/markdown-oxide.git; then
-                error_log "Installing 'markdown-oxide' with cargo failed"
-            else
-                log "Successfully installed 'markdown-oxide' with cargo"
-            fi        
-        fi
+        log "Successfully installed 'openscad-lsp' with cargo"
     fi
+
+    if ! cargo install hexyl; then
+        error_log "Installing 'hexyl' with cargo failed"
+    else
+        log "Successfully installed 'hexyl' with cargo"
+    fi
+
+    if ! cargo install --locked --git https://github.com/Feel-ix-343/markdown-oxide.git; then
+        error_log "Installing 'markdown-oxide' with cargo failed"
+    else
+        log "Successfully installed 'markdown-oxide' with cargo"
+    fi        
 
     # Install td-watson and nodejs via python pip
     if ! [[ -x $(command -v pip) ]]; then
