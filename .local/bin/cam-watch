@@ -1,4 +1,5 @@
 #!/bin/bash
+cam-kill
 nohup cam-watch-stream -c 1 &> /dev/null &
 nohup cam-watch-stream -c 2 &> /dev/null &
 nohup cam-watch-stream -c 3 &> /dev/null &
@@ -6,3 +7,4 @@ nohup cam-watch-stream -c 4 &> /dev/null &
 nohup cam-watch-stream -c 5 &> /dev/null &
 nohup cam-watch-stream -c 6 &> /dev/null &
 nohup cam-watch-stream -c 7 &> /dev/null &
+usleep 500000
