@@ -32,8 +32,12 @@ output * bg ~/.local/share/backgrounds/bg_senvang_logo_bottom_right.png center
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
-output "ASUSTek COMPUTER INC PA278CV NALMQS019484" resolution 2560x1440 position 0 0
-output "ASUSTek COMPUTER INC PA278CV NALMQS019488" resolution 2560x1440 position 2560 0
+set $screen_laptop     "AU Optronics 0x5C2D Unknown"
+set $screen_asus_left  "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+set $screen_asus_right "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+output $screen_laptop     resolution 1920x1080 position 0 0
+output $screen_asus_left  resolution 2560x1440 position 1920 0
+output $screen_asus_right resolution 2560x1440 position 4480 0
 
 ### Pipewire
 exec gentoo-pipewire-launcher &
@@ -252,7 +256,7 @@ bindsym $mod+Mod1+l exec 'swaylock -f -c 003060 -i ~/.local/share/backgrounds/bg
 # Start ALSAmixer
 bindsym $mod+Mod1+a exec $term -e alsamixer
 # Start bc (calculator)
-bindsym $mod+Mod1+b exec $term -e bc -q
+bindsym $mod+Mod1+b exec qalculate-gtk
 # Start Calcurse
 bindsym $mod+Mod1+c exec $term -e calcurse
 # Start Helix
@@ -304,40 +308,41 @@ for_window {
     [title="About Mozilla Firefox"] floating enable
     [title="About Tor Browser"] floating enable
     [title="QEMU"] floating enable
+    [title="Qalculate!"] floating enable
 }
 
 # workspaces with even numbers on right screen
 workspace number 2
-workspace 2 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace 2 output $screen_laptop
 workspace number 4
-workspace 4 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace 4 output $screen_laptop
 workspace number 6
-workspace 6 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace 6 output $screen_laptop
 workspace number 8
-workspace 8 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace 8 output $screen_laptop
 workspace number 10
-workspace 10 output "ASUSTek COMPUTER INC PA278CV NALMQS019488"
+workspace 10 output $screen_laptop
 # workspaces with odd numbers on right screen
 workspace number 1
-workspace 1 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+workspace 1 output $screen_asus_left
 workspace number 3
-workspace 3 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+workspace 3 output $screen_asus_left
 workspace number 5
-workspace 5 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+workspace 5 output $screen_asus_left
 workspace number 7
-workspace 7 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+workspace 7 output $screen_asus_left
 workspace number 9
-workspace 9 output "ASUSTek COMPUTER INC PA278CV NALMQS019484"
+workspace 9 output $screen_asus_left
 
 # Run applications on startup
 workspace number 5
 exec $term -e cmus
 
 workspace number 4
-exec $term
+exec $term -e weechat
 
 workspace number 3
-exec $term -e weechat
+exec $term
 
 workspace number 2
 exec thunderbird
