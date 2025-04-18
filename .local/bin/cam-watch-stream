@@ -51,7 +51,7 @@ if [[ -z $STREAM_CHANNEL ]]; then
 fi
 
 if [[ $STREAM_CHANNEL -gt 0 ]]; then
-          mpv --title="SecurityCamera$STREAM_CHANNEL" --mute="$STREAM_MUTE" --profile=fast -no-correct-pts "$(get_full_stream_url "$STREAM_CHANNEL" "$STREAM_SUBCHANNEL")"
+          nohup mpv --title="SecurityCamera$STREAM_CHANNEL" --mute="$STREAM_MUTE" --profile=fast -no-correct-pts "$(get_full_stream_url "$STREAM_CHANNEL" "$STREAM_SUBCHANNEL")" &> /dev/null &
 else
           echo "ERROR: invalid stream channel"
 fi

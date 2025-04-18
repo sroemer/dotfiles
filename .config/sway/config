@@ -35,9 +35,9 @@ output * bg ~/.local/share/backgrounds/bg_senvang_logo_bottom_right.png fit
 set $screen_laptop     "AU Optronics 0x5C2D Unknown"
 set $screen_asus_left  "ASUSTek COMPUTER INC PA278CV NALMQS019484"
 set $screen_asus_right "ASUSTek COMPUTER INC PA278CV NALMQS019488"
-output $screen_laptop     resolution 1920x1080 position 0 0
-output $screen_asus_left  resolution 2560x1440 position 1920 0
-output $screen_asus_right resolution 2560x1440 position 4480 0
+output $screen_laptop     resolution 1920x1080 position -1920 0
+output $screen_asus_left  resolution 2560x1440 position     0 0
+output $screen_asus_right resolution 2560x1440 position  2560 0
 
 ### Pipewire
 exec gentoo-pipewire-launcher &
@@ -268,19 +268,19 @@ bindsym $mod+Mod1+g exec tor-browser
 # Start Htop
 bindsym $mod+Mod1+h exec $term -e htop
 # Stop watching security cameras
-bindsym $mod+Mod1+k exec $term -e cam-kill
+bindsym $mod+Mod1+k exec cam-kill
 # Start CMus
 bindsym $mod+Mod1+m exec $term -e cmus
 # Start Gnumeric
-bindsym $mod+Mod1+n exec $term -e gnumeric
+bindsym $mod+Mod1+n exec gnumeric
 # Start watching security cameras
-bindsym $mod+Mod1+s exec $term -e cam-watch
+bindsym $mod+Mod1+s exec cam-watch
 # Start Thunderbird
 bindsym $mod+Mod1+t exec thunderbird
 # Start ViFM
 bindsym $mod+Mod1+v exec $term -e vifm
 # Start Abiword
-bindsym $mod+Mod1+w exec $term -e abiword
+bindsym $mod+Mod1+w exec abiword
 
 # Screenshot
 bindsym $mod+Shift+s exec sway_screenshot
@@ -301,13 +301,13 @@ for_window {
     [title="^Picture-in-Picture$"] floating enable
     [title="^.* - mpv$"] floating enable
     [title="[0-9]* Reminder"] floating enable
-    [title="^SecurityCamera1$"] floating enable, move absolute position 0    px 25 px 
-    [title="^SecurityCamera2$"] floating enable, move absolute position 360  px 25 px 
-    [title="^SecurityCamera3$"] floating enable, move absolute position 720  px 25 px 
-    [title="^SecurityCamera4$"] floating enable, move absolute position 1080 px 25 px 
-    [title="^SecurityCamera5$"] floating enable, move absolute position 0    px 350 px 
-    [title="^SecurityCamera6$"] floating enable, move absolute position 630  px 350 px 
-    [title="^SecurityCamera7$"] floating enable, move absolute position 1260 px 350 px 
+    [title="^SecurityCamera1$"] floating enable, resize set width 480 px, move absolute position -1920 25
+    [title="^SecurityCamera2$"] floating enable, resize set width 480 px, move absolute position -1440 25
+    [title="^SecurityCamera3$"] floating enable, resize set width 480 px, move absolute position -960 25
+    [title="^SecurityCamera4$"] floating enable, resize set width 480 px, move absolute position -480 25
+    [title="^SecurityCamera5$"] floating enable, resize set width 480 px, move absolute position -1920 590
+    [title="^SecurityCamera6$"] floating enable, resize set width 480 px, move absolute position -1440 590
+    [title="^SecurityCamera7$"] floating enable, resize set width 480 px, move absolute position -960 590
     [title="^About Mozilla Firefox$"] floating enable
     [title="^About Tor Browser$"] floating enable
     [title="^QEMU$"] floating enable
@@ -338,7 +338,7 @@ workspace number 9
 workspace 9 output $screen_asus_left
 
 # Run applications on startup
-workspace number 5
+workspace number 6
 exec $term -e cmus
 
 workspace number 4
