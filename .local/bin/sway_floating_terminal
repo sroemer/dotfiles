@@ -21,8 +21,7 @@ fi
 # Start new terminal if none is running yet
 TERMINAL_COMMAND="$OPT_TERMINAL --class $OPT_TERMINAL_CLASS"
 if ! pgrep -f "$TERMINAL_COMMAND"; then
-    swaymsg exec "$TERMINAL_COMMAND"
-    sleep 1
+    sway_wait --required-app-id $OPT_TERMINAL_CLASS -- "$TERMINAL_COMMAND"
 fi
 
 # Open scratchpad and resize window

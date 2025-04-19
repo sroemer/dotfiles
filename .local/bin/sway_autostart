@@ -1,0 +1,16 @@
+#!/bin/bash
+
+swaymsg "workspace number 5"
+sway_wait --required-app-id autostart-cmus -- alacritty --class autostart-cmus -e cmus
+
+swaymsg "workspace number 4"
+sway_wait --required-app-id autostart-alacritty -- alacritty --class autostart-alacritty
+
+swaymsg "workspace number 3"
+sway_wait --required-app-id autostart-weechat -- alacritty --class autostart-weechat -e weechat
+
+swaymsg "workspace number 1"
+sway_wait --required-app-id thunderbird-esr thunderbird
+
+swaymsg "workspace number 2"
+sway_wait --required-app-id firefox-esr firefox

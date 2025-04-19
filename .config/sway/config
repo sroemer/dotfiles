@@ -314,41 +314,29 @@ for_window {
     [title="^Qalculate!$"] floating enable
 }
 
-# workspaces with even numbers on right screen
-workspace number 2
-workspace 2 output $screen_laptop
-workspace number 4
-workspace 4 output $screen_laptop
-workspace number 6
-workspace 6 output $screen_laptop
-workspace number 8
-workspace 8 output $screen_laptop
+# workspaces with odd numbers on left screen
+# and with even numbers on the right screen
 workspace number 10
-workspace 10 output $screen_laptop
-# workspaces with odd numbers on right screen
-workspace number 1
-workspace 1 output $screen_asus_left
-workspace number 3
-workspace 3 output $screen_asus_left
-workspace number 5
-workspace 5 output $screen_asus_left
-workspace number 7
-workspace 7 output $screen_asus_left
+workspace 10 output $screen_asus_left
 workspace number 9
-workspace 9 output $screen_asus_left
+workspace 9 output $screen_laptop
+workspace number 8
+workspace 8 output $screen_asus_left
+workspace number 7
+workspace 7 output $screen_laptop
+workspace number 6
+workspace 6 output $screen_asus_left
+workspace number 5
+workspace 5 output $screen_laptop
+workspace number 4
+workspace 4 output $screen_asus_left
+workspace number 3
+workspace 3 output $screen_laptop
+workspace number 2
+workspace 2 output $screen_asus_left
+workspace number 1
+workspace 1 output $screen_laptop
 
 # Run applications on startup
-workspace number 6
-exec $term -e cmus
-
-workspace number 4
-exec $term -e weechat
-
-workspace number 3
-exec $term
-
-workspace number 2
-exec thunderbird
-
-workspace number 1
-exec firefox
+workspace number 5
+exec sway_autostart
