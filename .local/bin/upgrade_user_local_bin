@@ -6,9 +6,8 @@ SCRIPT_PATH=$(dirname "$SCRIPT")
 log "detected script path is ${SCRIPT_PATH}"
 
 # Parse script parameters
-while getopts ab opts; do
+while getopts b opts; do
     case ${opts} in
-        a) OPT_UPDATE_APPIMAGES=1 ;;
         b) OPT_UPDATE_BINARIES=1 ;;
         *) ;;
     esac
@@ -18,16 +17,6 @@ done
 if ! [[ -x $(command -v curl) ]]; then
     error_log "curl required but not available"
     exit 1
-fi
-
-# Install/Download AppImages
-if [[ -z $OPT_UPDATE_APPIMAGES ]]; then
-    log "not updating appimages (use -a if intended)"
-else
-    APPIMG_INSTALL_SCRIPT=$HOME/.local/bin/appimages/install_appimages
-    if [[ -x "$APPIMG_INSTALL_SCRIPT" ]]; then
-        $APPIMG_INSTALL_SCRIPT
-    fi
 fi
 
 if [[ -z $OPT_UPDATE_BINARIES ]]; then
