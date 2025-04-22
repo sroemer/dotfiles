@@ -1,0 +1,7 @@
+#!/bin/bash
+for var in "$@"
+do
+  SUCCESS=$(zcat "$var" | jq '.policies[].summary."total-successful-session-count"')
+  FAILURE=$(zcat "$var" | jq '.policies[].summary."total-failure-session-count"')
+  echo "$var: $SUCCESS successful sessions $FAILURE failures"
+done
