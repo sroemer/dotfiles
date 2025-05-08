@@ -8,20 +8,27 @@ log "detected script path is ${SCRIPT_PATH}"
 # Usage message to be shown
 print_usage() {
   echo -e "\nUsage: $0 OPTIONS\n\nAvailable options:\n" \
-          "    -c ISO_IMAGE      use ISO_IMAGE as CR-ROM image\n" \
-          "    -h DISK_IMAGE     use DISK_IMAGE as hard disk image\n" \
-          "    -l LOG_FILE       write qemu messages to LOG_FILE"
+    "    -c ISO_IMAGE      use ISO_IMAGE as CR-ROM image\n" \
+    "    -h DISK_IMAGE     use DISK_IMAGE as hard disk image\n" \
+    "    -l LOG_FILE       write qemu messages to LOG_FILE" \
+    "    -s CORE_COUNT     set number of cpu cores" \
+    "    -m MEMORY         set memory size in GB"
 }
 
 # Parse script parameters
-while getopts :c:h:l: opts; do
-    case ${opts} in
-        c) OPT_CD_ROM_IMAGE=$OPTARG ;;
-        h) OPT_HD_IMAGE=$OPTARG ;;
-        l) OPT_VM_LOGGING=$OPTARG ;;
-        ?) print_usage; exit 1 ;;
-        *)  ;;
-    esac
+while getopts :c:h:l:s:m: opts; do
+  case ${opts} in
+  c) OPT_CD_ROM_IMAGE=$OPTARG ;;
+  h) OPT_HD_IMAGE=$OPTARG ;;
+  l) OPT_VM_LOGGING=$OPTARG ;;
+  s) OPT_SMP=$OPTARG ;;
+  m) OPT_MEMORY=$OPTARG ;;
+  ?)
+    print_usage
+    exit 1
+    ;;
+  *) ;;
+  esac
 done
 
 # Generate qemu cdrom options
@@ -53,17 +60,30 @@ else
   log "writing to log file ${VM_LOG_FILE}"
 fi
 
+# Default CPU count is 2
+if [[ -z $OPT_SMP ]]; then
+  OPT_SMP="2"
+  log "using default of 2 cpu cores"
+fi
+
+# Default memory size is 4 GB
+if [[ -z $OPT_MEMORY ]]; then
+  OPT_MEMORY="4"
+  log "using default of 4G memory"
+fi
+
 # Starting virtual machine
 log "starting qemu ..."
 #          -drive file="$HOME/VirtualMachines/iso/virtio-win-0.1.266.iso",media=cdrom \
 nohup qemu-system-x86_64 \
-          -enable-kvm \
-          -smp 4 \
-          -m 8G \
-          -boot d \
-          -device qemu-xhci,id=usb,bus=pci.0,addr=0x4 \
-          -device usb-mouse -device usb-tablet -device usb-kbd \
-          -device usb-host,vendorid=1372,productid=547 \
-          -cdrom "$QEMU_CDROM_OPTIONS" \
-          -drive file="$QEMU_HD_OPTIONS",index=0,media=disk,if=virtio &> "$VM_LOG_FILE" &
+  -enable-kvm \
+  -smp "$OPT_SMP" \
+  -m "$OPT_MEMORY"G \
+  -boot d \
+  -device qemu-xhci,id=usb,bus=pci.0,addr=0x4 \
+  -device usb-mouse -device usb-tablet -device usb-kbd \
+  -device usb-host,vendorid=1372,productid=547 \
+  -device usb-host,vendorid=2414,productid=2058 \
+  -cdrom "$QEMU_CDROM_OPTIONS" \
+  -drive file="$QEMU_HD_OPTIONS",index=0,media=disk,if=virtio &>"$VM_LOG_FILE" &
 exit
