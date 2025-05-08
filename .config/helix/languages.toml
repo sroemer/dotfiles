@@ -1,3 +1,0 @@
-[[language]]
-name = "bash"
-file-types = [ { glob = "sway/config" } ]

@@ -10,8 +10,8 @@
 # past this point for scp and rcp, and it's important to refrain from
 # outputting anything in those cases.
 if [[ $- != *i* ]]; then
-    # Shell is non-interactive.  Be done now!
-    return
+  # Shell is non-interactive.  Be done now!
+  return
 fi
 
 # bash history: do not save duplicates and ignore commands starting with space
@@ -24,33 +24,33 @@ shopt -s histappend
 # fzf key bindings and completion
 FZF_KEY_BINDINGS_FILE=/usr/share/fzf/key-bindings.bash
 if [[ -f "$FZF_KEY_BINDINGS_FILE" ]]; then
-    # shellcheck source=/dev/null
-    source "$FZF_KEY_BINDINGS_FILE"
+  # shellcheck source=/dev/null
+  source "$FZF_KEY_BINDINGS_FILE"
 fi
 FZF_COMPLETION_FILE=/usr/share/fzf/completion.bash
 if [[ -f "$FZF_COMPLETION_FILE" ]]; then
-    # shellcheck source=/dev/null
-    source "$FZF_COMPLETION_FILE"
+  # shellcheck source=/dev/null
+  source "$FZF_COMPLETION_FILE"
 fi
 RUSTUP_COMPLETION_FILE=$HOME/.local/share/bash-completion/completions/rustup
 if [[ -f "$RUSTUP_COMPLETION_FILE" ]]; then
-    # shellcheck source=/dev/null
-    source "$RUSTUP_COMPLETION_FILE"
+  # shellcheck source=/dev/null
+  source "$RUSTUP_COMPLETION_FILE"
 fi
 CARGO_COMPLETION_FILE=$HOME/.local/share/bash-completion/completions/cargo
 if [[ -f "$CARGO_COMPLETION_FILE" ]]; then
-    # shellcheck source=/dev/null
-    source "$CARGO_COMPLETION_FILE"
+  # shellcheck source=/dev/null
+  source "$CARGO_COMPLETION_FILE"
 fi
 
 # Put your fun stuff here.
 if [[ -f /usr/bin/bat ]]; then
-    alias cat='bat -pp'
+  alias cat='bat -pp'
 fi
 if [[ -f /usr/bin/lsd ]]; then
-    alias ls='lsd'
+  alias ls='lsd'
 else
-    alias ls='ls --color=auto'
+  alias ls='ls --color=auto'
 fi
 alias l='ls -lh'
 alias ll='ls -lh'
@@ -73,7 +73,6 @@ alias Gp='git push'
 alias Gpl='git pull'
 
 alias mutt='neomutt'
-alias vi='hx'
 
 alias ssh='TERM=xterm ssh'
 
@@ -85,13 +84,13 @@ alias update_gentoo='sudo /root/.local/bin/update_gentoo'
 
 # set PS1 and show git branch if we are not in a tty session
 parse_git_branch() {
-    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
+  git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \1/'
 }
 if [[ "$XDG_SESSION_TYPE" != "tty" ]]; then
-    export PS1='\[\033]0;\u@\h:\w\007\]\[\033[01;32m\]  \u \[\033[01;34m\] \w \[\033[01;33m\]$(parse_git_branch) \[\033[01;34m\]\$ \[\033[00m\]'
+  export PS1='\[\033]0;\u@\h:\w\007\]\[\033[01;32m\]  \u \[\033[01;34m\] \w \[\033[01;33m\]$(parse_git_branch) \[\033[01;34m\]\$ \[\033[00m\]'
 fi
 
 # set tty to use for gnupg
 GPG_TTY=$(tty)
 export GPG_TTY
-gpg-connect-agent updatestartuptty /bye > /dev/null
+gpg-connect-agent updatestartuptty /bye >/dev/null
