@@ -5,109 +5,21 @@ SCRIPT=$(realpath "$0")
 SCRIPT_PATH=$(dirname "$SCRIPT")
 log "detected script path is ${SCRIPT_PATH}"
 
-# Parse script parameters
-while getopts b opts; do
-    case ${opts} in
-        b) OPT_UPDATE_BINARIES=1 ;;
-        *) ;;
-    esac
-done
-
-# CHECK FOR DOWNLOAD TOOL
-if ! [[ -x $(command -v curl) ]]; then
-    error_log "curl required but not available"
-    exit 1
+# Install hexyl via cargo
+if ! cargo install hexyl; then
+  error_log "Installing 'hexyl' with cargo failed"
+else
+  log "Successfully installed 'hexyl' with cargo"
 fi
 
-if [[ -z $OPT_UPDATE_BINARIES ]]; then
-    log "not updating binaries (use -b if intended)"
+# Install python tools via pip
+if ! [[ -x $(command -v pip) ]]; then
+  error_log "pip required but not available"
+  exit 1
+fi
+log "installing/upgrading python tools"
+if ! pip install --quiet --upgrade --break-system-packages --user bleak td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl yt-dlp i3ipc; then
+  error_log "installing/upgrading python tools failed (pip returned $?)"
 else
-    # Update Marksman (markdown language server)
-    MARKSMAN_OUTPUT_FILE="$SCRIPT_PATH/marksman"
-    MARKSMAN_OWNER="artempyanykh"
-    MARKSMAN_REPOSITORY="marksman"
-    MARKSMAN_VERSION=$(get_github_latest_release_version $MARKSMAN_OWNER $MARKSMAN_REPOSITORY)
-    MARKSMAN_LINK=""https://github.com/${MARKSMAN_OWNER}/${MARKSMAN_REPOSITORY}/releases/download/${MARKSMAN_VERSION}/marksman-linux-x64
-    if [[ -z $MARKSMAN_VERSION ]]; then
-        error_log "getting latest release version for ${MARKSMAN_OUTPUT_FILE} failed"
-    else
-        log "downloading $MARKSMAN_OUTPUT_FILE $MARKSMAN_VERSION"
-        if ! curl -s -L -o "$MARKSMAN_OUTPUT_FILE" "$MARKSMAN_LINK"; then
-            error_log "downloading binary $MARKSMAN_OUTPUT_FILE failed"
-        else
-            log "$MARKSMAN_OUTPUT_FILE v$MARKSMAN_VERSION successfully downloaded"
-            chmod +x "$MARKSMAN_OUTPUT_FILE"
-        fi
-    fi
-    
-    # Install via Rust Cargo
-    if ! cargo install openscad-lsp; then
-        error_log "Installing 'openscad-lsp' with cargo failed"
-    else
-        log "Successfully installed 'openscad-lsp' with cargo"
-    fi
-
-    if ! cargo install hexyl; then
-        error_log "Installing 'hexyl' with cargo failed"
-    else
-        log "Successfully installed 'hexyl' with cargo"
-    fi
-
-    if ! cargo install --locked --git https://github.com/Feel-ix-343/markdown-oxide.git; then
-        error_log "Installing 'markdown-oxide' with cargo failed"
-    else
-        log "Successfully installed 'markdown-oxide' with cargo"
-    fi        
-
-    # Install td-watson and nodejs via python pip
-    if ! [[ -x $(command -v pip) ]]; then
-        error_log "pip required but not available"
-        exit 1
-    fi
-    log "installing/upgrading python tools"
-    if ! pip install --quiet --upgrade --break-system-packages --user bleak pyright python-lsp-server nodeenv td-watson pyserial yq khal khard vdirsyncer platformio youtube-dl yt-dlp i3ipc; then
-        error_log "installing/upgrading python tools failed (pip returned $?)"
-    else
-        log "installing/upgrading python tools finished"
-
-        # Install nodejs runtime environment and bash-/diagnostic-language-servers
-        NODE_DIR="$HOME/.local/nodejs/"
-        if [[ -d "$NODE_DIR" ]]; then
-            log "removing existing nodejs directory"
-            rm -rf "$NODE_DIR"
-        fi
-
-        if [[ -d "$NODE_DIR" ]]; then
-            error_log "nodejs installation directory still exists."
-            exit 1
-        else
-            log "installing latest nodejs to $NODE_DIR"
-            nodeenv "$NODE_DIR"
-
-            log "activating nodejs environment"
-            # shellcheck source=/dev/null
-            . "$NODE_DIR/bin/activate"
-
-            log "installing awk-language-server"
-            npm i -g awk-language-server
-
-            log "installing bash-language-server"
-            npm i -g bash-language-server
-
-            log "installing diagnostic-languageserver"
-            npm i -g diagnostic-languageserver
-
-            log "installing vscode-langservers-extracted"
-            npm i -g vscode-langservers-extracted
-
-            log "installing yaml-language-server"
-            npm i -g yaml-language-server
-
-            log "installing tree-sitter-cli"
-            npm i -g tree-sitter-cli
-
-            log "deactivating nodejs environment"
-            deactivate_node
-        fi
-    fi
+  log "installing/upgrading python tools finished"
 fi
