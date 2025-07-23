@@ -67,6 +67,9 @@ alias Gf='git fetch'
 alias Gp='git push'
 alias Gpl='git pull'
 
+alias Ta='tmux attach'
+alias Tl='tmux ls'
+
 alias mutt='neomutt'
 
 alias ssh='TERM=xterm ssh'
